@@ -76,7 +76,7 @@ public class Reflect {
 		final int modif = fld.getModifiers();
 		
 		if (!Modifier.isFinal(modif) || !Modifier.isStatic(modif)) {
-			throw new RuntimeException("The " + fieldName + " field of " + Support.str(objClass) + " field must be static and final!");
+			throw new RuntimeException("The " + fieldName + " field of " + Support.str(objClass) + " must be static and final!");
 		}
 		
 		fld.setAccessible(true);
