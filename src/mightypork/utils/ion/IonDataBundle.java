@@ -15,7 +15,7 @@ import java.util.Map;
  * 
  * @author Ondřej Hruška (MightyPork)
  */
-public class IonBundle implements IonObjBinary {
+public class IonDataBundle implements IonBinary {
 	
 	private final Map<String, Object> backingMap = new HashMap<>();
 	
@@ -26,11 +26,11 @@ public class IonBundle implements IonObjBinary {
 	 * @param key key
 	 * @param filled bundle to fill
 	 */
-	public void loadBundle(String key, IonBundle filled)
+	public void loadBundle(String key, IonDataBundle filled)
 	{
 		if (!containsKey(key)) return;
 		
-		final IonBundle ib = get(key, new IonBundle());
+		final IonDataBundle ib = get(key, new IonDataBundle());
 		
 		filled.clear();
 		filled.putAll(ib);
@@ -127,9 +127,9 @@ public class IonBundle implements IonObjBinary {
 	 * @param loaded loaded object
 	 * @return the loaded object
 	 */
-	public <T extends IonObjBundled> T loadBundled(String key, T loaded)
+	public <T extends IonBundled> T loadBundled(String key, T loaded)
 	{
-		final IonBundle bu = get(key, null);
+		final IonDataBundle bu = get(key, null);
 		if (bu == null) throw new RuntimeException("No such key: " + key);
 		
 		loaded.load(bu);
@@ -145,9 +145,9 @@ public class IonBundle implements IonObjBinary {
 	 * @param key key
 	 * @param saved saved object
 	 */
-	public void putBundled(String key, IonObjBundled saved)
+	public void putBundled(String key, IonBundled saved)
 	{
-		final IonBundle bu = new IonBundle();
+		final IonDataBundle bu = new IonDataBundle();
 		saved.save(bu);
 		put(key, bu);
 	}
@@ -184,15 +184,7 @@ public class IonBundle implements IonObjBinary {
 	}
 	
 	
-	public void put(String key, IonObjBundled value)
-	{
-		if (key == null || value == null) return;
-		if (!Ion.isRegistered(value)) throw new IllegalArgumentException("Cannot add to bundle, not registered: " + value);
-		backingMap.put(key, value);
-	}
-	
-	
-	public void put(String key, IonObjBinary value)
+	public void put(String key, Object value)
 	{
 		if (key == null || value == null) return;
 		if (!Ion.isRegistered(value)) throw new IllegalArgumentException("Cannot add to bundle, not registered: " + value);
@@ -396,7 +388,7 @@ public class IonBundle implements IonObjBinary {
 	 * 
 	 * @param anotherBundle another bundle
 	 */
-	public void putAll(IonBundle anotherBundle)
+	public void putAll(IonDataBundle anotherBundle)
 	{
 		backingMap.putAll(anotherBundle.backingMap);
 	}
@@ -424,8 +416,8 @@ public class IonBundle implements IonObjBinary {
 	{
 		if (this == obj) return true;
 		if (obj == null) return false;
-		if (!(obj instanceof IonBundle)) return false;
-		final IonBundle other = (IonBundle) obj;
+		if (!(obj instanceof IonDataBundle)) return false;
+		final IonDataBundle other = (IonDataBundle) obj;
 		if (backingMap == null) {
 			if (other.backingMap != null) return false;
 		} else if (!backingMap.equals(other.backingMap)) return false;

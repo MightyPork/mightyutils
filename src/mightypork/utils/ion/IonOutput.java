@@ -195,7 +195,7 @@ public class IonOutput implements Closeable {
 	/**
 	 * Write a bundle without a mark
 	 */
-	public void writeBundle(IonBundle bundle) throws IOException
+	public void writeBundle(IonDataBundle bundle) throws IOException
 	{
 		bundle.save(this);
 	}
@@ -279,23 +279,44 @@ public class IonOutput implements Closeable {
 			return;
 		}
 		
-		if (obj instanceof IonObjBinary) {
-			final IonObjBinary iObj = (IonObjBinary) obj;
+		if (obj instanceof IonBinary) {
+			final IonBinary iObj = (IonBinary) obj;
 			
-			writeMark(Ion.getMark(iObj));
+			writeMark(Ion.getMark(obj));
 			iObj.save(this);
 			return;
 		}
 		
-		if (obj instanceof IonObjBundled) {
-			final IonObjBundled iObj = (IonObjBundled) obj;
+		if (obj instanceof IonBundled) {
+			final IonBundled iObj = (IonBundled) obj;
 			
-			writeMark(Ion.getMark(iObj));
+			writeMark(Ion.getMark(obj));
 			
-			final IonBundle bundle = new IonBundle();
+			final IonDataBundle bundle = new IonDataBundle();
 			iObj.save(bundle);
 			writeBundle(bundle);
 			
+			return;
+		}
+		
+		
+		if (Ion.isObjectIndirectBundled(obj)) {
+			final IonizerBundled<?> ionizer = Ion.getIonizerBundledForClass(obj.getClass());
+			
+			writeMark(Ion.getMark(obj));
+			
+			final IonDataBundle bundle = new IonDataBundle();
+			ionizer._save(obj, bundle);
+			writeBundle(bundle);
+			return;
+		}
+		
+		if (Ion.isObjectIndirectBinary(obj)) {
+			final IonizerBinary<?> ionizer = Ion.getIonizerBinaryForClass(obj.getClass());
+			
+			writeMark(Ion.getMark(obj));
+			
+			ionizer._save(obj, this);
 			return;
 		}
 		

@@ -7,7 +7,7 @@ import java.util.Collection;
 
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
-class IonSequenceWrapper implements IonObjBinary {
+class IonSequenceWrapper implements IonBinary {
 	
 	private Collection collection = new ArrayList();
 	

@@ -1,8 +1,6 @@
 package mightypork.utils.eventbus;
 
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
@@ -112,20 +110,7 @@ final public class EventBus implements Destroyable, BusAccess {
 	
 	private static Class<?> getEventListenerClass(BusEvent<?> event)
 	{
-		// BEHOLD, MAGIC!
-		
-		final Type evtc = event.getClass().getGenericSuperclass();
-		
-		if (evtc instanceof ParameterizedType) {
-			if (((ParameterizedType) evtc).getRawType() == BusEvent.class) {
-				final Type[] types = ((ParameterizedType) evtc).getActualTypeArguments();
-				for (final Type genericType : types) {
-					return (Class<?>) genericType;
-				}
-			}
-		}
-		
-		throw new RuntimeException("Could not detect event listener type.");
+		return Reflect.getGenericParameters(event.getClass())[0];
 	}
 	
 	/** Log detailed messages (debug) */

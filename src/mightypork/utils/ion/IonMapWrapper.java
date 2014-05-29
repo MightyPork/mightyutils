@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
-class IonMapWrapper implements IonObjBinary {
+class IonMapWrapper implements IonBinary {
 	
 	private final Map map;
 	

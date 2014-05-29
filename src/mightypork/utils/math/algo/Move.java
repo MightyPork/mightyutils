@@ -30,15 +30,9 @@ public class Move {
 		return new Move(x, y);
 	}
 	
-	private byte x;
-	private byte y;
-	
-	
-	public Move()
-	{
-		// for ion
-	}
-	
+	private final byte x;
+	private final byte y;
+		
 	
 	public Move(int x, int y)
 	{
@@ -69,12 +63,5 @@ public class Move {
 	public String toString()
 	{
 		return "(" + x + " ; " + y + ")";
-	}
-	
-	
-	protected void setTo(byte x, byte y)
-	{
-		this.x = x;
-		this.y = y;
 	}
 }

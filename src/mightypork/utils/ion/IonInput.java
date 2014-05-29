@@ -235,9 +235,9 @@ public class IonInput implements Closeable {
 	/**
 	 * Read bundle without a mark
 	 */
-	public IonBundle readBundle() throws IOException
+	public IonDataBundle readBundle() throws IOException
 	{
-		final IonBundle ib = new IonBundle();
+		final IonDataBundle ib = new IonDataBundle();
 		ib.load(this);
 		return ib;
 	}
@@ -246,7 +246,7 @@ public class IonInput implements Closeable {
 	/**
 	 * Read bundle without a mark, load into a provided one
 	 */
-	public void readBundle(IonBundle filled) throws IOException
+	public void readBundle(IonDataBundle filled) throws IOException
 	{
 		filled.clear();
 		filled.load(this);
@@ -276,16 +276,16 @@ public class IonInput implements Closeable {
 	 * 
 	 * @param def default value.
 	 * @return the loaded object
-	 * @throws IOException
+	 * @throws CorruptDataException
 	 */
 	@SuppressWarnings("unchecked")
-	public <T> T readObject(T def) throws IOException
+	public <T> T readObject(T def) throws CorruptDataException
 	{
 		try {
 			final Object o = readObject();
 			return (T) (o == null ? def : o);
 		} catch (final Exception e) {
-			throw new IOException("Could not load object.", e);
+			throw new CorruptDataException("Could not load object.", e);
 		}
 	}
 	
@@ -299,31 +299,42 @@ public class IonInput implements Closeable {
 	public Object readObject() throws IOException
 	{
 		final int mark = readMark();
-		if (Ion.isMarkForBinary(mark)) {
-			IonObjBinary loaded;
-			
-			try {
-				loaded = (IonObjBinary) Ion.getClassForMark(mark).newInstance();
-			} catch (final Exception e) {
-				throw new RuntimeException("Could not load binary object with mark: " + mark, e);
-			}
-			
-			loaded.load(this);
-			return loaded;
-		}
 		
-		if (Ion.isMarkForBundled(mark)) {
-			IonObjBundled loaded;
+		
+		try {
 			
-			try {
-				loaded = (IonObjBundled) Ion.getClassForMark(mark).newInstance();
-			} catch (final Exception e) {
-				throw new RuntimeException("Could not load bundled object with mark: " + mark, e);
+			if (Ion.isMarkForBinary(mark)) {
+				IonBinary loaded;
+				
+				loaded = (IonBinary) Ion.getClassForMark(mark).newInstance();
+				
+				
+				loaded.load(this);
+				return loaded;
 			}
 			
-			final IonBundle ib = readBundle();
-			loaded.load(ib);
-			return loaded;
+			if (Ion.isMarkForBundled(mark)) {
+				IonBundled loaded;
+				
+				loaded = (IonBundled) Ion.getClassForMark(mark).newInstance();
+				
+				final IonDataBundle ib = readBundle();
+				loaded.load(ib);
+				return loaded;
+			}
+			
+			if (Ion.isMarkForIndirectBundled(mark)) {
+				final IonizerBundled<?> ionizer = Ion.getIonizerBundledForClass(Ion.getClassForMark(mark));
+				return ionizer.load(readBundle());
+			}
+			
+			if (Ion.isMarkForIndirectBinary(mark)) {
+				final IonizerBinary<?> ionizer = Ion.getIonizerBinaryForClass(Ion.getClassForMark(mark));
+				return ionizer.load(this);
+			}
+			
+		} catch (final Exception e) {
+			throw new RuntimeException("Could not load object for mark: " + mark, e);
 		}
 		
 		switch (mark) {

@@ -10,7 +10,7 @@ import java.io.IOException;
  * 
  * @author Ondřej Hruška (MightyPork)
  */
-public interface IonObjBinary {
+public interface IonBinary {
 	
 	/**
 	 * Load data from the input stream.
