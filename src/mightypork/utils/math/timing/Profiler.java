@@ -1,4 +1,6 @@
-package mightypork.utils;
+package mightypork.utils.math.timing;
+
+import mightypork.utils.Support;
 
 
 public class Profiler {
