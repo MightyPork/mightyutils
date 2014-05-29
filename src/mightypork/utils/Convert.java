@@ -127,15 +127,6 @@ public class Convert {
 	
 	
 	/**
-	 * Get RANGE
-	 * 
-	 * @param o object
-	 * @param def default value
-	 * @return AiCoord
-	 */
-	
-	
-	/**
 	 * Get INTEGER
 	 * 
 	 * @param o object
