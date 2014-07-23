@@ -244,4 +244,37 @@ public abstract class Color {
 	{
 		return new ColorAlphaAdjuster(this, multiplier);
 	}
+	
+	
+	@Override
+	public int hashCode()
+	{
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(b());
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(g());
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(r());
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(a());
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+	
+	
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (!(obj instanceof Color)) return false;
+		Color other = (Color) obj;
+		if (Double.doubleToLongBits(b()) != Double.doubleToLongBits(other.b())) return false;
+		if (Double.doubleToLongBits(g()) != Double.doubleToLongBits(other.g())) return false;
+		if (Double.doubleToLongBits(r()) != Double.doubleToLongBits(other.r())) return false;
+		if (Double.doubleToLongBits(a()) != Double.doubleToLongBits(other.a())) return false;
+		return true;
+	}
 }

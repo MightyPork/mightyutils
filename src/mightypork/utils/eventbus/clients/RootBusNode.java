@@ -1,7 +1,7 @@
 package mightypork.utils.eventbus.clients;
 
 
-import mightypork.utils.annotations.DefaultImpl;
+import mightypork.utils.annotations.Stub;
 import mightypork.utils.eventbus.BusAccess;
 import mightypork.utils.interfaces.Destroyable;
 
@@ -14,12 +14,25 @@ import mightypork.utils.interfaces.Destroyable;
 public abstract class RootBusNode extends BusNode implements Destroyable {
 	
 	/**
+	 * Create with a bus access.
+	 * 
 	 * @param busAccess access to bus
 	 */
-	public RootBusNode(BusAccess busAccess)
-	{
+	public RootBusNode(BusAccess busAccess) {
 		super(busAccess);
-		
+	}
+	
+	
+	/**
+	 * Create without a bus access. It should be assigned later.
+	 */
+	public RootBusNode() {
+	}
+	
+	
+	@Override
+	public void onBusReady()
+	{
 		getEventBus().subscribe(this);
 	}
 	
@@ -29,15 +42,17 @@ public abstract class RootBusNode extends BusNode implements Destroyable {
 	{
 		deinit();
 		
-		getEventBus().unsubscribe(this);
+		if (getEventBus() != null) {
+			getEventBus().unsubscribe(this);
+		}
 	}
 	
 	
 	/**
-	 * Deinitialize the subsystem<br>
+	 * Deinitialize the node (subsystem)<br>
 	 * (called during destruction)
 	 */
-	@DefaultImpl
+	@Stub
 	protected void deinit()
 	{
 	}

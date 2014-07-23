@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import mightypork.utils.annotations.Stub;
 import mightypork.utils.eventbus.BusAccess;
 import mightypork.utils.eventbus.EventBus;
 
@@ -17,7 +18,7 @@ import mightypork.utils.eventbus.EventBus;
  */
 public abstract class BusNode implements BusAccess, ClientHub {
 	
-	private final BusAccess busAccess;
+	private BusAccess busAccess;
 	
 	private final Set<Object> clients = new LinkedHashSet<>();
 	private boolean listening = true;
@@ -27,9 +28,43 @@ public abstract class BusNode implements BusAccess, ClientHub {
 	/**
 	 * @param busAccess access to bus
 	 */
-	public BusNode(BusAccess busAccess)
+	public BusNode(BusAccess busAccess) {
+		setBusAccess(busAccess);
+	}
+	
+	
+	/**
+	 * Create without a bus access. Bus access should be set using the
+	 * setBusAccess() method.
+	 */
+	public BusNode() {
+	}
+	
+	
+	/**
+	 * Handler called when bus access first provides a valid bus instance.<br>
+	 * The node may now eg. subscribe to the bus.
+	 */
+	@Stub
+	public void onBusReady()
+	{
+		// do stuff
+	}
+	
+	
+	/**
+	 * Assign a bus access. If the buss access provides a buss, the onBusReady()
+	 * method will be called.
+	 * 
+	 * @param busAccess the assigned bus access
+	 */
+	public final void setBusAccess(BusAccess busAccess)
 	{
 		this.busAccess = busAccess;
+		
+		if (getEventBus() != null) {
+			onBusReady();
+		}
 	}
 	
 	
@@ -109,6 +144,7 @@ public abstract class BusNode implements BusAccess, ClientHub {
 	@Override
 	public EventBus getEventBus()
 	{
+		if(busAccess==null) return null;
 		return busAccess.getEventBus();
 	}
 	

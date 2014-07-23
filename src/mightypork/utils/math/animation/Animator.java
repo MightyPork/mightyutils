@@ -1,7 +1,7 @@
 package mightypork.utils.math.animation;
 
 
-import mightypork.utils.annotations.DefaultImpl;
+import mightypork.utils.annotations.Stub;
 import mightypork.utils.interfaces.Pauseable;
 import mightypork.utils.interfaces.Updateable;
 import mightypork.utils.math.Calc;
@@ -120,7 +120,7 @@ public abstract class Animator implements NumBound, Updateable, Pauseable {
 	}
 	
 	
-	@DefaultImpl
+	@Stub
 	protected abstract void nextCycle(NumAnimated anim);
 	
 	

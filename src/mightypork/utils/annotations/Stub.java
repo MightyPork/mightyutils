@@ -18,6 +18,6 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RetentionPolicy.SOURCE)
 @Target(value = { ElementType.METHOD })
-public @interface DefaultImpl {
+public @interface Stub {
 	//
 }
