@@ -16,9 +16,20 @@ public class DelegatingList extends ClientList implements DelegatingClient, Enab
 	private boolean enabled = true;
 	
 	
-	public DelegatingList(Object... clients)
-	{
+	/**
+	 * Delegating list with initial clients
+	 * 
+	 * @param clients initial list members (clients)
+	 */
+	public DelegatingList(Object... clients) {
 		super(clients);
+	}
+	
+	
+	/**
+	 * Empty delegating list.
+	 */
+	public DelegatingList() {
 	}
 	
 	

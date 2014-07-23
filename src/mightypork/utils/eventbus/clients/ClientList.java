@@ -18,5 +18,4 @@ public class ClientList extends ArrayList<Object> {
 			super.add(c);
 		}
 	}
-	
 }
