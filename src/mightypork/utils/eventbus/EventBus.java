@@ -25,7 +25,7 @@ import mightypork.utils.logging.Log;
  * 
  * @author Ondřej Hruška (MightyPork)
  */
-final public class EventBus implements Destroyable, BusAccess {
+final public class EventBus implements Destroyable {
 	
 	/**
 	 * Queued event holder
@@ -373,13 +373,6 @@ final public class EventBus implements Destroyable, BusAccess {
 		if (Reflect.hasAnnotation(event, NotLoggedEvent.class)) return false;
 		
 		return true;
-	}
-	
-	
-	@Override
-	public EventBus getEventBus()
-	{
-		return this; // just for compatibility use-case
 	}
 	
 }

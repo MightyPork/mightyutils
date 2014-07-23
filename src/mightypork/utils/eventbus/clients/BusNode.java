@@ -5,8 +5,6 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import mightypork.utils.annotations.Stub;
-import mightypork.utils.eventbus.BusAccess;
 import mightypork.utils.eventbus.EventBus;
 
 
@@ -16,56 +14,11 @@ import mightypork.utils.eventbus.EventBus;
  * 
  * @author Ondřej Hruška (MightyPork)
  */
-public abstract class BusNode implements BusAccess, ClientHub {
-	
-	private BusAccess busAccess;
+public abstract class BusNode implements ClientHub {
 	
 	private final Set<Object> clients = new LinkedHashSet<>();
 	private boolean listening = true;
 	private boolean delegating = true;
-	
-	
-	/**
-	 * @param busAccess access to bus
-	 */
-	public BusNode(BusAccess busAccess) {
-		setBusAccess(busAccess);
-	}
-	
-	
-	/**
-	 * Create without a bus access. Bus access should be set using the
-	 * setBusAccess() method.
-	 */
-	public BusNode() {
-	}
-	
-	
-	/**
-	 * Handler called when bus access first provides a valid bus instance.<br>
-	 * The node may now eg. subscribe to the bus.
-	 */
-	@Stub
-	public void onBusReady()
-	{
-		// do stuff
-	}
-	
-	
-	/**
-	 * Assign a bus access. If the buss access provides a buss, the onBusReady()
-	 * method will be called.
-	 * 
-	 * @param busAccess the assigned bus access
-	 */
-	public final void setBusAccess(BusAccess busAccess)
-	{
-		this.busAccess = busAccess;
-		
-		if (getEventBus() != null) {
-			onBusReady();
-		}
-	}
 	
 	
 	@Override
@@ -97,10 +50,6 @@ public abstract class BusNode implements BusAccess, ClientHub {
 	@Override
 	public void addChildClient(Object client)
 	{
-		if (client instanceof RootBusNode) {
-			throw new IllegalArgumentException("Cannot nest RootBusNode.");
-		}
-		
 		clients.add(client);
 	}
 	
@@ -139,13 +88,4 @@ public abstract class BusNode implements BusAccess, ClientHub {
 	{
 		this.delegating = delegating;
 	}
-	
-	
-	@Override
-	public EventBus getEventBus()
-	{
-		if(busAccess==null) return null;
-		return busAccess.getEventBus();
-	}
-	
 }
