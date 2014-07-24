@@ -82,6 +82,12 @@ public class Log {
 	}
 	
 	
+	public static LogWriter getMainLogger()
+	{
+		return main;
+	}
+	
+	
 	public static void addMonitor(LogMonitor mon)
 	{
 		assertInited();
