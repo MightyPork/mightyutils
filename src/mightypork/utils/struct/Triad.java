@@ -25,8 +25,7 @@ public class Triad<T1, T2, T3> extends Pair<T1, T2> {
 	 * @param objB 2nd object
 	 * @param objC 3rd object
 	 */
-	public Triad(T1 objA, T2 objB, T3 objC)
-	{
+	public Triad(T1 objA, T2 objB, T3 objC) {
 		super(objA, objB);
 		third = objC;
 	}

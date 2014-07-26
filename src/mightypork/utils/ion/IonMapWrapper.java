@@ -12,14 +12,12 @@ class IonMapWrapper implements IonBinary {
 	private final Map map;
 	
 	
-	public IonMapWrapper()
-	{
+	public IonMapWrapper() {
 		map = new LinkedHashMap<>();
 	}
 	
 	
-	public IonMapWrapper(Map saved)
-	{
+	public IonMapWrapper(Map saved) {
 		map = saved;
 	}
 	

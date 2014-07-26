@@ -12,8 +12,7 @@ import java.util.ArrayList;
  */
 public class ClientList extends ArrayList<Object> {
 	
-	public ClientList(Object... clients)
-	{
+	public ClientList(Object... clients) {
 		for (final Object c : clients) {
 			super.add(c);
 		}

@@ -11,8 +11,7 @@ public class VectDigest {
 	public final double z;
 	
 	
-	public VectDigest(Vect vect)
-	{
+	public VectDigest(Vect vect) {
 		this.x = vect.x();
 		this.y = vect.y();
 		this.z = vect.z();

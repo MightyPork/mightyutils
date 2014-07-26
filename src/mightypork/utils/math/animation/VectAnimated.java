@@ -27,8 +27,7 @@ public class VectAnimated extends VectMutable implements Pauseable, Updateable {
 	 * @param y y animator
 	 * @param z z animator
 	 */
-	public VectAnimated(NumAnimated x, NumAnimated y, NumAnimated z)
-	{
+	public VectAnimated(NumAnimated x, NumAnimated y, NumAnimated z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -41,8 +40,7 @@ public class VectAnimated extends VectMutable implements Pauseable, Updateable {
 	 * @param start initial positioon
 	 * @param easing animation easing
 	 */
-	public VectAnimated(Vect start, Easing easing)
-	{
+	public VectAnimated(Vect start, Easing easing) {
 		x = new NumAnimated(start.x(), easing);
 		y = new NumAnimated(start.y(), easing);
 		z = new NumAnimated(start.z(), easing);

@@ -18,8 +18,7 @@ import mightypork.utils.math.constraints.vect.Vect;
  */
 public final class Calc {
 	
-	private Calc()
-	{
+	private Calc() {
 		// not instantiable
 	}
 	

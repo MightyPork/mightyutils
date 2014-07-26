@@ -32,10 +32,9 @@ public class Move {
 	
 	private final byte x;
 	private final byte y;
-		
 	
-	public Move(int x, int y)
-	{
+	
+	public Move(int x, int y) {
 		this.x = (byte) (x < 0 ? -1 : x > 0 ? 1 : 0);
 		this.y = (byte) (y < 0 ? -1 : y > 0 ? 1 : 0);
 	}

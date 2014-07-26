@@ -67,8 +67,7 @@ public abstract class Easing {
 		/**
 		 * @param in Easing to reverse
 		 */
-		public Reverse(Easing in)
-		{
+		public Reverse(Easing in) {
 			this.ea = in;
 		}
 		
@@ -97,8 +96,7 @@ public abstract class Easing {
 		 * @param in initial EasingFunction
 		 * @param out terminal EasingFunction
 		 */
-		public Composite(Easing in, Easing out)
-		{
+		public Composite(Easing in, Easing out) {
 			this.in = in;
 			this.out = out;
 		}

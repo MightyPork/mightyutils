@@ -1,14 +1,7 @@
 package mightypork.utils.ion;
 
 
-import java.io.Closeable;
-import java.io.DataInput;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -29,14 +22,12 @@ public class IonInput implements Closeable {
 	
 	
 	@SuppressWarnings("resource")
-	public IonInput(File inFile) throws FileNotFoundException
-	{
+	public IonInput(File inFile) throws FileNotFoundException {
 		this(new FileInputStream(inFile));
 	}
 	
 	
-	public IonInput(InputStream in)
-	{
+	public IonInput(InputStream in) {
 		this.stream = in;
 		this.in = new DataInputStream(in);
 	}
@@ -300,14 +291,12 @@ public class IonInput implements Closeable {
 	{
 		final int mark = readMark();
 		
-		
 		try {
 			
 			if (Ion.isMarkForBinary(mark)) {
 				IonBinary loaded;
 				
 				loaded = (IonBinary) Ion.getClassForMark(mark).newInstance();
-				
 				
 				loaded.load(this);
 				return loaded;

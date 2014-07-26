@@ -1,15 +1,16 @@
-package mightypork.utils.files.config;
+package mightypork.utils.config.propmgr;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map.Entry;
 import java.util.TreeMap;
 
 import mightypork.utils.Convert;
+import mightypork.utils.config.propmgr.properties.BooleanProperty;
+import mightypork.utils.config.propmgr.properties.DoubleProperty;
+import mightypork.utils.config.propmgr.properties.IntegerProperty;
+import mightypork.utils.config.propmgr.properties.StringProperty;
 import mightypork.utils.logging.Log;
 
 
@@ -20,131 +21,46 @@ import mightypork.utils.logging.Log;
  */
 public class PropertyManager {
 	
-	private class BooleanProperty extends Property<Boolean> {
-		
-		public BooleanProperty(String key, Boolean defaultValue, String comment)
-		{
-			super(key, defaultValue, comment);
-		}
-		
-		
-		@Override
-		public Boolean decode(String string, Boolean defval)
-		{
-			return Convert.toBoolean(string, defval);
-		}
-	}
-	
-	private class IntegerProperty extends Property<Integer> {
-		
-		public IntegerProperty(String key, Integer defaultValue, String comment)
-		{
-			super(key, defaultValue, comment);
-		}
-		
-		
-		@Override
-		public Integer decode(String string, Integer defval)
-		{
-			return Convert.toInteger(string, defval);
-		}
-	}
-	
-	private class DoubleProperty extends Property<Double> {
-		
-		public DoubleProperty(String key, Double defaultValue, String comment)
-		{
-			super(key, defaultValue, comment);
-		}
-		
-		
-		@Override
-		public Double decode(String string, Double defval)
-		{
-			return Convert.toDouble(string, defval);
-		}
-	}
-	
-	private class StringProperty extends Property<String> {
-		
-		public StringProperty(String key, String defaultValue, String comment)
-		{
-			super(key, defaultValue, comment);
-		}
-		
-		
-		@Override
-		public String decode(String string, String defval)
-		{
-			return Convert.toString(string, defval);
-		}
-	}
-	
-	/** put newline before entry comments */
-	private boolean cfgNewlineBeforeComments = true;
-	
-	/** Put newline between sections. */
-	private boolean cfgSeparateSections = true;
-	
-	private final File file;
-	private String fileComment = "";
-	
-	private final TreeMap<String, Property<?>> entries;
-	private final TreeMap<String, String> renameTable;
-	private SortedProperties props = new SortedProperties();
+	private final TreeMap<String, Property<?>> entries = new TreeMap<>();
+	private final TreeMap<String, String> renameTable = new TreeMap<>();
+	private PropertyStore props;
 	
 	
 	/**
 	 * Create property manager from file path and an initial comment.
 	 * 
-	 * @param file file with the props
-	 * @param comment the initial comment. Use \n in it if you want.
+	 * @param props a property store implementation backing this property
+	 *            manager
 	 */
-	public PropertyManager(File file, String comment)
-	{
-		this.file = file;
-		this.entries = new TreeMap<>();
-		this.renameTable = new TreeMap<>();
-		this.fileComment = comment;
+	public PropertyManager(PropertyStore props) {
+		this.props = props;
 	}
 	
 	
 	/**
-	 * Load, fix and write to file.
+	 * Load from file
 	 */
 	public void load()
 	{
-		if (!file.getParentFile().mkdirs()) {
-			if (!file.getParentFile().exists()) {
-				throw new RuntimeException("Cound not create config file.");
-			}
-		}
+		props.load();
 		
-		try(FileInputStream fis = new FileInputStream(file)) {
-			props.load(fis);
-		} catch (final IOException e) {
-			props = new SortedProperties();
-		}
-		
-		props.cfgBlankRowBetweenSections = cfgSeparateSections;
-		props.cfgBlankRowBeforeComment = cfgNewlineBeforeComments;
-		
-		// rename keys
+		// rename keys (useful if keys change but value is to be kept)
 		for (final Entry<String, String> entry : renameTable.entrySet()) {
 			
-			final String pr = props.getProperty(entry.getKey());
+			final String value = props.getProperty(entry.getKey());
 			
-			if (pr == null) continue;
+			if (value == null) continue;
 			
-			props.remove(entry.getKey());
-			props.setProperty(entry.getValue(), pr);
+			final String oldKey = entry.getKey();
+			final String newKey = entry.getValue();
+			
+			props.removeProperty(oldKey);
+			props.setProperty(newKey, value, entries.get(newKey).getComment());
 		}
 		
 		for (final Property<?> entry : entries.values()) {
-			entry.parse(props.getProperty(entry.getKey()));
+			entry.fromString(props.getProperty(entry.getKey()));
 		}
-		
-		renameTable.clear();
 	}
 	
 	
@@ -157,45 +73,20 @@ public class PropertyManager {
 			for (final Property<?> entry : entries.values()) {
 				keyList.add(entry.getKey());
 				
-				if (entry.getComment() != null) {
-					props.setKeyComment(entry.getKey(), entry.getComment());
-				}
-				
-				props.setProperty(entry.getKey(), entry.toString());
+				props.setProperty(entry.getKey(), entry.toString(), entry.getComment());
 			}
 			
 			// removed unused props
-			for (final String propname : props.keySet().toArray(new String[props.size()])) {
-				if (!keyList.contains(propname)) {
-					props.remove(propname);
+			for (final String key : props.keys()) {
+				if (!keyList.contains(key)) {
+					props.removeProperty(key);
 				}
 			}
 			
-			try(FileOutputStream fos = new FileOutputStream(file)) {
-				
-				props.store(fos, fileComment);
-			}
+			props.save();
 		} catch (final IOException ioe) {
 			ioe.printStackTrace();
 		}
-	}
-	
-	
-	/**
-	 * @param newlineBeforeComments put newline before comments
-	 */
-	public void cfgNewlineBeforeComments(boolean newlineBeforeComments)
-	{
-		this.cfgNewlineBeforeComments = newlineBeforeComments;
-	}
-	
-	
-	/**
-	 * @param separateSections do separate sections by newline
-	 */
-	public void cfgSeparateSections(boolean separateSections)
-	{
-		this.cfgSeparateSections = separateSections;
 	}
 	
 	
@@ -334,9 +225,9 @@ public class PropertyManager {
 	
 	
 	/**
-	 * Add a range property
+	 * Add a generic property (can be used with custom property types)
 	 * 
-	 * @param prop property to put
+	 * @param prop property to add
 	 */
 	public <T> void putProperty(Property<T> prop)
 	{
@@ -369,9 +260,14 @@ public class PropertyManager {
 	}
 	
 	
+	/**
+	 * Set heading comment of the property store.
+	 * 
+	 * @param fileComment comment text (can be multi-line)
+	 */
 	public void setFileComment(String fileComment)
 	{
-		this.fileComment = fileComment;
+		props.setComment(fileComment);
 	}
 	
 }

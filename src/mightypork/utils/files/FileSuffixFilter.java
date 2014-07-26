@@ -21,8 +21,7 @@ public class FileSuffixFilter implements FileFilter {
 	 * 
 	 * @param suffixes var-args allowed suffixes, case insensitive
 	 */
-	public FileSuffixFilter(String... suffixes)
-	{
+	public FileSuffixFilter(String... suffixes) {
 		this.suffixes = suffixes;
 	}
 	

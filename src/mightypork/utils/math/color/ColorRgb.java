@@ -12,8 +12,7 @@ public class ColorRgb extends Color {
 	private final Num a;
 	
 	
-	public ColorRgb(Num r, Num g, Num b, Num a)
-	{
+	public ColorRgb(Num r, Num g, Num b, Num a) {
 		this.r = r;
 		this.g = g;
 		this.b = b;

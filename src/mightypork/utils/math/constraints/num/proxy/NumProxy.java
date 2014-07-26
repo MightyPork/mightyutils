@@ -16,13 +16,11 @@ public class NumProxy extends NumAdapter implements PluggableNumBound {
 	private NumBound backing = null;
 	
 	
-	public NumProxy()
-	{
+	public NumProxy() {
 	}
 	
 	
-	public NumProxy(NumBound bound)
-	{
+	public NumProxy(NumBound bound) {
 		backing = bound;
 	}
 	

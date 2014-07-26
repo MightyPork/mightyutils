@@ -9,8 +9,7 @@ public class NumDigest {
 	public final double value;
 	
 	
-	public NumDigest(Num num)
-	{
+	public NumDigest(Num num) {
 		this.value = num.value();
 	}
 	

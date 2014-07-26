@@ -11,8 +11,7 @@ public abstract class TaskRepeater extends AnimatorRewind implements Runnable, E
 	private boolean enabled = true;
 	
 	
-	public TaskRepeater(double period)
-	{
+	public TaskRepeater(double period) {
 		super(period);
 	}
 	

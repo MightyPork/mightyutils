@@ -16,8 +16,7 @@ public class TimerDelta {
 	/**
 	 * New delta timer
 	 */
-	public TimerDelta()
-	{
+	public TimerDelta() {
 		lastFrame = System.nanoTime();
 	}
 	

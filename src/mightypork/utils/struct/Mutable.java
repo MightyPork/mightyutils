@@ -18,8 +18,7 @@ public class Mutable<T> {
 	 * 
 	 * @param o value
 	 */
-	public Mutable(T o)
-	{
+	public Mutable(T o) {
 		this.o = o;
 	}
 	

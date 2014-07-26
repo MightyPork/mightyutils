@@ -1,5 +1,6 @@
 package mightypork.utils.ion;
 
+
 import java.io.IOException;
 
 
@@ -13,16 +14,18 @@ import java.io.IOException;
 public abstract class IonizerBinary<T> {
 	
 	@SuppressWarnings("unchecked")
-	final void _save(Object object, IonOutput out)  throws IOException{
-		save((T)object, out);
+	final void _save(Object object, IonOutput out) throws IOException
+	{
+		save((T) object, out);
 	}
+	
 	
 	/**
 	 * Save an object to ion output
 	 * 
 	 * @param object object to save
 	 * @param out ion output
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public abstract void save(T object, IonOutput out) throws IOException;
 	

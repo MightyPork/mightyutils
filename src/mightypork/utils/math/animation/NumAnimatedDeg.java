@@ -12,20 +12,17 @@ import mightypork.utils.math.angles.Deg;
  */
 public class NumAnimatedDeg extends NumAnimated {
 	
-	public NumAnimatedDeg(NumAnimated other)
-	{
+	public NumAnimatedDeg(NumAnimated other) {
 		super(other);
 	}
 	
 	
-	public NumAnimatedDeg(double value)
-	{
+	public NumAnimatedDeg(double value) {
 		super(value);
 	}
 	
 	
-	public NumAnimatedDeg(double value, Easing easing)
-	{
+	public NumAnimatedDeg(double value, Easing easing) {
 		super(value, easing);
 	}
 	

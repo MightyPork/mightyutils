@@ -24,8 +24,7 @@ public class UpdateEvent extends BusEvent<Updateable> {
 	/**
 	 * @param deltaTime time since last update (sec)
 	 */
-	public UpdateEvent(double deltaTime)
-	{
+	public UpdateEvent(double deltaTime) {
 		this.deltaTime = deltaTime;
 	}
 	

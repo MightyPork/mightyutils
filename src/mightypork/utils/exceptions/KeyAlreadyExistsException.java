@@ -8,26 +8,22 @@ package mightypork.utils.exceptions;
  */
 public class KeyAlreadyExistsException extends RuntimeException {
 	
-	public KeyAlreadyExistsException()
-	{
+	public KeyAlreadyExistsException() {
 		super();
 	}
 	
 	
-	public KeyAlreadyExistsException(String message, Throwable cause)
-	{
+	public KeyAlreadyExistsException(String message, Throwable cause) {
 		super(message, cause);
 	}
 	
 	
-	public KeyAlreadyExistsException(String message)
-	{
+	public KeyAlreadyExistsException(String message) {
 		super(message);
 	}
 	
 	
-	public KeyAlreadyExistsException(Throwable cause)
-	{
+	public KeyAlreadyExistsException(Throwable cause) {
 		super(cause);
 	}
 	

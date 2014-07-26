@@ -12,14 +12,12 @@ class IonSequenceWrapper implements IonBinary {
 	private Collection collection = new ArrayList();
 	
 	
-	public IonSequenceWrapper()
-	{
+	public IonSequenceWrapper() {
 		collection = new ArrayList();
 	}
 	
 	
-	public IonSequenceWrapper(Collection saved)
-	{
+	public IonSequenceWrapper(Collection saved) {
 		collection = saved;
 	}
 	

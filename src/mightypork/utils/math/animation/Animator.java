@@ -17,26 +17,22 @@ public abstract class Animator implements NumBound, Updateable, Pauseable {
 	private final double lowValue;
 	
 	
-	public Animator(double period)
-	{
+	public Animator(double period) {
 		this(0, 1, period, Easing.LINEAR);
 	}
 	
 	
-	public Animator(double start, double end, double period)
-	{
+	public Animator(double start, double end, double period) {
 		this(start, end, period, Easing.LINEAR);
 	}
 	
 	
-	public Animator(double period, Easing easing)
-	{
+	public Animator(double period, Easing easing) {
 		this(0, 1, period, easing);
 	}
 	
 	
-	public Animator(double start, double end, double period, Easing easing)
-	{
+	public Animator(double start, double end, double period, Easing easing) {
 		numAnim = new NumAnimated(0, easing);
 		numAnim.setDefaultDuration(period);
 		

@@ -153,7 +153,6 @@ public final class Support {
 		return new IterableEnumerationWrapper<>(enumeration);
 	}
 	
-	
 	/**
 	 * Helper class for iterationg over an {@link Enumeration}
 	 * 
@@ -168,8 +167,7 @@ public final class Support {
 		/**
 		 * @param enumeration the iterated enumeration
 		 */
-		public IterableEnumerationWrapper(Enumeration<? extends T> enumeration)
-		{
+		public IterableEnumerationWrapper(Enumeration<? extends T> enumeration) {
 			this.enumeration = enumeration;
 		}
 		

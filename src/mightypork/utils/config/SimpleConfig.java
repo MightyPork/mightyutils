@@ -1,4 +1,4 @@
-package mightypork.utils.files.config;
+package mightypork.utils.config;
 
 
 import java.io.File;

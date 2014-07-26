@@ -23,8 +23,7 @@ public class Range {
 	/**
 	 * Implicit range constructor 0-1
 	 */
-	public Range()
-	{
+	public Range() {
 	}
 	
 	
@@ -34,8 +33,7 @@ public class Range {
 	 * @param min min number
 	 * @param max max number
 	 */
-	public Range(double min, double max)
-	{
+	public Range(double min, double max) {
 		this.min = min;
 		this.max = max;
 		norm();
@@ -47,8 +45,7 @@ public class Range {
 	 * 
 	 * @param minmax min = max number
 	 */
-	public Range(double minmax)
-	{
+	public Range(double minmax) {
 		this.min = minmax;
 		this.max = minmax;
 	}

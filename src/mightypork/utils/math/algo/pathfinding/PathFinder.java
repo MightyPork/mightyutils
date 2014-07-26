@@ -100,7 +100,6 @@ public abstract class PathFinder {
 				a.h_cost = (int) (heuristic.getCost(a.pos, end) * getMinCost());
 				a.parent = current;
 				
-				
 				if (!closed.contains(a)) {
 					
 					if (open.contains(a)) {
@@ -152,8 +151,7 @@ public abstract class PathFinder {
 		Node parent;
 		
 		
-		public Node(Coord pos)
-		{
+		public Node(Coord pos) {
 			this.pos = pos;
 		}
 		

@@ -36,8 +36,7 @@ final public class EventBus implements Destroyable {
 		private final BusEvent<?> evt;
 		
 		
-		public DelayQueueEntry(double seconds, BusEvent<?> event)
-		{
+		public DelayQueueEntry(double seconds, BusEvent<?> event) {
 			super();
 			this.due = System.currentTimeMillis() + (long) (seconds * 1000);
 			this.evt = event;
@@ -73,8 +72,7 @@ final public class EventBus implements Destroyable {
 		public volatile boolean stopped = false;
 		
 		
-		public QueuePollingThread()
-		{
+		public QueuePollingThread() {
 			super("Queue Polling Thread");
 		}
 		
@@ -135,8 +133,7 @@ final public class EventBus implements Destroyable {
 	/**
 	 * Make a new bus and start it's queue thread.
 	 */
-	public EventBus()
-	{
+	public EventBus() {
 		busThread = new QueuePollingThread();
 		busThread.setDaemon(true);
 		busThread.start();

@@ -17,8 +17,7 @@ public class VectVar extends VectMutable {
 	 * @param y Y coordinate
 	 * @param z Z coordinate
 	 */
-	public VectVar(double x, double y, double z)
-	{
+	public VectVar(double x, double y, double z) {
 		super();
 		this.x = x;
 		this.y = y;

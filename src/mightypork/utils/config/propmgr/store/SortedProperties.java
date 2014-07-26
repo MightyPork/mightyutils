@@ -1,13 +1,7 @@
-package mightypork.utils.files.config;
+package mightypork.utils.config.propmgr.store;
 
 
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -16,20 +10,13 @@ import java.util.Vector;
 
 /**
  * Properties stored in file, alphabetically sorted.<br>
- * Uses UTF-8 encoding and each property can have it's own comment.
+ * Uses UTF-8 encoding and each property can have it's own comment.<br>
+ * FIXME The quality of this class is dubious. It would probably be a good idea
+ * to rewrite it without using {@link java.util.Properties} at all.
  * 
  * @author Ondřej Hruška (MightyPork)
  */
-public class SortedProperties extends java.util.Properties {
-	
-	/** Option: put empty line before each comment. */
-	public boolean cfgBlankRowBeforeComment = true;
-	
-	/**
-	 * Option: Separate sections by newline<br>
-	 * Section = string before first dot in key.
-	 */
-	public boolean cfgBlankRowBetweenSections = true;
+class SortedProperties extends java.util.Properties {
 	
 	/** Comments for individual keys */
 	private final Hashtable<String, String> keyComments = new Hashtable<>();
@@ -205,7 +192,8 @@ public class SortedProperties extends java.util.Properties {
 				key = saveConvert(key, true, escUnicode);
 				val = saveConvert(val, false, escUnicode);
 				
-				if (cfgBlankRowBetweenSections && !lastSectionBeginning.equals(key.split("[.]")[0])) {
+				// separate sections
+				if (!lastSectionBeginning.equals(key.split("[.]")[0])) {
 					if (!firstEntry) {
 						bw.newLine();
 						bw.newLine();
@@ -223,7 +211,8 @@ public class SortedProperties extends java.util.Properties {
 					
 					final String[] cmlines = cm.split("\n");
 					
-					if (!wasNewLine && !firstEntry && cfgBlankRowBeforeComment) {
+					// newline before comments
+					if (!wasNewLine && !firstEntry) {
 						bw.newLine();
 					}
 					
@@ -298,6 +287,7 @@ public class SortedProperties extends java.util.Properties {
 			sb.append(c);
 		}
 		
+		// discard comments
 		final String read = sb.toString().replaceAll("(#|;|//|--)[^\n]*\n", "\n");
 		
 		final String inputString = escapifyStr(read);

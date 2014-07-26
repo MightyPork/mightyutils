@@ -31,8 +31,7 @@ class EventChannel<EVENT extends BusEvent<CLIENT>, CLIENT> {
 	 * @param eventClass event class
 	 * @param clientClass client class
 	 */
-	public EventChannel(Class<EVENT> eventClass, Class<CLIENT> clientClass)
-	{
+	public EventChannel(Class<EVENT> eventClass, Class<CLIENT> clientClass) {
 		
 		if (eventClass == null || clientClass == null) {
 			throw new NullPointerException("Null Event or Client class.");

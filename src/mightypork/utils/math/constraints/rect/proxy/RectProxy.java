@@ -16,13 +16,11 @@ public class RectProxy extends RectAdapter implements PluggableRectBound {
 	private RectBound backing = null;
 	
 	
-	public RectProxy()
-	{
+	public RectProxy() {
 	}
 	
 	
-	public RectProxy(RectBound proxied)
-	{
+	public RectProxy(RectBound proxied) {
 		backing = proxied;
 	}
 	

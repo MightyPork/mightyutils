@@ -25,8 +25,7 @@ public abstract class AbstractNumCache extends NumAdapter implements CachedConst
 	private boolean cachingEnabled = true;
 	
 	
-	public AbstractNumCache()
-	{
+	public AbstractNumCache() {
 		enableDigestCaching(true); // it changes only on poll
 	}
 	

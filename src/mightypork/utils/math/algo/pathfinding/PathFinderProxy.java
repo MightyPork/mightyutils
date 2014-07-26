@@ -18,8 +18,7 @@ public class PathFinderProxy extends PathFinder {
 	private final PathFinder source;
 	
 	
-	public PathFinderProxy(PathFinder other)
-	{
+	public PathFinderProxy(PathFinder other) {
 		this.source = other;
 	}
 	

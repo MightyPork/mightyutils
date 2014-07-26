@@ -1,14 +1,7 @@
 package mightypork.utils.ion;
 
 
-import java.io.Closeable;
-import java.io.DataOutput;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -26,14 +19,12 @@ public class IonOutput implements Closeable {
 	
 	
 	@SuppressWarnings("resource")
-	public IonOutput(File outFile) throws FileNotFoundException
-	{
+	public IonOutput(File outFile) throws FileNotFoundException {
 		this(new FileOutputStream(outFile));
 	}
 	
 	
-	public IonOutput(OutputStream out)
-	{
+	public IonOutput(OutputStream out) {
 		this.stream = out;
 		this.out = new DataOutputStream(out);
 	}
@@ -298,7 +289,6 @@ public class IonOutput implements Closeable {
 			
 			return;
 		}
-		
 		
 		if (Ion.isObjectIndirectBundled(obj)) {
 			final IonizerBundled<?> ionizer = Ion.getIonizerBundledForClass(obj.getClass());

@@ -1,19 +1,7 @@
 package mightypork.utils.files;
 
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,8 +95,7 @@ public class FileUtils {
 	public static void copyFile(File source, File target) throws IOException
 	{
 		
-		try(InputStream in = new FileInputStream(source);
-			OutputStream out = new FileOutputStream(target)) {
+		try (InputStream in = new FileInputStream(source); OutputStream out = new FileOutputStream(target)) {
 			
 			copyStream(in, out);
 		}
@@ -173,7 +160,7 @@ public class FileUtils {
 	 */
 	public static String fileToString(File file) throws IOException
 	{
-		try(FileInputStream fin = new FileInputStream(file)) {
+		try (FileInputStream fin = new FileInputStream(file)) {
 			
 			return streamToString(fin);
 		}
@@ -365,7 +352,7 @@ public class FileUtils {
 	 */
 	public static void stringToFile(File file, String text) throws IOException
 	{
-		try(PrintStream out = new PrintStream(new FileOutputStream(file), false, "UTF-8")) {
+		try (PrintStream out = new PrintStream(new FileOutputStream(file), false, "UTF-8")) {
 			
 			out.print(text);
 			
@@ -413,8 +400,7 @@ public class FileUtils {
 	 */
 	public static void resourceToFile(String resname, File file) throws IOException
 	{
-		try(InputStream in = FileUtils.getResource(resname);
-			OutputStream out = new FileOutputStream(file)) {
+		try (InputStream in = FileUtils.getResource(resname); OutputStream out = new FileOutputStream(file)) {
 			
 			FileUtils.copyStream(in, out);
 		}
@@ -431,7 +417,7 @@ public class FileUtils {
 	 */
 	public static String resourceToString(String resname) throws IOException
 	{
-		try(InputStream in = FileUtils.getResource(resname)) {
+		try (InputStream in = FileUtils.getResource(resname)) {
 			return streamToString(in);
 		}
 	}

@@ -21,7 +21,6 @@ public class RGB {
 	public static final Color BLACK_80 = Color.rgba(0, 0, 0, 0.8);
 	public static final Color BLACK_90 = Color.rgba(0, 0, 0, 0.9);
 	
-	
 	public static final Color WHITE = Color.fromHex(0xFFFFFF);
 	public static final Color BLACK = Color.fromHex(0x000000);
 	public static final Color GRAY_DARK = Color.fromHex(0x808080);

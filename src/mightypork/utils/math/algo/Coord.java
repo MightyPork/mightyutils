@@ -39,22 +39,19 @@ public class Coord {
 	}
 	
 	
-	public Coord()
-	{
+	public Coord() {
 		// for ion
 	}
 	
 	
-	public Coord(int x, int y)
-	{
+	public Coord(int x, int y) {
 		super();
 		this.x = x;
 		this.y = y;
 	}
 	
 	
-	public Coord(Coord other)
-	{
+	public Coord(Coord other) {
 		this.x = other.x;
 		this.y = other.y;
 	}

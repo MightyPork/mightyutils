@@ -10,8 +10,7 @@ public class ColorAlphaAdjuster extends Color {
 	private final Num alphaAdjust;
 	
 	
-	public ColorAlphaAdjuster(Color source, Num alphaMul)
-	{
+	public ColorAlphaAdjuster(Color source, Num alphaMul) {
 		this.source = source;
 		this.alphaAdjust = alphaMul;
 	}

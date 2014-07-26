@@ -11,26 +11,22 @@ import java.io.IOException;
  */
 public class CorruptDataException extends IOException {
 	
-	public CorruptDataException()
-	{
+	public CorruptDataException() {
 		super();
 	}
 	
 	
-	public CorruptDataException(String message, Throwable cause)
-	{
+	public CorruptDataException(String message, Throwable cause) {
 		super(message, cause);
 	}
 	
 	
-	public CorruptDataException(String message)
-	{
+	public CorruptDataException(String message) {
 		super(message);
 	}
 	
 	
-	public CorruptDataException(Throwable cause)
-	{
+	public CorruptDataException(Throwable cause) {
 		super(cause);
 	}
 	

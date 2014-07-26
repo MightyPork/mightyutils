@@ -16,13 +16,11 @@ public class VectProxy extends VectAdapter implements PluggableVectBound {
 	private VectBound backing = null;
 	
 	
-	public VectProxy()
-	{
+	public VectProxy() {
 	}
 	
 	
-	public VectProxy(VectBound proxied)
-	{
+	public VectProxy(VectBound proxied) {
 		backing = proxied;
 	}
 	

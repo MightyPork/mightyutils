@@ -25,8 +25,7 @@ public abstract class AbstractVectCache extends VectAdapter implements CachedCon
 	private boolean cachingEnabled = true;
 	
 	
-	public AbstractVectCache()
-	{
+	public AbstractVectCache() {
 		enableDigestCaching(true); // it changes only on poll
 	}
 	

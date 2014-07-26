@@ -60,8 +60,7 @@ public class PerlinNoiseGenerator {
 	/**
 	 * Create a new noise creator with the default seed value
 	 */
-	public PerlinNoiseGenerator()
-	{
+	public PerlinNoiseGenerator() {
 		this(DEFAULT_SEED);
 	}
 	
@@ -71,8 +70,7 @@ public class PerlinNoiseGenerator {
 	 * 
 	 * @param seed The seed value to use
 	 */
-	public PerlinNoiseGenerator(long seed)
-	{
+	public PerlinNoiseGenerator(long seed) {
 		p_imp = new int[DEFAULT_SAMPLE_SIZE << 1];
 		
 		int i, j, k;
@@ -410,10 +408,7 @@ public class PerlinNoiseGenerator {
 	 */
 	public double tileableNoise3(double x, double y, double z, double w, double h, double d)
 	{
-		return (noise3(x, y, z) * (w - x) * (h - y) * (d - z) + noise3(x - w, y, z) * x * (h - y) * (d - z) + noise3(x, y - h, z) * (w - x) * y * (d - z)
-				+ noise3(x - w, y - h, z) * x * y * (d - z) + noise3(x, y, z - d) * (w - x) * (h - y) * z + noise3(x - w, y, z - d) * x * (h - y) * z
-				+ noise3(x, y - h, z - d) * (w - x) * y * z + noise3(x - w, y - h, z - d) * x * y * z)
-				/ (w * h * d);
+		return (noise3(x, y, z) * (w - x) * (h - y) * (d - z) + noise3(x - w, y, z) * x * (h - y) * (d - z) + noise3(x, y - h, z) * (w - x) * y * (d - z) + noise3(x - w, y - h, z) * x * y * (d - z) + noise3(x, y, z - d) * (w - x) * (h - y) * z + noise3(x - w, y, z - d) * x * (h - y) * z + noise3(x, y - h, z - d) * (w - x) * y * z + noise3(x - w, y - h, z - d) * x * y * z) / (w * h * d);
 	}
 	
 	

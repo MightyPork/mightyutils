@@ -26,8 +26,7 @@ public class Polar {
 	 * @param angle angle in RAD
 	 * @param distance distance from origin
 	 */
-	public Polar(double angle, double distance)
-	{
+	public Polar(double angle, double distance) {
 		this(angle, false, distance);
 	}
 	
@@ -39,8 +38,7 @@ public class Polar {
 	 * @param deg angle is in DEG
 	 * @param distance radius
 	 */
-	public Polar(double angle, boolean deg, double distance)
-	{
+	public Polar(double angle, boolean deg, double distance) {
 		this.radius = distance;
 		this.angle = deg ? Math.toRadians(angle) : angle;
 	}

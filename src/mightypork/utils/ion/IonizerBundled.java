@@ -11,9 +11,11 @@ package mightypork.utils.ion;
 public abstract class IonizerBundled<T> {
 	
 	@SuppressWarnings("unchecked")
-	final void _save(Object object, IonDataBundle out) {
-		save((T)object, out);
+	final void _save(Object object, IonDataBundle out)
+	{
+		save((T) object, out);
 	}
+	
 	
 	/**
 	 * Save an object to data bundle

@@ -32,14 +32,12 @@ public final class VectConst extends Vect {
 	private VectDigest digest;
 	
 	
-	VectConst(Vect other)
-	{
+	VectConst(Vect other) {
 		this(other.x(), other.y(), other.z());
 	}
 	
 	
-	VectConst(double x, double y, double z)
-	{
+	VectConst(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;

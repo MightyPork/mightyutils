@@ -32,8 +32,7 @@ public class ArchivingLog extends SimpleLog {
 	 * @param file log file (in log directory)
 	 * @param oldLogCount number of old log files to keep: -1 all, 0 none.
 	 */
-	public ArchivingLog(String name, File file, int oldLogCount)
-	{
+	public ArchivingLog(String name, File file, int oldLogCount) {
 		super(name, file);
 		this.logs_to_keep = oldLogCount;
 	}
@@ -45,8 +44,7 @@ public class ArchivingLog extends SimpleLog {
 	 * @param name log name
 	 * @param file log file (in log directory)
 	 */
-	public ArchivingLog(String name, File file)
-	{
+	public ArchivingLog(String name, File file) {
 		super(name, file);
 		this.logs_to_keep = 5;
 	}
@@ -64,7 +62,7 @@ public class ArchivingLog extends SimpleLog {
 	private void cleanLoggingDirectory()
 	{
 		if (logs_to_keep == 0) return; // overwrite
-		
+			
 		final File log_file = getFile();
 		final File log_dir = log_file.getParentFile();
 		final String fname = FileUtils.getBasename(log_file.toString());
@@ -87,7 +85,7 @@ public class ArchivingLog extends SimpleLog {
 		}
 		
 		if (logs_to_keep == -1) return; // keep all
-		
+			
 		final List<File> oldLogs = FileUtils.listDirectory(log_dir, new FileFilter() {
 			
 			@Override

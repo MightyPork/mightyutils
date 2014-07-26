@@ -1058,5 +1058,4 @@ public abstract class Rect implements RectBound, CachedDigestable<RectDigest> {
 		return ((rw < rx || rw > tx) && (rh < ry || rh > ty) && (tw < tx || tw > rx) && (th < ty || th > ry));
 	}
 	
-	
 }

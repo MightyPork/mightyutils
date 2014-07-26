@@ -6,8 +6,7 @@ public class CharFilterRegex implements CharFilter {
 	private final String formula;
 	
 	
-	public CharFilterRegex(String regex)
-	{
+	public CharFilterRegex(String regex) {
 		this.formula = regex;
 	}
 	

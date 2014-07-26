@@ -1,12 +1,7 @@
 package mightypork.utils.ion;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,7 +79,6 @@ public class Ion {
 	public static final int MAP = 25;
 	/** Array of arbitrary objects */
 	public static final int OBJECT_ARRAY = 26;
-	
 	
 	/** Ionizables<Mark, Class> */
 	private static Map<Integer, Class<?>> markToClass = new HashMap<>();
@@ -243,7 +237,7 @@ public class Ion {
 	 */
 	public static <T> T fromFile(File file) throws IOException
 	{
-		try(InputStream in = new FileInputStream(file)) {
+		try (InputStream in = new FileInputStream(file)) {
 			return fromStream(in);
 		}
 	}
@@ -263,7 +257,7 @@ public class Ion {
 	 */
 	public static void toFile(File file, Object obj) throws IOException
 	{
-		try(OutputStream out = new FileOutputStream(file)) {
+		try (OutputStream out = new FileOutputStream(file)) {
 			
 			toStream(out, obj);
 			
@@ -279,7 +273,7 @@ public class Ion {
 	 */
 	public static <T> T fromStream(InputStream in) throws IOException
 	{
-		try(final IonInput inp = new IonInput(in)) {
+		try (final IonInput inp = new IonInput(in)) {
 			return (T) inp.readObject();
 		}
 	}
@@ -290,7 +284,7 @@ public class Ion {
 	 */
 	public static void toStream(OutputStream out, Object obj) throws IOException
 	{
-		try(IonOutput iout = new IonOutput(out)) {
+		try (IonOutput iout = new IonOutput(out)) {
 			iout.writeObject(obj);
 		}
 	}
@@ -495,7 +489,6 @@ public class Ion {
 	public static void reset()
 	{
 		final List<Integer> toRemove = new ArrayList<>();
-		
 		
 		// remove direct		
 		for (final Integer mark : markToClass.keySet()) {

@@ -6,8 +6,7 @@ public class CharFilterWhitelist implements CharFilter {
 	private final String whitelist;
 	
 	
-	public CharFilterWhitelist(String allowed)
-	{
+	public CharFilterWhitelist(String allowed) {
 		this.whitelist = allowed;
 	}
 	

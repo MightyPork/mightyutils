@@ -19,8 +19,7 @@ public class RectVar extends RectMutable {
 	 * @param width
 	 * @param height
 	 */
-	public RectVar(double x, double y, double width, double height)
-	{
+	public RectVar(double x, double y, double width, double height) {
 		this.pos.setTo(x, y);
 		this.size.setTo(width, height);
 	}

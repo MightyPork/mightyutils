@@ -14,8 +14,7 @@ public class RectCache extends AbstractRectCache {
 	private final Rect source;
 	
 	
-	public RectCache(Rect source)
-	{
+	public RectCache(Rect source) {
 		this.source = source;
 	}
 	

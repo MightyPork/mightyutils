@@ -23,8 +23,7 @@ public class TiledRect extends RectProxy {
 	private Rect aTile;
 	
 	
-	public TiledRect(Rect source, int horizontal, int vertical)
-	{
+	public TiledRect(Rect source, int horizontal, int vertical) {
 		super(source);
 		this.tilesX = horizontal;
 		this.tilesY = vertical;
