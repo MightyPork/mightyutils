@@ -193,9 +193,9 @@ public class PropertyManager {
 	 * @param d default value
 	 * @param comment the in-file comment
 	 */
-	public void putBoolean(String k, boolean d, String comment)
+	public void addBoolean(String k, boolean d, String comment)
 	{
-		putProperty(new BooleanProperty(k, d, comment));
+		addProperty(new BooleanProperty(k, d, comment));
 	}
 	
 	
@@ -206,9 +206,9 @@ public class PropertyManager {
 	 * @param d default value
 	 * @param comment the in-file comment
 	 */
-	public void putDouble(String k, double d, String comment)
+	public void addDouble(String k, double d, String comment)
 	{
-		putProperty(new DoubleProperty(k, d, comment));
+		addProperty(new DoubleProperty(k, d, comment));
 	}
 	
 	
@@ -219,9 +219,9 @@ public class PropertyManager {
 	 * @param d default value
 	 * @param comment the in-file comment
 	 */
-	public void putInteger(String k, int d, String comment)
+	public void addInteger(String k, int d, String comment)
 	{
-		putProperty(new IntegerProperty(k, d, comment));
+		addProperty(new IntegerProperty(k, d, comment));
 	}
 	
 	
@@ -232,9 +232,9 @@ public class PropertyManager {
 	 * @param d default value
 	 * @param comment the in-file comment
 	 */
-	public void putString(String k, String d, String comment)
+	public void addString(String k, String d, String comment)
 	{
-		putProperty(new StringProperty(k, d, comment));
+		addProperty(new StringProperty(k, d, comment));
 	}
 	
 	
@@ -243,7 +243,7 @@ public class PropertyManager {
 	 * 
 	 * @param prop property to add
 	 */
-	public <T> void putProperty(Property<T> prop)
+	public <T> void addProperty(Property<T> prop)
 	{
 		entries.put(prop.getKey(), prop);
 	}

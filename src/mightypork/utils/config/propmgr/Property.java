@@ -78,7 +78,7 @@ public abstract class Property<T> {
 	 * 
 	 * @return the value
 	 */
-	public final T getValue()
+	public T getValue()
 	{
 		return value;
 	}
@@ -92,7 +92,7 @@ public abstract class Property<T> {
 	 * @throws ClassCastException in case of incompatible type.
 	 */
 	@SuppressWarnings("unchecked")
-	public final void setValue(Object value)
+	public void setValue(Object value)
 	{
 		this.value = (T) value;
 	}
@@ -103,7 +103,7 @@ public abstract class Property<T> {
 	 * 
 	 * @return the comment text (can be null if no comment is defined)
 	 */
-	public final String getComment()
+	public String getComment()
 	{
 		return comment;
 	}
@@ -114,7 +114,7 @@ public abstract class Property<T> {
 	 * 
 	 * @return property key
 	 */
-	public final String getKey()
+	public String getKey()
 	{
 		return key;
 	}
