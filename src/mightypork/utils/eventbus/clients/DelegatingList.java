@@ -11,7 +11,7 @@ import mightypork.utils.interfaces.Enableable;
  * 
  * @author Ondřej Hruška (MightyPork)
  */
-public class DelegatingList extends ClientList implements DelegatingClient, Enableable {
+public class DelegatingList extends ClientList implements DelegatingClient, Enableable, ToggleableClient {
 	
 	private boolean enabled = true;
 	
@@ -42,6 +42,13 @@ public class DelegatingList extends ClientList implements DelegatingClient, Enab
 	
 	@Override
 	public boolean doesDelegate()
+	{
+		return isEnabled();
+	}
+	
+	
+	@Override
+	public boolean isListening()
 	{
 		return isEnabled();
 	}
