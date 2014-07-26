@@ -1,6 +1,7 @@
 package mightypork.utils.config.propmgr;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map.Entry;
@@ -11,6 +12,7 @@ import mightypork.utils.config.propmgr.properties.BooleanProperty;
 import mightypork.utils.config.propmgr.properties.DoubleProperty;
 import mightypork.utils.config.propmgr.properties.IntegerProperty;
 import mightypork.utils.config.propmgr.properties.StringProperty;
+import mightypork.utils.config.propmgr.store.PropertyFile;
 import mightypork.utils.logging.Log;
 
 
@@ -27,7 +29,19 @@ public class PropertyManager {
 	
 	
 	/**
-	 * Create property manager from file path and an initial comment.
+	 * Create property manager from file path and a header comment.<br>
+	 * This is the same as using a {@link PropertyFile} store.
+	 * 
+	 * @param file property file
+	 * @param comment header comment.
+	 */
+	public PropertyManager(File file, String comment) {
+		this(new PropertyFile(file, comment));
+	}
+	
+	
+	/**
+	 * Create property manager based on provided {@link PropertyStore}
 	 * 
 	 * @param props a property store implementation backing this property
 	 *            manager
