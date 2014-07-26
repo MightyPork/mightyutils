@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import mightypork.utils.files.FileUtils;
+import mightypork.utils.files.FileUtil;
 import mightypork.utils.logging.Log;
 
 
@@ -56,7 +56,7 @@ public class ZipBuilder {
 		
 		out.putNextEntry(new ZipEntry(path));
 		
-		FileUtils.copyStream(in, out);
+		FileUtil.copyStream(in, out);
 	}
 	
 	
@@ -75,8 +75,8 @@ public class ZipBuilder {
 		
 		out.putNextEntry(new ZipEntry(path));
 		
-		try (InputStream in = FileUtils.stringToStream(text)) {
-			FileUtils.copyStream(in, out);
+		try (InputStream in = FileUtil.stringToStream(text)) {
+			FileUtil.copyStream(in, out);
 		}
 	}
 	
@@ -96,8 +96,8 @@ public class ZipBuilder {
 		
 		out.putNextEntry(new ZipEntry(path));
 		
-		try (InputStream in = FileUtils.getResource(resPath)) {
-			FileUtils.copyStream(in, out);
+		try (InputStream in = FileUtil.getResource(resPath)) {
+			FileUtil.copyStream(in, out);
 		}
 	}
 	

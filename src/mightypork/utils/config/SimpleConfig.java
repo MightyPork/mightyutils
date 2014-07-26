@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import mightypork.utils.files.FileUtils;
+import mightypork.utils.files.FileUtil;
 import mightypork.utils.logging.Log;
 
 
@@ -33,7 +33,7 @@ public class SimpleConfig {
 	 */
 	public static List<String> listFromFile(File file) throws IOException
 	{
-		final String fileText = FileUtils.fileToString(file);
+		final String fileText = FileUtil.fileToString(file);
 		
 		return listFromString(fileText);
 	}
@@ -48,7 +48,7 @@ public class SimpleConfig {
 	 */
 	public static Map<String, String> mapFromFile(File file) throws IOException
 	{
-		final String fileText = FileUtils.fileToString(file);
+		final String fileText = FileUtil.fileToString(file);
 		
 		return mapFromString(fileText);
 	}
@@ -173,7 +173,7 @@ public class SimpleConfig {
 			text += s;
 		}
 		
-		FileUtils.stringToFile(target, text);
+		FileUtil.stringToFile(target, text);
 		
 	}
 	
@@ -199,7 +199,7 @@ public class SimpleConfig {
 			text += s;
 		}
 		
-		FileUtils.stringToFile(target, text);
+		FileUtil.stringToFile(target, text);
 		
 	}
 }

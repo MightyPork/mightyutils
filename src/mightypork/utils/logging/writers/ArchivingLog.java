@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
-import mightypork.utils.files.FileUtils;
+import mightypork.utils.files.FileUtil;
 import mightypork.utils.string.StringUtil;
 
 
@@ -65,10 +65,10 @@ public class ArchivingLog extends SimpleLog {
 			
 		final File log_file = getFile();
 		final File log_dir = log_file.getParentFile();
-		final String fname = FileUtils.getBasename(log_file.toString());
+		final String fname = FileUtil.getBasename(log_file.toString());
 		
 		// move old file
-		for (final File f : FileUtils.listDirectory(log_dir)) {
+		for (final File f : FileUtil.listDirectory(log_dir)) {
 			if (!f.isFile()) continue;
 			if (f.equals(getFile())) {
 				
@@ -86,7 +86,7 @@ public class ArchivingLog extends SimpleLog {
 		
 		if (logs_to_keep == -1) return; // keep all
 			
-		final List<File> oldLogs = FileUtils.listDirectory(log_dir, new FileFilter() {
+		final List<File> oldLogs = FileUtil.listDirectory(log_dir, new FileFilter() {
 			
 			@Override
 			public boolean accept(File f)

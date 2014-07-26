@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import mightypork.utils.files.FileUtils;
+import mightypork.utils.files.FileUtil;
 import mightypork.utils.logging.Log;
 import mightypork.utils.string.validation.StringFilter;
 
@@ -136,7 +136,7 @@ public class ZipUtils {
 		
 		try (InputStream in = zip.getInputStream(entry); BufferedInputStream is = new BufferedInputStream(in); FileOutputStream fos = new FileOutputStream(destFile); BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER_SIZE)) {
 			
-			FileUtils.copyStream(is, dest);
+			FileUtil.copyStream(is, dest);
 		}
 	}
 	
@@ -154,7 +154,7 @@ public class ZipUtils {
 		BufferedInputStream is = null;
 		try {
 			is = new BufferedInputStream(zip.getInputStream(entry));
-			final String s = FileUtils.streamToString(is);
+			final String s = FileUtil.streamToString(is);
 			return s;
 		} finally {
 			try {

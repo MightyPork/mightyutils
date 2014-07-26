@@ -10,7 +10,7 @@ import mightypork.utils.string.StringUtil;
 import mightypork.utils.string.validation.StringFilter;
 
 
-public class FileUtils {
+public class FileUtil {
 	
 	/**
 	 * Copy directory recursively.
@@ -175,7 +175,7 @@ public class FileUtils {
 	 */
 	public static List<File> listDirectory(File dir)
 	{
-		return FileUtils.listDirectory(dir, null);
+		return FileUtil.listDirectory(dir, null);
 	}
 	
 	
@@ -322,7 +322,7 @@ public class FileUtils {
 	
 	public static InputStream getResource(String path)
 	{
-		final InputStream in = FileUtils.class.getResourceAsStream(path);
+		final InputStream in = FileUtil.class.getResourceAsStream(path);
 		
 		if (in != null) return in;
 		
@@ -339,7 +339,7 @@ public class FileUtils {
 	
 	public static String getResourceAsString(String path)
 	{
-		return streamToString(FileUtils.class.getResourceAsStream(path));
+		return streamToString(FileUtil.class.getResourceAsStream(path));
 	}
 	
 	
@@ -400,9 +400,9 @@ public class FileUtils {
 	 */
 	public static void resourceToFile(String resname, File file) throws IOException
 	{
-		try (InputStream in = FileUtils.getResource(resname); OutputStream out = new FileOutputStream(file)) {
+		try (InputStream in = FileUtil.getResource(resname); OutputStream out = new FileOutputStream(file)) {
 			
-			FileUtils.copyStream(in, out);
+			FileUtil.copyStream(in, out);
 		}
 		
 	}
@@ -417,7 +417,7 @@ public class FileUtils {
 	 */
 	public static String resourceToString(String resname) throws IOException
 	{
-		try (InputStream in = FileUtils.getResource(resname)) {
+		try (InputStream in = FileUtil.getResource(resname)) {
 			return streamToString(in);
 		}
 	}
