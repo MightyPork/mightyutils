@@ -82,8 +82,8 @@ public abstract class BusEvent<HANDLER> {
 	
 	
 	/**
-	 * Check if the event is consumed. Consumed event is not served to other
-	 * clients.
+	 * Check if the event is consumed. When an event is consumed, no other
+	 * clients will receive it.
 	 * 
 	 * @return true if consumed
 	 */
@@ -96,7 +96,7 @@ public abstract class BusEvent<HANDLER> {
 	/**
 	 * @return true if the event was served to at least 1 client
 	 */
-	final boolean wasServed()
+	public final boolean wasServed()
 	{
 		return served;
 	}
