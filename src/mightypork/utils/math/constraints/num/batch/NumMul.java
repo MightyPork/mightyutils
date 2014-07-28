@@ -9,14 +9,14 @@ import mightypork.utils.math.constraints.num.Num;
 
 /**
  * Expandable multiplication of multiple numbers
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 public class NumMul extends Num {
-	
+
 	private final List<Num> factors = new ArrayList<>();
-	
-	
+
+
 	@Override
 	public double value()
 	{
@@ -26,22 +26,22 @@ public class NumMul extends Num {
 		}
 		return v;
 	}
-	
-	
+
+
 	/**
 	 * Add a number to the multiplication
-	 * 
+	 *
 	 * @param factor added number
 	 */
 	public void addFactor(Num factor)
 	{
 		factors.add(factor);
 	}
-	
-	
+
+
 	/**
 	 * Add a number to the multiplication
-	 * 
+	 *
 	 * @param factor added number
 	 */
 	public void addFactor(double factor)

@@ -1,20 +1,25 @@
 package mightypork.utils;
 
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 
 
 /**
  * Map sorting utils
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 public class MapSort {
 	
 	/**
 	 * Sort a map by keys, maintaining key-value pairs, using natural order.
-	 * 
+	 *
 	 * @param map map to be sorted
 	 * @return linked hash map with sorted entries
 	 */
@@ -27,7 +32,7 @@ public class MapSort {
 	
 	/**
 	 * Sort a map by keys, maintaining key-value pairs.
-	 * 
+	 *
 	 * @param map map to be sorted
 	 * @param comparator a comparator, or null for natural ordering
 	 * @return linked hash map with sorted entries
@@ -61,7 +66,7 @@ public class MapSort {
 	
 	/**
 	 * Sort a map by values, maintaining key-value pairs, using natural order.
-	 * 
+	 *
 	 * @param map map to be sorted
 	 * @return linked hash map with sorted entries
 	 */
@@ -74,7 +79,7 @@ public class MapSort {
 	
 	/**
 	 * Sort a map by values, maintaining key-value pairs.
-	 * 
+	 *
 	 * @param map map to be sorted
 	 * @param comparator a comparator, or null for natural ordering
 	 * @return linked hash map with sorted entries
@@ -85,6 +90,7 @@ public class MapSort {
 		
 		Collections.sort(entries, new Comparator<Map.Entry<K, V>>() {
 			
+			@SuppressWarnings("unchecked")
 			@Override
 			public int compare(Entry<K, V> o1, Entry<K, V> o2)
 			{

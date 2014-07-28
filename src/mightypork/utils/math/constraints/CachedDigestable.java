@@ -17,12 +17,12 @@ package mightypork.utils.math.constraints;
  * Implementing class typically needs a field to store the last digest, a flag
  * that digest caching is enabled, and a flag that a digest is dirty.
  * </p>
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  * @param <D> digest class
  */
 public interface CachedDigestable<D> extends Digestable<D> {
-	
+
 	/**
 	 * <p>
 	 * Toggle digest caching.
@@ -30,22 +30,22 @@ public interface CachedDigestable<D> extends Digestable<D> {
 	 * <p>
 	 * To trigger update of the cache, call the <code>poll()</code> method.
 	 * </p>
-	 * 
+	 *
 	 * @param yes
 	 */
 	void enableDigestCaching(boolean yes);
-	
-	
+
+
 	/**
 	 * @return true if digest caching is enabled.
 	 */
 	boolean isDigestCachingEnabled();
-	
-	
+
+
 	/**
 	 * If digest caching is enabled, mark current cached value as "dirty". Dirty
 	 * digest should be re-created next time a value is requested.<br>
 	 */
 	void markDigestDirty();
-	
+
 }

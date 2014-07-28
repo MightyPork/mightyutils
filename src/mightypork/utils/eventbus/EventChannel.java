@@ -14,52 +14,53 @@ import mightypork.utils.logging.Log;
 
 /**
  * Event delivery channel, module of {@link EventBus}
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  * @param <EVENT> event type
  * @param <CLIENT> client (subscriber) type
  */
 class EventChannel<EVENT extends BusEvent<CLIENT>, CLIENT> {
-	
+
 	private final Class<CLIENT> clientClass;
 	private final Class<EVENT> eventClass;
-	
-	
+
+
 	/**
 	 * Create a channel
-	 * 
+	 *
 	 * @param eventClass event class
 	 * @param clientClass client class
 	 */
-	public EventChannel(Class<EVENT> eventClass, Class<CLIENT> clientClass) {
-		
+	public EventChannel(Class<EVENT> eventClass, Class<CLIENT> clientClass)
+	{
+
 		if (eventClass == null || clientClass == null) {
 			throw new NullPointerException("Null Event or Client class.");
 		}
-		
+
 		this.clientClass = clientClass;
 		this.eventClass = eventClass;
 	}
-	
-	
+
+
 	/**
 	 * Try to broadcast a event.<br>
 	 * If event is of wrong type, <code>false</code> is returned.
-	 * 
+	 *
 	 * @param event a event to be sent
 	 * @param clients collection of clients
 	 */
 	public void broadcast(BusEvent<?> event, Collection<?> clients)
 	{
 		if (!canBroadcast(event)) return;
-		
+
 		doBroadcast(eventClass.cast(event), clients, new HashSet<>());
 	}
-	
-	
+
+
 	/**
 	 * Send the event
-	 * 
+	 *
 	 * @param event sent event
 	 * @param clients subscribing clients
 	 * @param processed clients already processed
@@ -67,49 +68,49 @@ class EventChannel<EVENT extends BusEvent<CLIENT>, CLIENT> {
 	private void doBroadcast(final EVENT event, final Collection<?> clients, final Collection<Object> processed)
 	{
 		for (final Object client : clients) {
-			
+
 			// exclude obvious non-clients
 			if (!isClientValid(client)) {
 				continue;
 			}
-			
+
 			// avoid executing more times
 			if (processed.contains(client)) {
 				Log.w(EventBus.logMark + "Client already served: " + Support.str(client));
 				continue;
 			}
 			processed.add(client);
-			
+
 			final boolean must_deliver = Reflect.hasAnnotation(event, NonRejectableEvent.class);
-			
+
 			// opt-out
 			if (client instanceof ToggleableClient) {
 				if (!must_deliver && !((ToggleableClient) client).isListening()) continue;
 			}
-			
+
 			sendTo(client, event);
-			
+
 			if (event.isConsumed()) return;
-			
+
 			// pass on to delegated clients
 			if (client instanceof DelegatingClient) {
 				if (must_deliver || ((DelegatingClient) client).doesDelegate()) {
-					
+
 					final Collection<?> children = ((DelegatingClient) client).getChildClients();
-					
+
 					if (children != null && children.size() > 0) {
 						doBroadcast(event, children, processed);
 					}
-					
+
 				}
 			}
 		}
 	}
-	
-	
+
+
 	/**
 	 * Send an event to a client.
-	 * 
+	 *
 	 * @param client target client
 	 * @param event event to send
 	 */
@@ -120,11 +121,11 @@ class EventChannel<EVENT extends BusEvent<CLIENT>, CLIENT> {
 			((BusEvent<CLIENT>) event).deliverTo((CLIENT) client);
 		}
 	}
-	
-	
+
+
 	/**
 	 * Check if the given event can be broadcasted by this channel
-	 * 
+	 *
 	 * @param event event object
 	 * @return can be broadcasted
 	 */
@@ -132,11 +133,11 @@ class EventChannel<EVENT extends BusEvent<CLIENT>, CLIENT> {
 	{
 		return event != null && eventClass.isInstance(event);
 	}
-	
-	
+
+
 	/**
 	 * Create an instance for given types
-	 * 
+	 *
 	 * @param eventClass event class
 	 * @param clientClass client class
 	 * @return the broadcaster
@@ -145,11 +146,11 @@ class EventChannel<EVENT extends BusEvent<CLIENT>, CLIENT> {
 	{
 		return new EventChannel<>(eventClass, clientClass);
 	}
-	
-	
+
+
 	/**
 	 * Check if client is of channel type
-	 * 
+	 *
 	 * @param client client
 	 * @return is of type
 	 */
@@ -157,11 +158,11 @@ class EventChannel<EVENT extends BusEvent<CLIENT>, CLIENT> {
 	{
 		return clientClass.isInstance(client);
 	}
-	
-	
+
+
 	/**
 	 * Check if the channel is compatible with given
-	 * 
+	 *
 	 * @param client client
 	 * @return is supported
 	 */
@@ -169,8 +170,8 @@ class EventChannel<EVENT extends BusEvent<CLIENT>, CLIENT> {
 	{
 		return isClientOfChannelType(client) || (client instanceof DelegatingClient);
 	}
-	
-	
+
+
 	@Override
 	public int hashCode()
 	{
@@ -180,8 +181,8 @@ class EventChannel<EVENT extends BusEvent<CLIENT>, CLIENT> {
 		result = prime * result + ((eventClass == null) ? 0 : eventClass.hashCode());
 		return result;
 	}
-	
-	
+
+
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -197,8 +198,8 @@ class EventChannel<EVENT extends BusEvent<CLIENT>, CLIENT> {
 		} else if (!eventClass.equals(other.eventClass)) return false;
 		return true;
 	}
-	
-	
+
+
 	@Override
 	public String toString()
 	{

@@ -9,7 +9,7 @@ import mightypork.utils.annotations.Stub;
  * Property entry for the {@link PropertyManager}.<br>
  * Extending this class can be used to add custom property types that are not
  * supported by default.
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  * @param <T> property type
  */
@@ -24,26 +24,28 @@ public abstract class Property<T> {
 	
 	/**
 	 * Create a property without comment
-	 * 
+	 *
 	 * @param key key in the config file
 	 * @param defaultValue defualt property value (used as fallback when
 	 *            parsing)
 	 */
-	public Property(String key, T defaultValue) {
+	public Property(String key, T defaultValue)
+	{
 		this(key, defaultValue, null);
 	}
 	
 	
 	/**
 	 * Create a property with a comment
-	 * 
+	 *
 	 * @param key key in the config file
-	 * @param defaultValue defualt property value (used as fallback when
-	 *            parsing)
+	 * @param defaultValue default property value, used as fallback when
+	 *            parsing. Initially the value is assigned to defaultValue.
 	 * @param comment optional property comment included above the property in
 	 *            the config file. Can be null.
 	 */
-	public Property(String key, T defaultValue, String comment) {
+	public Property(String key, T defaultValue, String comment)
+	{
 		this.comment = comment;
 		this.key = key;
 		this.value = defaultValue;
@@ -54,7 +56,7 @@ public abstract class Property<T> {
 	/**
 	 * Parse a string representation of the value into this property. If the
 	 * value cannot be decoded, use the default value instead.
-	 * 
+	 *
 	 * @param string property value as string
 	 */
 	public abstract void fromString(String string);
@@ -62,7 +64,7 @@ public abstract class Property<T> {
 	
 	/**
 	 * Get property value as string (compatible with `fromString())
-	 * 
+	 *
 	 * @return property value as string
 	 */
 	@Override
@@ -75,7 +77,7 @@ public abstract class Property<T> {
 	
 	/**
 	 * Get the current property value
-	 * 
+	 *
 	 * @return the value
 	 */
 	public T getValue()
@@ -87,7 +89,7 @@ public abstract class Property<T> {
 	/**
 	 * Set property value.<br>
 	 * Uses Object to allow setValue(Object) method in {@link PropertyManager}
-	 * 
+	 *
 	 * @param value value to set.
 	 * @throws ClassCastException in case of incompatible type.
 	 */
@@ -100,7 +102,7 @@ public abstract class Property<T> {
 	
 	/**
 	 * Get property comment.
-	 * 
+	 *
 	 * @return the comment text (can be null if no comment is defined)
 	 */
 	public String getComment()
@@ -111,7 +113,7 @@ public abstract class Property<T> {
 	
 	/**
 	 * Get property key
-	 * 
+	 *
 	 * @return property key
 	 */
 	public String getKey()

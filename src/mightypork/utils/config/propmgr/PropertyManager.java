@@ -18,95 +18,97 @@ import mightypork.utils.logging.Log;
 
 /**
  * Property manager with advanced formatting and value checking.
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 public class PropertyManager {
-	
+
 	private final TreeMap<String, Property<?>> entries = new TreeMap<>();
 	private final TreeMap<String, String> renameTable = new TreeMap<>();
-	private PropertyStore props;
-	
-	
+	private final PropertyStore props;
+
+
 	/**
 	 * Create property manager from file path and a header comment.<br>
 	 * This is the same as using a {@link PropertyFile} store.
-	 * 
+	 *
 	 * @param file property file
 	 * @param comment header comment.
 	 */
-	public PropertyManager(File file, String comment) {
+	public PropertyManager(File file, String comment)
+	{
 		this(new PropertyFile(file, comment));
 	}
-	
-	
+
+
 	/**
 	 * Create property manager based on provided {@link PropertyStore}
-	 * 
+	 *
 	 * @param props a property store implementation backing this property
 	 *            manager
 	 */
-	public PropertyManager(PropertyStore props) {
+	public PropertyManager(PropertyStore props)
+	{
 		this.props = props;
 	}
-	
-	
+
+
 	/**
 	 * Load from file
 	 */
 	public void load()
 	{
 		props.load();
-		
+
 		// rename keys (useful if keys change but value is to be kept)
 		for (final Entry<String, String> entry : renameTable.entrySet()) {
-			
+
 			final String value = props.getProperty(entry.getKey());
-			
+
 			if (value == null) continue;
-			
+
 			final String oldKey = entry.getKey();
 			final String newKey = entry.getValue();
-			
+
 			props.removeProperty(oldKey);
 			props.setProperty(newKey, value, entries.get(newKey).getComment());
 		}
-		
+
 		for (final Property<?> entry : entries.values()) {
 			entry.fromString(props.getProperty(entry.getKey()));
 		}
 	}
-	
-	
+
+
 	public void save()
 	{
 		try {
 			final ArrayList<String> keyList = new ArrayList<>();
-			
+
 			// validate entries one by one, replace with default when needed
 			for (final Property<?> entry : entries.values()) {
 				keyList.add(entry.getKey());
-				
+
 				props.setProperty(entry.getKey(), entry.toString(), entry.getComment());
 			}
-			
+
 			// removed unused props
 			for (final String key : props.keys()) {
 				if (!keyList.contains(key)) {
 					props.removeProperty(key);
 				}
 			}
-			
+
 			props.save();
 		} catch (final IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
-	
-	
+
+
 	/**
 	 * Get a property entry (rarely used)
-	 * 
+	 *
 	 * @param k key
 	 * @return the entry
 	 */
@@ -119,11 +121,11 @@ public class PropertyManager {
 			return null;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Get boolean property
-	 * 
+	 *
 	 * @param k key
 	 * @return the boolean found, or false
 	 */
@@ -131,11 +133,11 @@ public class PropertyManager {
 	{
 		return Convert.toBoolean(getProperty(k).getValue());
 	}
-	
-	
+
+
 	/**
 	 * Get numeric property
-	 * 
+	 *
 	 * @param k key
 	 * @return the int found, or null
 	 */
@@ -143,11 +145,11 @@ public class PropertyManager {
 	{
 		return Convert.toInteger(getProperty(k).getValue());
 	}
-	
-	
+
+
 	/**
 	 * Get numeric property as double
-	 * 
+	 *
 	 * @param k key
 	 * @return the double found, or null
 	 */
@@ -155,11 +157,11 @@ public class PropertyManager {
 	{
 		return Convert.toDouble(getProperty(k).getValue());
 	}
-	
-	
+
+
 	/**
 	 * Get string property
-	 * 
+	 *
 	 * @param k key
 	 * @return the string found, or null
 	 */
@@ -167,11 +169,11 @@ public class PropertyManager {
 	{
 		return Convert.toString(getProperty(k).getValue());
 	}
-	
-	
+
+
 	/**
 	 * Get arbitrary property. Make sure it's of the right type!
-	 * 
+	 *
 	 * @param k key
 	 * @return the prioperty found
 	 */
@@ -184,11 +186,11 @@ public class PropertyManager {
 			return null;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Add a boolean property
-	 * 
+	 *
 	 * @param k key
 	 * @param d default value
 	 * @param comment the in-file comment
@@ -197,11 +199,11 @@ public class PropertyManager {
 	{
 		addProperty(new BooleanProperty(k, d, comment));
 	}
-	
-	
+
+
 	/**
 	 * Add a numeric property (double)
-	 * 
+	 *
 	 * @param k key
 	 * @param d default value
 	 * @param comment the in-file comment
@@ -210,11 +212,11 @@ public class PropertyManager {
 	{
 		addProperty(new DoubleProperty(k, d, comment));
 	}
-	
-	
+
+
 	/**
 	 * Add a numeric property
-	 * 
+	 *
 	 * @param k key
 	 * @param d default value
 	 * @param comment the in-file comment
@@ -223,11 +225,11 @@ public class PropertyManager {
 	{
 		addProperty(new IntegerProperty(k, d, comment));
 	}
-	
-	
+
+
 	/**
 	 * Add a string property
-	 * 
+	 *
 	 * @param k key
 	 * @param d default value
 	 * @param comment the in-file comment
@@ -236,22 +238,22 @@ public class PropertyManager {
 	{
 		addProperty(new StringProperty(k, d, comment));
 	}
-	
-	
+
+
 	/**
 	 * Add a generic property (can be used with custom property types)
-	 * 
+	 *
 	 * @param prop property to add
 	 */
 	public <T> void addProperty(Property<T> prop)
 	{
 		entries.put(prop.getKey(), prop);
 	}
-	
-	
+
+
 	/**
 	 * Rename key before loading; value is preserved
-	 * 
+	 *
 	 * @param oldKey old key
 	 * @param newKey new key
 	 */
@@ -260,11 +262,11 @@ public class PropertyManager {
 		renameTable.put(oldKey, newKey);
 		return;
 	}
-	
-	
+
+
 	/**
 	 * Set value saved to certain key.
-	 * 
+	 *
 	 * @param key key
 	 * @param value the saved value
 	 */
@@ -272,16 +274,16 @@ public class PropertyManager {
 	{
 		getProperty(key).setValue(value);
 	}
-	
-	
+
+
 	/**
 	 * Set heading comment of the property store.
-	 * 
+	 *
 	 * @param fileComment comment text (can be multi-line)
 	 */
 	public void setFileComment(String fileComment)
 	{
 		props.setComment(fileComment);
 	}
-	
+
 }

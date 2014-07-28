@@ -14,14 +14,14 @@ import mightypork.utils.annotations.Alias;
 
 /**
  * Miscelanous utilities
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 public final class Support {
 	
 	/**
 	 * Create a new thread of the runnable, and start it.
-	 * 
+	 *
 	 * @param r runnable
 	 * @return the thread started
 	 */
@@ -35,7 +35,7 @@ public final class Support {
 	
 	/**
 	 * Pick first non-null option
-	 * 
+	 *
 	 * @param options options
 	 * @return the selected option
 	 */
@@ -51,7 +51,7 @@ public final class Support {
 	
 	/**
 	 * Get current time/date for given format.
-	 * 
+	 *
 	 * @param format format, according to {@link DateFormat}.
 	 * @return the formatted time/date
 	 */
@@ -64,7 +64,7 @@ public final class Support {
 	/**
 	 * Parse array of vararg key, value pairs to a LinkedHashMap.<br>
 	 * Example:
-	 * 
+	 *
 	 * <pre>
 	 * Object[] array = {
 	 *     &quot;one&quot;, 1,
@@ -72,10 +72,10 @@ public final class Support {
 	 *     &quot;three&quot;, 9,
 	 *     &quot;four&quot;, 16
 	 * };
-	 * 
+	 *
 	 * Map&lt;String, Integer&gt; args = parseVarArgs(array);
 	 * </pre>
-	 * 
+	 *
 	 * @param args varargs
 	 * @return LinkedHashMap
 	 * @throws ClassCastException in case of incompatible type in the array
@@ -107,7 +107,7 @@ public final class Support {
 	
 	/**
 	 * Get if an Object is in array (using equals)
-	 * 
+	 *
 	 * @param needle checked Object
 	 * @param haystack array of Objects
 	 * @return is in array
@@ -123,7 +123,7 @@ public final class Support {
 	
 	/**
 	 * Get if string is in array
-	 * 
+	 *
 	 * @param needle checked string
 	 * @param case_sensitive case sensitive comparision
 	 * @param haystack array of possible values
@@ -144,7 +144,7 @@ public final class Support {
 	
 	/**
 	 * Make enumeration iterable
-	 * 
+	 *
 	 * @param enumeration enumeration
 	 * @return iterable wrapper
 	 */
@@ -155,7 +155,7 @@ public final class Support {
 	
 	/**
 	 * Helper class for iterationg over an {@link Enumeration}
-	 * 
+	 *
 	 * @author Ondřej Hruška (MightyPork)
 	 * @param <T> target element type (will be cast)
 	 */
@@ -167,7 +167,8 @@ public final class Support {
 		/**
 		 * @param enumeration the iterated enumeration
 		 */
-		public IterableEnumerationWrapper(Enumeration<? extends T> enumeration) {
+		public IterableEnumerationWrapper(Enumeration<? extends T> enumeration)
+		{
 			this.enumeration = enumeration;
 		}
 		
@@ -205,9 +206,9 @@ public final class Support {
 	/**
 	 * Convert a class to string, preserving name and outer class, but excluding
 	 * path.
-	 * 
-	 * @param cls
-	 * @return
+	 *
+	 * @param cls the class
+	 * @return class name
 	 */
 	public static String str(Class<?> cls)
 	{
@@ -236,7 +237,7 @@ public final class Support {
 	
 	/**
 	 * Convert double to string, remove the mess at the end.
-	 * 
+	 *
 	 * @param d double
 	 * @return string
 	 */
@@ -253,7 +254,7 @@ public final class Support {
 	
 	/**
 	 * Convert float to string, remove the mess at the end.
-	 * 
+	 *
 	 * @param f float
 	 * @return string
 	 */
@@ -270,7 +271,7 @@ public final class Support {
 	/**
 	 * Convert object to string. If the object overrides toString(), it is
 	 * caled. Otherwise it's class name is converted to string.
-	 * 
+	 *
 	 * @param o object
 	 * @return string representation
 	 */

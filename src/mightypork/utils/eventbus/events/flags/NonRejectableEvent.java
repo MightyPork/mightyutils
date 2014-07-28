@@ -10,12 +10,12 @@ import java.lang.annotation.Target;
 
 /**
  * Event that is forcibly delivered to all clients (bypass Toggleable etc)
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Target(ElementType.TYPE)
 public @interface NonRejectableEvent {
-	
+
 }

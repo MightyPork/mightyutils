@@ -3,37 +3,38 @@ package mightypork.utils.struct;
 
 /**
  * Structure of 2 objects.
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  * @copy (c) 2012
  * @param <T1> 1st object class
  * @param <T2> 2nd object class
  */
 public class Pair<T1, T2> {
-	
+
 	/**
 	 * 1st object
 	 */
 	public T1 first;
-	
+
 	/**
 	 * 2nd object
 	 */
 	public T2 second;
-	
-	
+
+
 	/**
 	 * Make structure of 2 objects
-	 * 
+	 *
 	 * @param first 1st object
 	 * @param second 2nd object
 	 */
-	public Pair(T1 first, T2 second) {
+	public Pair(T1 first, T2 second)
+	{
 		this.first = first;
 		this.second = second;
 	}
-	
-	
+
+
 	/**
 	 * @return 1st object
 	 */
@@ -41,8 +42,8 @@ public class Pair<T1, T2> {
 	{
 		return first;
 	}
-	
-	
+
+
 	/**
 	 * @return 2nd object
 	 */
@@ -50,8 +51,8 @@ public class Pair<T1, T2> {
 	{
 		return second;
 	}
-	
-	
+
+
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -67,8 +68,8 @@ public class Pair<T1, T2> {
 		} else if (!second.equals(other.second)) return false;
 		return true;
 	}
-	
-	
+
+
 	@Override
 	public int hashCode()
 	{
@@ -78,12 +79,12 @@ public class Pair<T1, T2> {
 		result = prime * result + ((second == null) ? 0 : second.hashCode());
 		return result;
 	}
-	
-	
+
+
 	@Override
 	public String toString()
 	{
 		return "PAIR{" + first + "," + second + "}";
 	}
-	
+
 }

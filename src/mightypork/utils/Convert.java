@@ -4,14 +4,14 @@ package mightypork.utils;
 /**
  * Utility for converting Object to data types; Can also convert strings to data
  * types.
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 public class Convert {
-	
+
 	/**
 	 * Get INTEGER
-	 * 
+	 *
 	 * @param o object
 	 * @param def default value
 	 * @return integer
@@ -26,11 +26,11 @@ public class Convert {
 		} catch (final NumberFormatException e) {}
 		return def;
 	}
-	
-	
+
+
 	/**
 	 * Get DOUBLE
-	 * 
+	 *
 	 * @param o object
 	 * @param def default value
 	 * @return double
@@ -45,11 +45,11 @@ public class Convert {
 		} catch (final NumberFormatException e) {}
 		return def;
 	}
-	
-	
+
+
 	/**
 	 * Get FLOAT
-	 * 
+	 *
 	 * @param o object
 	 * @param def default value
 	 * @return float
@@ -62,11 +62,11 @@ public class Convert {
 		} catch (final NumberFormatException e) {}
 		return def;
 	}
-	
-	
+
+
 	/**
 	 * Get BOOLEAN
-	 * 
+	 *
 	 * @param o object
 	 * @param def default value
 	 * @return boolean
@@ -76,7 +76,7 @@ public class Convert {
 		if (o == null) return def;
 		if (o instanceof Boolean) return ((Boolean) o).booleanValue();
 		if (o instanceof Number) return ((Number) o).intValue() != 0;
-		
+
 		if (o instanceof String) {
 			final String s = ((String) o).trim().toLowerCase();
 			if (s.equals("0")) return false;
@@ -85,26 +85,26 @@ public class Convert {
 				final double n = Double.parseDouble(s);
 				return n != 0;
 			} catch (final NumberFormatException e) {}
-			
+
 			if (s.equals("true")) return true;
 			if (s.equals("yes")) return true;
 			if (s.equals("y")) return true;
 			if (s.equals("a")) return true;
 			if (s.equals("enabled")) return true;
-			
+
 			if (s.equals("false")) return false;
 			if (s.equals("no")) return false;
 			if (s.equals("n")) return false;
 			if (s.equals("disabled")) return true;
 		}
-		
+
 		return def;
 	}
-	
-	
+
+
 	/**
 	 * Get STRING
-	 * 
+	 *
 	 * @param o object
 	 * @param def default value
 	 * @return String
@@ -113,22 +113,22 @@ public class Convert {
 	{
 		if (o == null) return def;
 		if (o instanceof String) return ((String) o);
-		
+
 		if (o instanceof Float) return Support.str((float) o);
-		
+
 		if (o instanceof Double) return Support.str((double) o);
-		
+
 		if (o instanceof Class<?>) {
 			return Support.str(o);
 		}
-		
+
 		return o.toString();
 	}
-	
-	
+
+
 	/**
 	 * Get INTEGER
-	 * 
+	 *
 	 * @param o object
 	 * @return integer
 	 */
@@ -136,11 +136,11 @@ public class Convert {
 	{
 		return toInteger(o, 0);
 	}
-	
-	
+
+
 	/**
 	 * Get DOUBLE
-	 * 
+	 *
 	 * @param o object
 	 * @return double
 	 */
@@ -148,11 +148,11 @@ public class Convert {
 	{
 		return toDouble(o, 0d);
 	}
-	
-	
+
+
 	/**
 	 * Get FLOAT
-	 * 
+	 *
 	 * @param o object
 	 * @return float
 	 */
@@ -160,11 +160,11 @@ public class Convert {
 	{
 		return toFloat(o, 0f);
 	}
-	
-	
+
+
 	/**
 	 * Get BOOLEAN
-	 * 
+	 *
 	 * @param o object
 	 * @return boolean
 	 */
@@ -172,11 +172,11 @@ public class Convert {
 	{
 		return toBoolean(o, false);
 	}
-	
-	
+
+
 	/**
 	 * Get STRING
-	 * 
+	 *
 	 * @param o object
 	 * @return String
 	 */

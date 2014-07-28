@@ -6,11 +6,11 @@ import mightypork.utils.math.color.Color;
 
 /**
  * COMMODORE palette
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 public interface CMDR {
-	
+
 	Color BLACK = Color.fromHex(0x040013);
 	Color WHITE = Color.fromHex(0xFFFFFF);
 	Color RED = Color.fromHex(0x883932);

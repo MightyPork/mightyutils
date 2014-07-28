@@ -9,14 +9,14 @@ import mightypork.utils.math.constraints.num.Num;
 
 /**
  * Expandable sum of multiple numbers
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 public class NumSum extends Num {
-	
+
 	private final List<Num> summands = new ArrayList<>();
-	
-	
+
+
 	@Override
 	public double value()
 	{
@@ -26,22 +26,22 @@ public class NumSum extends Num {
 		}
 		return v;
 	}
-	
-	
+
+
 	/**
 	 * Add a number to the sum
-	 * 
+	 *
 	 * @param summand added number
 	 */
 	public void addSummand(Num summand)
 	{
 		summands.add(summand);
 	}
-	
-	
+
+
 	/**
 	 * Add a number to the sum
-	 * 
+	 *
 	 * @param summand added number
 	 */
 	public void addSummand(double summand)

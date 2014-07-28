@@ -7,21 +7,23 @@ import mightypork.utils.config.propmgr.Property;
 
 /**
  * Boolean property
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 public class BooleanProperty extends Property<Boolean> {
-	
-	public BooleanProperty(String key, Boolean defaultValue) {
+
+	public BooleanProperty(String key, Boolean defaultValue)
+	{
 		super(key, defaultValue);
 	}
-	
-	
-	public BooleanProperty(String key, Boolean defaultValue, String comment) {
+
+
+	public BooleanProperty(String key, Boolean defaultValue, String comment)
+	{
 		super(key, defaultValue, comment);
 	}
-	
-	
+
+
 	@Override
 	public void fromString(String string)
 	{

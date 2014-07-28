@@ -3,56 +3,57 @@ package mightypork.utils.struct;
 
 /**
  * Mutable object
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  * @param <T> type
  */
 public class Mutable<T> {
-	
+
 	/** The wrapped value */
 	private T o = null;
-	
-	
+
+
 	/**
 	 * New mutable object
-	 * 
+	 *
 	 * @param o value
 	 */
-	public Mutable(T o) {
+	public Mutable(T o)
+	{
 		this.o = o;
 	}
-	
-	
+
+
 	/**
 	 * Get the wrapped value
-	 * 
+	 *
 	 * @return value
 	 */
 	public T get()
 	{
 		return o;
 	}
-	
-	
+
+
 	/**
 	 * Set value
-	 * 
+	 *
 	 * @param o new value to set
 	 */
 	public void set(T o)
 	{
 		this.o = o;
 	}
-	
-	
+
+
 	@Override
 	public String toString()
 	{
 		if (o == null) return "<null>";
 		return o.toString();
 	}
-	
-	
+
+
 	@Override
 	public int hashCode()
 	{
@@ -61,8 +62,8 @@ public class Mutable<T> {
 		result = prime * result + ((o == null) ? 0 : o.hashCode());
 		return result;
 	}
-	
-	
+
+
 	@Override
 	public boolean equals(Object obj)
 	{

@@ -9,23 +9,23 @@ import java.nio.channels.FileLock;
 
 /**
  * Instance lock (avoid running twice)
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 public class InstanceLock {
-	
+
 	@SuppressWarnings("resource")
 	public static boolean onFile(final File lockFile)
 	{
 		try {
 			lockFile.getParentFile().mkdirs();
 			final RandomAccessFile randomAccessFile = new RandomAccessFile(lockFile, "rw");
-			
+
 			final FileLock fileLock = randomAccessFile.getChannel().tryLock();
 			if (fileLock != null) {
-				
+
 				Runtime.getRuntime().addShutdownHook(new Thread() {
-					
+
 					@Override
 					public void run()
 					{
@@ -39,10 +39,10 @@ public class InstanceLock {
 						}
 					}
 				});
-				
+
 				return true;
 			}
-			
+
 			return false;
 		} catch (final IOException e) {
 			System.err.println("IO error while obtaining lock.");
@@ -50,5 +50,5 @@ public class InstanceLock {
 			return false;
 		}
 	}
-	
+
 }

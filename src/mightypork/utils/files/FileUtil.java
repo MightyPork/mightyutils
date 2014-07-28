@@ -1,7 +1,19 @@
 package mightypork.utils.files;
 
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +24,10 @@ import mightypork.utils.string.validation.StringFilter;
 
 public class FileUtil {
 	
+	
 	/**
 	 * Copy directory recursively.
-	 * 
+	 *
 	 * @param source source file
 	 * @param target target file
 	 * @throws IOException on error
@@ -27,7 +40,7 @@ public class FileUtil {
 	
 	/**
 	 * Copy directory recursively - advanced variant.
-	 * 
+	 *
 	 * @param source source file
 	 * @param target target file
 	 * @param filter filter accepting only files and dirs to be copied
@@ -61,7 +74,7 @@ public class FileUtil {
 	
 	/**
 	 * List directory recursively
-	 * 
+	 *
 	 * @param source source file
 	 * @param filter filter accepting only files and dirs to be copied (or null)
 	 * @param files list of the found files
@@ -87,7 +100,7 @@ public class FileUtil {
 	
 	/**
 	 * Copy file using streams. Make sure target directory exists!
-	 * 
+	 *
 	 * @param source source file
 	 * @param target target file
 	 * @throws IOException on error
@@ -95,7 +108,8 @@ public class FileUtil {
 	public static void copyFile(File source, File target) throws IOException
 	{
 		
-		try (InputStream in = new FileInputStream(source); OutputStream out = new FileOutputStream(target)) {
+		try(InputStream in = new FileInputStream(source);
+			OutputStream out = new FileOutputStream(target)) {
 			
 			copyStream(in, out);
 		}
@@ -104,7 +118,7 @@ public class FileUtil {
 	
 	/**
 	 * Copy bytes from input to output stream, leaving out stream open
-	 * 
+	 *
 	 * @param in input stream
 	 * @param out output stream
 	 * @throws IOException on error
@@ -129,7 +143,7 @@ public class FileUtil {
 	
 	/**
 	 * Improved delete
-	 * 
+	 *
 	 * @param path deleted path
 	 * @param recursive recursive delete
 	 * @return success
@@ -153,14 +167,14 @@ public class FileUtil {
 	
 	/**
 	 * Read entire file to a string.
-	 * 
+	 *
 	 * @param file file
 	 * @return file contents
 	 * @throws IOException
 	 */
 	public static String fileToString(File file) throws IOException
 	{
-		try (FileInputStream fin = new FileInputStream(file)) {
+		try(FileInputStream fin = new FileInputStream(file)) {
 			
 			return streamToString(fin);
 		}
@@ -169,7 +183,7 @@ public class FileUtil {
 	
 	/**
 	 * Get files in a folder (create folder if needed)
-	 * 
+	 *
 	 * @param dir folder
 	 * @return list of files
 	 */
@@ -181,7 +195,7 @@ public class FileUtil {
 	
 	/**
 	 * Get files in a folder (create folder if needed)
-	 * 
+	 *
 	 * @param dir folder
 	 * @param filter file filter
 	 * @return list of files
@@ -202,7 +216,7 @@ public class FileUtil {
 	
 	/**
 	 * Remove extension.
-	 * 
+	 *
 	 * @param file file
 	 * @return filename without extension
 	 */
@@ -226,7 +240,7 @@ public class FileUtil {
 	
 	/**
 	 * Remove extension.
-	 * 
+	 *
 	 * @param filename
 	 * @return filename and extension
 	 */
@@ -253,7 +267,7 @@ public class FileUtil {
 	
 	/**
 	 * Read entire input stream to a string, and close it.
-	 * 
+	 *
 	 * @param in input stream
 	 * @return file contents
 	 */
@@ -265,7 +279,7 @@ public class FileUtil {
 	
 	/**
 	 * Read input stream to a string, and close it.
-	 * 
+	 *
 	 * @param in input stream
 	 * @param lines max number of lines (-1 to disable limit)
 	 * @return file contents
@@ -327,9 +341,8 @@ public class FileUtil {
 		if (in != null) return in;
 		
 		try {
-			return new FileInputStream(new File(".", path));
+			return new FileInputStream(WorkDir.getFile(path));
 		} catch (final FileNotFoundException e) {
-			// error			
 			Log.w("Could not open resource stream: " + path);
 			return null;
 		}
@@ -339,20 +352,20 @@ public class FileUtil {
 	
 	public static String getResourceAsString(String path)
 	{
-		return streamToString(FileUtil.class.getResourceAsStream(path));
+		return streamToString(getResource(path));
 	}
 	
 	
 	/**
 	 * Save string to file
-	 * 
+	 *
 	 * @param file file
 	 * @param text string
 	 * @throws IOException on error
 	 */
 	public static void stringToFile(File file, String text) throws IOException
 	{
-		try (PrintStream out = new PrintStream(new FileOutputStream(file), false, "UTF-8")) {
+		try(PrintStream out = new PrintStream(new FileOutputStream(file), false, "UTF-8")) {
 			
 			out.print(text);
 			
@@ -393,14 +406,15 @@ public class FileUtil {
 	
 	/**
 	 * Copy resource to file
-	 * 
+	 *
 	 * @param resname resource name
 	 * @param file out file
 	 * @throws IOException
 	 */
 	public static void resourceToFile(String resname, File file) throws IOException
 	{
-		try (InputStream in = FileUtil.getResource(resname); OutputStream out = new FileOutputStream(file)) {
+		try(InputStream in = FileUtil.getResource(resname);
+			OutputStream out = new FileOutputStream(file)) {
 			
 			FileUtil.copyStream(in, out);
 		}
@@ -410,14 +424,14 @@ public class FileUtil {
 	
 	/**
 	 * Get resource as string, safely closing streams.
-	 * 
+	 *
 	 * @param resname resource name
 	 * @return resource as string, empty string on failure
 	 * @throws IOException on fail
 	 */
 	public static String resourceToString(String resname) throws IOException
 	{
-		try (InputStream in = FileUtil.getResource(resname)) {
+		try(InputStream in = FileUtil.getResource(resname)) {
 			return streamToString(in);
 		}
 	}

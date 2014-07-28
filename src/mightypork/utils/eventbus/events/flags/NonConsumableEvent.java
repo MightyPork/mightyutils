@@ -10,12 +10,12 @@ import java.lang.annotation.Target;
 
 /**
  * Event that cannot be consumed
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Target(ElementType.TYPE)
 public @interface NonConsumableEvent {
-	
+
 }

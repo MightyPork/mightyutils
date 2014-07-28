@@ -30,23 +30,23 @@ import java.util.Comparator;
 
 /**
  * String comparator taking care of strings with numbers.
- * 
+ *
  * @author Daniel Migowski
  * @author Andre Bogus
  * @author David Koelle
  * @author Ondřej Hruška (MightyPork)
  */
 public class AlphanumComparator implements Comparator<String> {
-	
+
 	public static final AlphanumComparator instance = new AlphanumComparator();
-	
-	
+
+
 	private final boolean isDigit(char ch)
 	{
 		return ch >= '0' && ch <= '9';
 	}
-	
-	
+
+
 	/**
 	 * Length of string is passed in for improved efficiency (only need to
 	 * calculate it once)
@@ -57,7 +57,7 @@ public class AlphanumComparator implements Comparator<String> {
 		char c = s.charAt(marker);
 		chunk.append(c);
 		marker++;
-		
+
 		if (isDigit(c)) {
 			while (marker < slength) {
 				c = s.charAt(marker);
@@ -75,8 +75,8 @@ public class AlphanumComparator implements Comparator<String> {
 		}
 		return chunk.toString();
 	}
-	
-	
+
+
 	@Override
 	public int compare(String s1, String s2)
 	{
@@ -84,14 +84,14 @@ public class AlphanumComparator implements Comparator<String> {
 		int thatMarker = 0;
 		final int s1Length = s1.length();
 		final int s2Length = s2.length();
-		
+
 		while (thisMarker < s1Length && thatMarker < s2Length) {
 			final String thisChunk = getChunk(s1, s1Length, thisMarker);
 			thisMarker += thisChunk.length();
-			
+
 			final String thatChunk = getChunk(s2, s2Length, thatMarker);
 			thatMarker += thatChunk.length();
-			
+
 			// If both chunks contain numeric characters, sort them numerically
 			int result = 0;
 			if (isDigit(thisChunk.charAt(0)) && isDigit(thatChunk.charAt(0))) {
@@ -110,10 +110,10 @@ public class AlphanumComparator implements Comparator<String> {
 			} else {
 				result = thisChunk.compareTo(thatChunk);
 			}
-			
+
 			if (result != 0) return result;
 		}
-		
+
 		return s1Length - s2Length;
 	}
 }

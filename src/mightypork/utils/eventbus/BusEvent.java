@@ -26,73 +26,73 @@ import mightypork.utils.eventbus.events.flags.SingleReceiverEvent;
  * Default sending mode (if not changed by annotations) is <i>queued</i> with
  * zero delay.
  * </p>
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  * @param <HANDLER> handler type
  */
 public abstract class BusEvent<HANDLER> {
-	
+
 	private boolean consumed;
 	private boolean served;
-	
-	
+
+
 	/**
 	 * Ask handler to handle this message.
-	 * 
+	 *
 	 * @param handler handler instance
 	 */
 	protected abstract void handleBy(HANDLER handler);
-	
-	
+
+
 	/**
 	 * Consume the event, so no other clients will receive it.
-	 * 
+	 *
 	 * @throws UnsupportedOperationException if the {@link NonConsumableEvent}
 	 *             annotation is present.
 	 */
 	public final void consume()
 	{
 		if (consumed) throw new IllegalStateException("Already consumed.");
-		
+
 		if (getClass().isAnnotationPresent(NonConsumableEvent.class)) {
 			throw new UnsupportedOperationException("Not consumable.");
 		}
-		
+
 		consumed = true;
 	}
-	
-	
+
+
 	/**
 	 * Deliver to a handler using the handleBy method.
-	 * 
+	 *
 	 * @param handler handler instance
 	 */
 	final void deliverTo(HANDLER handler)
 	{
 		handleBy(handler);
-		
+
 		if (!served) {
 			if (getClass().isAnnotationPresent(SingleReceiverEvent.class)) {
 				consumed = true;
 			}
-			
+
 			served = true;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Check if the event is consumed. When an event is consumed, no other
 	 * clients will receive it.
-	 * 
+	 *
 	 * @return true if consumed
 	 */
 	public final boolean isConsumed()
 	{
 		return consumed;
 	}
-	
-	
+
+
 	/**
 	 * @return true if the event was served to at least 1 client
 	 */
@@ -100,8 +100,8 @@ public abstract class BusEvent<HANDLER> {
 	{
 		return served;
 	}
-	
-	
+
+
 	/**
 	 * Clear "served" and "consumed" flags before dispatching.
 	 */
@@ -110,11 +110,11 @@ public abstract class BusEvent<HANDLER> {
 		served = false;
 		consumed = false;
 	}
-	
-	
+
+
 	/**
 	 * Called after all clients have received the event.
-	 * 
+	 *
 	 * @param bus event bus instance
 	 */
 	public void onDispatchComplete(EventBus bus)

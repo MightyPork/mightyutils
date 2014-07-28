@@ -12,34 +12,34 @@ import java.util.Map;
 /**
  * Ion data bundle - simplified Map with facilities for storing maps and
  * sequences.
- * 
+ *
  * @author Ondřej Hruška (MightyPork)
  */
 public class IonDataBundle implements IonBinary {
-	
+
 	private final Map<String, Object> backingMap = new HashMap<>();
-	
-	
+
+
 	/**
 	 * Clear & fill a provided bundle with elements from a bundle value
-	 * 
+	 *
 	 * @param key key
 	 * @param filled bundle to fill
 	 */
 	public void loadBundle(String key, IonDataBundle filled)
 	{
 		if (!containsKey(key)) return;
-		
+
 		final IonDataBundle ib = get(key, new IonDataBundle());
-		
+
 		filled.clear();
 		filled.putAll(ib);
 	}
-	
-	
+
+
 	/**
 	 * Check if a key is used in the bundle
-	 * 
+	 *
 	 * @param key key to check
 	 * @return true if this key is used in the bundle
 	 */
@@ -47,11 +47,11 @@ public class IonDataBundle implements IonBinary {
 	{
 		return backingMap.containsKey(key);
 	}
-	
-	
+
+
 	/**
 	 * Check if a value is contained in the bundle
-	 * 
+	 *
 	 * @param value value to check
 	 * @return true if this value is contained in the bundle
 	 */
@@ -59,11 +59,11 @@ public class IonDataBundle implements IonBinary {
 	{
 		return backingMap.containsValue(value);
 	}
-	
-	
+
+
 	/**
 	 * Get a map value
-	 * 
+	 *
 	 * @param key key
 	 * @return a new Map with elements from that value
 	 */
@@ -71,11 +71,11 @@ public class IonDataBundle implements IonBinary {
 	{
 		return loadMap(key, new LinkedHashMap<K, V>());
 	}
-	
-	
+
+
 	/**
 	 * Clear & fill the provided map with elements from a map value
-	 * 
+	 *
 	 * @param key key
 	 * @param filled Map to fill
 	 */
@@ -87,11 +87,11 @@ public class IonDataBundle implements IonBinary {
 		imw.fill(filled);
 		return filled;
 	}
-	
-	
+
+
 	/**
 	 * Get a sequence value
-	 * 
+	 *
 	 * @param key key
 	 * @return a new Collection with elements from that value
 	 */
@@ -99,11 +99,11 @@ public class IonDataBundle implements IonBinary {
 	{
 		return loadSequence(key, new ArrayList<E>());
 	}
-	
-	
+
+
 	/**
 	 * Clear & fill the provided Collection with elements from a sequence value
-	 * 
+	 *
 	 * @param key key
 	 * @param filled Collection to fill
 	 * @return the filled collection
@@ -114,15 +114,15 @@ public class IonDataBundle implements IonBinary {
 		if (isw == null) throw new RuntimeException("No such key: " + key);
 		filled.clear();
 		isw.fill(filled);
-		
+
 		return filled;
 	}
-	
-	
+
+
 	/**
 	 * Load a bundled object from a bundle value.<br>
 	 * The object does not have to be registered.
-	 * 
+	 *
 	 * @param key key
 	 * @param loaded loaded object
 	 * @return the loaded object
@@ -131,17 +131,17 @@ public class IonDataBundle implements IonBinary {
 	{
 		final IonDataBundle bu = get(key, null);
 		if (bu == null) throw new RuntimeException("No such key: " + key);
-		
+
 		loaded.load(bu);
-		
+
 		return loaded;
 	}
-	
-	
+
+
 	/**
 	 * Save a bundled object to a bundle value.<br>
 	 * The object does not have to be registered.
-	 * 
+	 *
 	 * @param key key
 	 * @param saved saved object
 	 */
@@ -151,11 +151,11 @@ public class IonDataBundle implements IonBinary {
 		saved.save(bu);
 		put(key, bu);
 	}
-	
-	
+
+
 	/**
 	 * Get value, or fallback (if none found of with bad type).
-	 * 
+	 *
 	 * @param key
 	 * @param fallback value
 	 * @return value
@@ -170,11 +170,11 @@ public class IonDataBundle implements IonBinary {
 			return fallback;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Get value, or null (if none found of with bad type).
-	 * 
+	 *
 	 * @param key
 	 * @return value
 	 */
@@ -182,127 +182,127 @@ public class IonDataBundle implements IonBinary {
 	{
 		return get(key, (T) null);
 	}
-	
-	
+
+
 	public void put(String key, Object value)
 	{
 		if (key == null || value == null) return;
 		if (!Ion.isRegistered(value)) throw new IllegalArgumentException("Cannot add to bundle, not registered: " + value);
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, boolean value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, byte value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, char value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, short value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, int value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, long value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, double value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, float value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, String value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, boolean[] value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, char[] value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, short[] value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, int[] value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, long[] value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, double[] value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, float[] value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, String[] value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	public void put(String key, Object[] value)
 	{
 		backingMap.put(key, value);
 	}
-	
-	
+
+
 	/**
 	 * Put a sequence to the bundle.
-	 * 
+	 *
 	 * @param key key
 	 * @param c value (Collection)
 	 */
@@ -311,11 +311,11 @@ public class IonDataBundle implements IonBinary {
 	{
 		backingMap.put(key, new IonSequenceWrapper(c));
 	}
-	
-	
+
+
 	/**
 	 * Put a map to the bundle.
-	 * 
+	 *
 	 * @param key key
 	 * @param m value (Map)
 	 */
@@ -324,44 +324,44 @@ public class IonDataBundle implements IonBinary {
 	{
 		backingMap.put(key, new IonMapWrapper(m));
 	}
-	
-	
+
+
 	@Override
 	public void load(IonInput in) throws IOException
 	{
 		in.readMap(backingMap);
 	}
-	
-	
+
+
 	@Override
 	public void save(IonOutput out) throws IOException
 	{
 		out.writeMap(backingMap);
 	}
-	
-	
+
+
 	/**
 	 * Get number of elements in the bundle
-	 * 
+	 *
 	 * @return size
 	 */
 	public int size()
 	{
 		return backingMap.size();
 	}
-	
-	
+
+
 	/**
 	 * Check whether the bundle is empty
-	 * 
+	 *
 	 * @return true if empty
 	 */
 	public boolean isEmpty()
 	{
 		return backingMap.isEmpty();
 	}
-	
-	
+
+
 	/**
 	 * Remove all elements
 	 */
@@ -369,11 +369,11 @@ public class IonDataBundle implements IonBinary {
 	{
 		backingMap.clear();
 	}
-	
-	
+
+
 	/**
 	 * Remove a value by key
-	 * 
+	 *
 	 * @param key key to remove
 	 * @return the removed object
 	 */
@@ -381,26 +381,26 @@ public class IonDataBundle implements IonBinary {
 	{
 		return backingMap.remove(key);
 	}
-	
-	
+
+
 	/**
 	 * Put all from another bundle
-	 * 
+	 *
 	 * @param anotherBundle another bundle
 	 */
 	public void putAll(IonDataBundle anotherBundle)
 	{
 		backingMap.putAll(anotherBundle.backingMap);
 	}
-	
-	
+
+
 	@Override
 	public String toString()
 	{
 		return backingMap.toString();
 	}
-	
-	
+
+
 	@Override
 	public int hashCode()
 	{
@@ -409,8 +409,8 @@ public class IonDataBundle implements IonBinary {
 		result = prime * result + ((backingMap == null) ? 0 : backingMap.hashCode());
 		return result;
 	}
-	
-	
+
+
 	@Override
 	public boolean equals(Object obj)
 	{
