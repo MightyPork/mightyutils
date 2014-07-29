@@ -12,16 +12,16 @@ import java.util.Collection;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface DelegatingClient {
-
+	
 	/**
 	 * @return collection of child clients. Can not be null.
 	 */
 	public Collection<?> getChildClients();
-
-
+	
+	
 	/**
 	 * @return true if delegating is active
 	 */
 	public boolean doesDelegate();
-
+	
 }

@@ -16,7 +16,7 @@ import java.util.Map.Entry;
  * @author Ondřej Hruška (MightyPork)
  */
 public class MapSort {
-	
+
 	/**
 	 * Sort a map by keys, maintaining key-value pairs, using natural order.
 	 *
@@ -28,8 +28,8 @@ public class MapSort {
 	{
 		return byKeys(map, null);
 	}
-	
-	
+
+
 	/**
 	 * Sort a map by keys, maintaining key-value pairs.
 	 *
@@ -41,10 +41,10 @@ public class MapSort {
 	public static <K, V> LinkedHashMap<K, V> byKeys(Map<K, V> map, Comparator<K> comparator)
 	{
 		final List<K> keys = new LinkedList<>(map.keySet());
-		
+
 		if (comparator == null) {
 			comparator = new Comparator<K>() {
-				
+
 				@Override
 				public int compare(K arg0, K arg1)
 				{
@@ -52,18 +52,18 @@ public class MapSort {
 				}
 			};
 		}
-		
+
 		Collections.sort(keys, comparator);
-		
+
 		final LinkedHashMap<K, V> sortedMap = new LinkedHashMap<>();
 		for (final K key : keys) {
 			sortedMap.put(key, map.get(key));
 		}
-		
+
 		return sortedMap;
 	}
-	
-	
+
+
 	/**
 	 * Sort a map by values, maintaining key-value pairs, using natural order.
 	 *
@@ -75,8 +75,8 @@ public class MapSort {
 	{
 		return byValues(map, null);
 	}
-	
-	
+
+
 	/**
 	 * Sort a map by values, maintaining key-value pairs.
 	 *
@@ -87,9 +87,9 @@ public class MapSort {
 	public static <K, V> LinkedHashMap<K, V> byValues(Map<K, V> map, final Comparator<V> comparator)
 	{
 		final List<Map.Entry<K, V>> entries = new LinkedList<>(map.entrySet());
-		
+
 		Collections.sort(entries, new Comparator<Map.Entry<K, V>>() {
-			
+
 			@SuppressWarnings("unchecked")
 			@Override
 			public int compare(Entry<K, V> o1, Entry<K, V> o2)
@@ -98,13 +98,13 @@ public class MapSort {
 				return comparator.compare(o1.getValue(), o2.getValue());
 			}
 		});
-		
+
 		final LinkedHashMap<K, V> sortedMap = new LinkedHashMap<>();
-		
+
 		for (final Map.Entry<K, V> entry : entries) {
 			sortedMap.put(entry.getKey(), entry.getValue());
 		}
-		
+
 		return sortedMap;
 	}
 }

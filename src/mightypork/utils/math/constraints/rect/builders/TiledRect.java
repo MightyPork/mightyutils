@@ -13,29 +13,29 @@ import mightypork.utils.math.constraints.vect.Vect;
  * @author Ondřej Hruška (MightyPork)
  */
 public class TiledRect extends RectProxy {
-
+	
 	final private int tilesY;
 	final private int tilesX;
 	final private Num perRow;
 	final private Num perCol;
-
+	
 	/** Left top tile */
 	private Rect aTile;
-
-
+	
+	
 	public TiledRect(Rect source, int horizontal, int vertical)
 	{
 		super(source);
 		this.tilesX = horizontal;
 		this.tilesY = vertical;
-
+		
 		this.perRow = height().div(vertical);
 		this.perCol = width().div(horizontal);
-
+		
 		this.aTile = Rect.make(origin(), perCol, perRow);
 	}
-
-
+	
+	
 	/**
 	 * Set tile overlap. Applies only to tile, not span.
 	 *
@@ -45,8 +45,8 @@ public class TiledRect extends RectProxy {
 	{
 		aTile = aTile.grow(overlap);
 	}
-
-
+	
+	
 	/**
 	 * Get a tile.
 	 *
@@ -60,15 +60,15 @@ public class TiledRect extends RectProxy {
 		if (x >= tilesX || x < 0) {
 			throw new IndexOutOfBoundsException("X coordinate out fo range: " + x);
 		}
-
+		
 		if (y >= tilesY || y < 0) {
 			throw new IndexOutOfBoundsException("Y coordinate out of range: " + y);
 		}
-
+		
 		return aTile.move(perCol.mul(x), perRow.mul(y));
 	}
-
-
+	
+	
 	/**
 	 * Get a span (tile spanning across multiple cells)
 	 *
@@ -83,25 +83,25 @@ public class TiledRect extends RectProxy {
 	{
 		final int x_to = x + size_x - 1;
 		final int y_to = y + size_y - 1;
-
+		
 		if (size_x <= 0 || size_y <= 0) {
 			throw new IndexOutOfBoundsException("Size must be > 0.");
 		}
-
+		
 		if (x >= tilesX || x < 0 || x_to >= tilesX || x_to < 0) {
 			throw new IndexOutOfBoundsException("X coordinate(s) out of range.");
 		}
-
+		
 		if (y >= tilesY || y < 0 || y_to >= tilesY || y_to < 0) {
 			throw new IndexOutOfBoundsException("Y coordinate(s) out of range.");
 		}
-
+		
 		final Vect orig = origin().add(perCol.mul(x), perRow.mul(y));
-
+		
 		return Rect.make(orig, perCol.mul(size_x), perRow.mul(size_y));
 	}
-
-
+	
+	
 	/**
 	 * Get n-th column
 	 *
@@ -113,8 +113,8 @@ public class TiledRect extends RectProxy {
 	{
 		return tile(n, 0);
 	}
-
-
+	
+	
 	/**
 	 * Get n-th row
 	 *

@@ -14,14 +14,14 @@ import mightypork.utils.annotations.Stub;
  * @param <T> property type
  */
 public abstract class Property<T> {
-	
+
 	protected final String comment;
 	protected final String key;
-	
+
 	protected T value;
 	protected final T defaultValue;
-	
-	
+
+
 	/**
 	 * Create a property without comment
 	 *
@@ -33,8 +33,8 @@ public abstract class Property<T> {
 	{
 		this(key, defaultValue, null);
 	}
-	
-	
+
+
 	/**
 	 * Create a property with a comment
 	 *
@@ -51,8 +51,8 @@ public abstract class Property<T> {
 		this.value = defaultValue;
 		this.defaultValue = defaultValue;
 	}
-	
-	
+
+
 	/**
 	 * Parse a string representation of the value into this property. If the
 	 * value cannot be decoded, use the default value instead.
@@ -60,8 +60,8 @@ public abstract class Property<T> {
 	 * @param string property value as string
 	 */
 	public abstract void fromString(String string);
-	
-	
+
+
 	/**
 	 * Get property value as string (compatible with `fromString())
 	 *
@@ -73,8 +73,8 @@ public abstract class Property<T> {
 	{
 		return Convert.toString(value, Convert.toString(defaultValue));
 	}
-	
-	
+
+
 	/**
 	 * Get the current property value
 	 *
@@ -84,8 +84,8 @@ public abstract class Property<T> {
 	{
 		return value;
 	}
-	
-	
+
+
 	/**
 	 * Set property value.<br>
 	 * Uses Object to allow setValue(Object) method in {@link PropertyManager}
@@ -98,8 +98,8 @@ public abstract class Property<T> {
 	{
 		this.value = (T) value;
 	}
-	
-	
+
+
 	/**
 	 * Get property comment.
 	 *
@@ -109,8 +109,8 @@ public abstract class Property<T> {
 	{
 		return comment;
 	}
-	
-	
+
+
 	/**
 	 * Get property key
 	 *

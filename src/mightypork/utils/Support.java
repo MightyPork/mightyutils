@@ -9,8 +9,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import mightypork.utils.annotations.Alias;
-
 
 /**
  * Miscelanous utilities
@@ -18,7 +16,7 @@ import mightypork.utils.annotations.Alias;
  * @author Ondřej Hruška (MightyPork)
  */
 public final class Support {
-	
+
 	/**
 	 * Create a new thread of the runnable, and start it.
 	 *
@@ -31,8 +29,8 @@ public final class Support {
 		t.start();
 		return t;
 	}
-	
-	
+
+
 	/**
 	 * Pick first non-null option
 	 *
@@ -44,11 +42,11 @@ public final class Support {
 		for (final Object o : options) {
 			if (o != null) return o;
 		}
-		
+
 		return null; // all null
 	}
-	
-	
+
+
 	/**
 	 * Get current time/date for given format.
 	 *
@@ -59,8 +57,8 @@ public final class Support {
 	{
 		return (new SimpleDateFormat(format)).format(new Date());
 	}
-	
-	
+
+
 	/**
 	 * Parse array of vararg key, value pairs to a LinkedHashMap.<br>
 	 * Example:
@@ -85,11 +83,11 @@ public final class Support {
 	public static <K, V> Map<K, V> parseVarArgs(Object... args) throws ClassCastException, IllegalArgumentException
 	{
 		final LinkedHashMap<K, V> attrs = new LinkedHashMap<>();
-		
+
 		if (args.length % 2 != 0) {
 			throw new IllegalArgumentException("Odd number of elements in varargs map!");
 		}
-		
+
 		K key = null;
 		for (final Object o : args) {
 			if (key == null) {
@@ -100,11 +98,11 @@ public final class Support {
 				key = null;
 			}
 		}
-		
+
 		return attrs;
 	}
-	
-	
+
+
 	/**
 	 * Get if an Object is in array (using equals)
 	 *
@@ -119,8 +117,8 @@ public final class Support {
 		}
 		return false;
 	}
-	
-	
+
+
 	/**
 	 * Get if string is in array
 	 *
@@ -140,8 +138,8 @@ public final class Support {
 			return false;
 		}
 	}
-	
-	
+
+
 	/**
 	 * Make enumeration iterable
 	 *
@@ -152,7 +150,7 @@ public final class Support {
 	{
 		return new IterableEnumerationWrapper<>(enumeration);
 	}
-	
+
 	/**
 	 * Helper class for iterationg over an {@link Enumeration}
 	 *
@@ -160,10 +158,10 @@ public final class Support {
 	 * @param <T> target element type (will be cast)
 	 */
 	private static class IterableEnumerationWrapper<T> implements Iterable<T> {
-		
+
 		private final Enumeration<? extends T> enumeration;
-		
-		
+
+
 		/**
 		 * @param enumeration the iterated enumeration
 		 */
@@ -171,27 +169,27 @@ public final class Support {
 		{
 			this.enumeration = enumeration;
 		}
-		
-		
+
+
 		@Override
 		public Iterator<T> iterator()
 		{
 			return new Iterator<T>() {
-				
+
 				@Override
 				public boolean hasNext()
 				{
 					return enumeration.hasMoreElements();
 				}
-				
-				
+
+
 				@Override
 				public T next()
 				{
 					return enumeration.nextElement();
 				}
-				
-				
+
+
 				@Override
 				public void remove()
 				{
@@ -199,99 +197,6 @@ public final class Support {
 				}
 			};
 		}
-		
-	}
-	
-	
-	/**
-	 * Convert a class to string, preserving name and outer class, but excluding
-	 * path.
-	 *
-	 * @param cls the class
-	 * @return class name
-	 */
-	public static String str(Class<?> cls)
-	{
-		final Alias ln = cls.getAnnotation(Alias.class);
-		if (ln != null) {
-			return ln.name();
-		}
-		
-		String name = cls.getName();
-		
-		String sep = "";
-		
-		if (name.contains("$")) {
-			name = name.substring(name.lastIndexOf("$") + 1);
-			sep = "$";
-		} else {
-			name = name.substring(name.lastIndexOf(".") + 1);
-			sep = ".";
-		}
-		
-		final Class<?> enclosing = cls.getEnclosingClass();
-		
-		return (enclosing == null ? "" : Support.str(enclosing) + sep) + name;
-	}
-	
-	
-	/**
-	 * Convert double to string, remove the mess at the end.
-	 *
-	 * @param d double
-	 * @return string
-	 */
-	public static String str(Double d)
-	{
-		String s = d.toString();
-		s = s.replace(',', '.');
-		s = s.replaceAll("([0-9]+\\.[0-9]+)00+[0-9]+", "$1");
-		s = s.replaceAll("0+$", "");
-		s = s.replaceAll("\\.$", "");
-		return s;
-	}
-	
-	
-	/**
-	 * Convert float to string, remove the mess at the end.
-	 *
-	 * @param f float
-	 * @return string
-	 */
-	public static String str(Float f)
-	{
-		String s = f.toString();
-		s = s.replaceAll("([0-9]+\\.[0-9]+)00+[0-9]+", "$1");
-		s = s.replaceAll("0+$", "");
-		s = s.replaceAll("\\.$", "");
-		return s;
-	}
-	
-	
-	/**
-	 * Convert object to string. If the object overrides toString(), it is
-	 * caled. Otherwise it's class name is converted to string.
-	 *
-	 * @param o object
-	 * @return string representation
-	 */
-	public static String str(Object o)
-	{
-		if (o == null) return "<null>";
-		
-		boolean hasToString = false;
-		
-		try {
-			hasToString = (o.getClass().getMethod("toString").getDeclaringClass() != Object.class);
-		} catch (final Throwable t) {
-			// oh well..
-		}
-		
-		if (hasToString) {
-			return o.toString();
-		} else {
-			
-			return str(o.getClass());
-		}
+
 	}
 }

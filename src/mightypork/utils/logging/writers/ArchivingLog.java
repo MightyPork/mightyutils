@@ -9,8 +9,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import mightypork.utils.Str;
 import mightypork.utils.files.FileUtil;
-import mightypork.utils.string.StringUtil;
 
 
 /**
@@ -125,6 +125,6 @@ public class ArchivingLog extends SimpleLog {
 	 */
 	private String getSuffix()
 	{
-		return StringUtil.fromLastChar(getFile().toString(), '.');
+		return Str.fromLast(getFile().toString(), '.');
 	}
 }

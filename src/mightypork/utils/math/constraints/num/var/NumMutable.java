@@ -10,15 +10,15 @@ import mightypork.utils.math.constraints.num.Num;
  * @author Ondřej Hruška (MightyPork)
  */
 public abstract class NumMutable extends Num {
-
+	
 	/**
 	 * Assign a value
 	 *
 	 * @param value new value
 	 */
 	public abstract void setTo(double value);
-
-
+	
+	
 	/**
 	 * Assign a value
 	 *
@@ -28,8 +28,8 @@ public abstract class NumMutable extends Num {
 	{
 		setTo(value.value());
 	}
-
-
+	
+	
 	/**
 	 * Set to zero
 	 */
@@ -37,5 +37,5 @@ public abstract class NumMutable extends Num {
 	{
 		setTo(0);
 	}
-
+	
 }

@@ -5,7 +5,7 @@ import mightypork.utils.math.algo.Coord;
 
 
 public abstract class Heuristic {
-
+	
 	/**
 	 * Get tile cost (estimate of how many tiles remain to the target)
 	 *

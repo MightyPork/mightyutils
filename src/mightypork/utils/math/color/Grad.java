@@ -7,10 +7,10 @@ package mightypork.utils.math.color;
  * @author MightyPork
  */
 public class Grad {
-
+	
 	public final Color leftTop, rightTop, rightBottom, leftBottom;
-
-
+	
+	
 	/**
 	 * Create a gradient
 	 *

@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface IonBinary {
-
+	
 	/**
 	 * Load data from the input stream.
 	 *
@@ -19,8 +19,8 @@ public interface IonBinary {
 	 * @throws IOException
 	 */
 	void load(IonInput in) throws IOException;
-
-
+	
+	
 	/**
 	 * Store data to output stream (in such way that the load method will later
 	 * be able to read it).

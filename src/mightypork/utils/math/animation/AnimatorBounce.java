@@ -7,34 +7,34 @@ package mightypork.utils.math.animation;
  * @author Ondřej Hruška (MightyPork)
  */
 public class AnimatorBounce extends Animator {
-
+	
 	private boolean wasUp = false;
-
-
+	
+	
 	public AnimatorBounce(double start, double end, double period, Easing easing)
 	{
 		super(start, end, period, easing);
 	}
-
-
+	
+	
 	public AnimatorBounce(double start, double end, double period)
 	{
 		super(start, end, period);
 	}
-
-
+	
+	
 	public AnimatorBounce(double period, Easing easing)
 	{
 		super(period, easing);
 	}
-
-
+	
+	
 	public AnimatorBounce(double period)
 	{
 		super(period);
 	}
-
-
+	
+	
 	@Override
 	protected void nextCycle(NumAnimated anim)
 	{
@@ -43,8 +43,8 @@ public class AnimatorBounce extends Animator {
 		} else {
 			anim.fadeIn();
 		}
-
+		
 		wasUp = !wasUp;
 	}
-
+	
 }

@@ -8,10 +8,10 @@ package mightypork.utils.math.constraints.vect.var;
  * @author Ondřej Hruška (MightyPork)
  */
 public class VectVar extends VectMutable {
-
+	
 	private double x, y, z;
-
-
+	
+	
 	/**
 	 * @param x X coordinate
 	 * @param y Y coordinate
@@ -24,29 +24,29 @@ public class VectVar extends VectMutable {
 		this.y = y;
 		this.z = z;
 	}
-
-
+	
+	
 	@Override
 	public double x()
 	{
 		return x;
 	}
-
-
+	
+	
 	@Override
 	public double y()
 	{
 		return y;
 	}
-
-
+	
+	
 	@Override
 	public double z()
 	{
 		return z;
 	}
-
-
+	
+	
 	@Override
 	public void setTo(double x, double y, double z)
 	{
@@ -54,22 +54,22 @@ public class VectVar extends VectMutable {
 		this.y = y;
 		this.z = z;
 	}
-
-
+	
+	
 	@Override
 	public void setX(double x)
 	{
 		this.x = x;
 	}
-
-
+	
+	
 	@Override
 	public void setY(double y)
 	{
 		this.y = y;
 	}
-
-
+	
+	
 	@Override
 	public void setZ(double z)
 	{

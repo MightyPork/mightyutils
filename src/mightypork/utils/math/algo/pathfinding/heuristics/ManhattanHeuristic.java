@@ -6,7 +6,7 @@ import mightypork.utils.math.algo.pathfinding.Heuristic;
 
 
 public class ManhattanHeuristic extends Heuristic {
-
+	
 	@Override
 	public double getCost(Coord pos, Coord target)
 	{

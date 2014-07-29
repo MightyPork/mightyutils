@@ -12,32 +12,32 @@ import mightypork.utils.math.constraints.rect.RectBound;
  * @author Ondřej Hruška (MightyPork)
  */
 public class RectProxy extends RectAdapter implements PluggableRectBound {
-
+	
 	private RectBound backing = null;
-
-
+	
+	
 	public RectProxy()
 	{
 	}
-
-
+	
+	
 	public RectProxy(RectBound proxied)
 	{
 		backing = proxied;
 	}
-
-
+	
+	
 	@Override
 	public void setRect(RectBound proxied)
 	{
 		this.backing = proxied;
 	}
-
-
+	
+	
 	@Override
 	public Rect getSource()
 	{
 		return backing.getRect();
 	}
-
+	
 }

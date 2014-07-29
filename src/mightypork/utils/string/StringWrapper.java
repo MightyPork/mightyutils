@@ -7,10 +7,10 @@ package mightypork.utils.string;
  * @author Ondřej Hruška (MightyPork)
  */
 public class StringWrapper implements StringProvider {
-	
+
 	private String value;
-	
-	
+
+
 	/**
 	 * Create a string wrapper
 	 *
@@ -20,8 +20,8 @@ public class StringWrapper implements StringProvider {
 	{
 		this.value = value;
 	}
-
-
+	
+	
 	/**
 	 * Set the string
 	 *
@@ -31,12 +31,12 @@ public class StringWrapper implements StringProvider {
 	{
 		this.value = value;
 	}
-	
-	
+
+
 	@Override
 	public String getString()
 	{
 		return value;
 	}
-	
+
 }

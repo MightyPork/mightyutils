@@ -15,33 +15,33 @@ import mightypork.utils.eventbus.EventBus;
  * @author Ondřej Hruška (MightyPork)
  */
 public abstract class BusNode implements ClientHub {
-
+	
 	private final Set<Object> clients = new LinkedHashSet<>();
 	private boolean listening = true;
 	private boolean delegating = true;
-
-
+	
+	
 	@Override
 	public Collection<Object> getChildClients()
 	{
 		return clients;
 	}
-
-
+	
+	
 	@Override
 	public boolean doesDelegate()
 	{
 		return delegating;
 	}
-
-
+	
+	
 	@Override
 	public boolean isListening()
 	{
 		return listening;
 	}
-
-
+	
+	
 	/**
 	 * Add a child subscriber to the {@link EventBus}.<br>
 	 *
@@ -52,8 +52,8 @@ public abstract class BusNode implements ClientHub {
 	{
 		clients.add(client);
 	}
-
-
+	
+	
 	/**
 	 * Remove a child subscriber
 	 *
@@ -66,8 +66,8 @@ public abstract class BusNode implements ClientHub {
 			clients.remove(client);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Set whether events should be received.
 	 *
@@ -77,8 +77,8 @@ public abstract class BusNode implements ClientHub {
 	{
 		this.listening = listening;
 	}
-
-
+	
+	
 	/**
 	 * Set whether events should be passed on to child nodes
 	 *

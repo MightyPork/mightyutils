@@ -11,19 +11,19 @@ import mightypork.utils.config.propmgr.Property;
  * @author Ondřej Hruška (MightyPork)
  */
 public class IntegerProperty extends Property<Integer> {
-
+	
 	public IntegerProperty(String key, Integer defaultValue)
 	{
 		super(key, defaultValue);
 	}
-
-
+	
+	
 	public IntegerProperty(String key, Integer defaultValue, String comment)
 	{
 		super(key, defaultValue, comment);
 	}
-
-
+	
+	
 	@Override
 	public void fromString(String string)
 	{

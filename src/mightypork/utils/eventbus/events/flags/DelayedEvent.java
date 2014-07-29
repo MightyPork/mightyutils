@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 @Inherited
 @Documented
 public @interface DelayedEvent {
-
+	
 	/**
 	 * @return event dispatch delay [seconds]
 	 */

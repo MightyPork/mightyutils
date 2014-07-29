@@ -7,10 +7,10 @@ package mightypork.utils.eventbus.clients;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface ToggleableClient {
-
+	
 	/**
 	 * @return true if the client wants to receive messages
 	 */
 	public boolean isListening();
-
+	
 }

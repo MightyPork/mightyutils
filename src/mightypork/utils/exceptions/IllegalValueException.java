@@ -8,27 +8,27 @@ package mightypork.utils.exceptions;
  * @author Ondřej Hruška (MightyPork)
  */
 public class IllegalValueException extends RuntimeException {
-
+	
 	public IllegalValueException()
 	{
 	}
-
-
+	
+	
 	public IllegalValueException(String message)
 	{
 		super(message);
 	}
-
-
+	
+	
 	public IllegalValueException(Throwable cause)
 	{
 		super(cause);
 	}
-
-
+	
+	
 	public IllegalValueException(String message, Throwable cause)
 	{
 		super(message, cause);
 	}
-
+	
 }

@@ -12,14 +12,14 @@ import java.io.IOException;
  * @param <T>
  */
 public abstract class IonizerBinary<T> {
-
+	
 	@SuppressWarnings("unchecked")
 	final void _save(Object object, IonOutput out) throws IOException
 	{
 		save((T) object, out);
 	}
-
-
+	
+	
 	/**
 	 * Save an object to ion output
 	 *
@@ -28,8 +28,8 @@ public abstract class IonizerBinary<T> {
 	 * @throws IOException
 	 */
 	public abstract void save(T object, IonOutput out) throws IOException;
-
-
+	
+	
 	/**
 	 * Load an object from ion input
 	 *
@@ -37,5 +37,5 @@ public abstract class IonizerBinary<T> {
 	 * @return the loaded object
 	 */
 	public abstract T load(IonInput in) throws IOException;
-
+	
 }

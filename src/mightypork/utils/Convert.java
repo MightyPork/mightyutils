@@ -8,7 +8,7 @@ package mightypork.utils;
  * @author Ondřej Hruška (MightyPork)
  */
 public class Convert {
-
+	
 	/**
 	 * Get INTEGER
 	 *
@@ -26,8 +26,8 @@ public class Convert {
 		} catch (final NumberFormatException e) {}
 		return def;
 	}
-
-
+	
+	
 	/**
 	 * Get DOUBLE
 	 *
@@ -45,8 +45,8 @@ public class Convert {
 		} catch (final NumberFormatException e) {}
 		return def;
 	}
-
-
+	
+	
 	/**
 	 * Get FLOAT
 	 *
@@ -62,8 +62,8 @@ public class Convert {
 		} catch (final NumberFormatException e) {}
 		return def;
 	}
-
-
+	
+	
 	/**
 	 * Get BOOLEAN
 	 *
@@ -76,7 +76,7 @@ public class Convert {
 		if (o == null) return def;
 		if (o instanceof Boolean) return ((Boolean) o).booleanValue();
 		if (o instanceof Number) return ((Number) o).intValue() != 0;
-
+		
 		if (o instanceof String) {
 			final String s = ((String) o).trim().toLowerCase();
 			if (s.equals("0")) return false;
@@ -85,23 +85,23 @@ public class Convert {
 				final double n = Double.parseDouble(s);
 				return n != 0;
 			} catch (final NumberFormatException e) {}
-
+			
 			if (s.equals("true")) return true;
 			if (s.equals("yes")) return true;
 			if (s.equals("y")) return true;
 			if (s.equals("a")) return true;
 			if (s.equals("enabled")) return true;
-
+			
 			if (s.equals("false")) return false;
 			if (s.equals("no")) return false;
 			if (s.equals("n")) return false;
 			if (s.equals("disabled")) return true;
 		}
-
+		
 		return def;
 	}
-
-
+	
+	
 	/**
 	 * Get STRING
 	 *
@@ -113,19 +113,19 @@ public class Convert {
 	{
 		if (o == null) return def;
 		if (o instanceof String) return ((String) o);
-
-		if (o instanceof Float) return Support.str((float) o);
-
-		if (o instanceof Double) return Support.str((double) o);
-
+		
+		if (o instanceof Float) return Str.val((float) o);
+		
+		if (o instanceof Double) return Str.val((double) o);
+		
 		if (o instanceof Class<?>) {
-			return Support.str(o);
+			return Str.val(o);
 		}
-
+		
 		return o.toString();
 	}
-
-
+	
+	
 	/**
 	 * Get INTEGER
 	 *
@@ -136,8 +136,8 @@ public class Convert {
 	{
 		return toInteger(o, 0);
 	}
-
-
+	
+	
 	/**
 	 * Get DOUBLE
 	 *
@@ -148,8 +148,8 @@ public class Convert {
 	{
 		return toDouble(o, 0d);
 	}
-
-
+	
+	
 	/**
 	 * Get FLOAT
 	 *
@@ -160,8 +160,8 @@ public class Convert {
 	{
 		return toFloat(o, 0f);
 	}
-
-
+	
+	
 	/**
 	 * Get BOOLEAN
 	 *
@@ -172,8 +172,8 @@ public class Convert {
 	{
 		return toBoolean(o, false);
 	}
-
-
+	
+	
 	/**
 	 * Get STRING
 	 *

@@ -10,7 +10,7 @@ import mightypork.utils.math.constraints.vect.Vect;
  * @author Ondřej Hruška (MightyPork)
  */
 public abstract class VectMutable extends Vect {
-
+	
 	/**
 	 * Set all to zeros.
 	 */
@@ -18,8 +18,8 @@ public abstract class VectMutable extends Vect {
 	{
 		setTo(0, 0, 0);
 	}
-
-
+	
+	
 	/**
 	 * Set coordinates to match other coord.
 	 *
@@ -29,8 +29,8 @@ public abstract class VectMutable extends Vect {
 	{
 		setTo(copied.x(), copied.y(), copied.z());
 	}
-
-
+	
+	
 	/**
 	 * Set 2D coordinates.<br>
 	 * Z is unchanged.
@@ -43,8 +43,8 @@ public abstract class VectMutable extends Vect {
 		setX(x);
 		setY(y);
 	}
-
-
+	
+	
 	/**
 	 * Set coordinates.
 	 *
@@ -53,24 +53,24 @@ public abstract class VectMutable extends Vect {
 	 * @param z z coordinate
 	 */
 	public abstract void setTo(double x, double y, double z);
-
-
+	
+	
 	/**
 	 * Set X coordinate.
 	 *
 	 * @param x x coordinate
 	 */
 	public abstract void setX(double x);
-
-
+	
+	
 	/**
 	 * Set Y coordinate.
 	 *
 	 * @param y y coordinate
 	 */
 	public abstract void setY(double y);
-
-
+	
+	
 	/**
 	 * Set Z coordinate.
 	 *

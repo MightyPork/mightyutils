@@ -17,14 +17,14 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import mightypork.utils.Str;
 import mightypork.utils.logging.Log;
-import mightypork.utils.string.StringUtil;
 import mightypork.utils.string.validation.StringFilter;
 
 
 public class FileUtil {
-
-
+	
+	
 	/**
 	 * Copy directory recursively.
 	 *
@@ -36,8 +36,8 @@ public class FileUtil {
 	{
 		copyDirectory(source, target, null, null);
 	}
-
-
+	
+	
 	/**
 	 * Copy directory recursively - advanced variant.
 	 *
@@ -50,28 +50,28 @@ public class FileUtil {
 	public static void copyDirectory(File source, File target, FileFilter filter, List<File> filesCopied) throws IOException
 	{
 		if (!source.exists()) return;
-
+		
 		if (source.isDirectory()) {
 			if (!target.exists() && !target.mkdir()) {
 				throw new IOException("Could not open destination directory.");
 			}
-
+			
 			final String[] children = source.list();
 			for (final String element : children) {
 				copyDirectory(new File(source, element), new File(target, element), filter, filesCopied);
 			}
-
+			
 		} else {
 			if (filter != null && !filter.accept(source)) {
 				return;
 			}
-
+			
 			if (filesCopied != null) filesCopied.add(target);
 			copyFile(source, target);
 		}
 	}
-
-
+	
+	
 	/**
 	 * List directory recursively
 	 *
@@ -87,17 +87,17 @@ public class FileUtil {
 			for (final String element : children) {
 				listDirectoryRecursive(new File(source, element), filter, files);
 			}
-
+			
 		} else {
 			if (filter != null && !filter.isValid(source.getAbsolutePath())) {
 				return;
 			}
-
+			
 			files.add(source);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Copy file using streams. Make sure target directory exists!
 	 *
@@ -107,15 +107,15 @@ public class FileUtil {
 	 */
 	public static void copyFile(File source, File target) throws IOException
 	{
-
+		
 		try(InputStream in = new FileInputStream(source);
-				OutputStream out = new FileOutputStream(target)) {
-
+			OutputStream out = new FileOutputStream(target)) {
+			
 			copyStream(in, out);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Copy bytes from input to output stream, leaving out stream open
 	 *
@@ -128,19 +128,19 @@ public class FileUtil {
 		if (in == null) {
 			throw new NullPointerException("Input stream is null");
 		}
-
+		
 		if (out == null) {
 			throw new NullPointerException("Output stream is null");
 		}
-
+		
 		final byte[] buf = new byte[2048];
 		int len;
 		while ((len = in.read(buf)) > 0) {
 			out.write(buf, 0, len);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Improved delete
 	 *
@@ -153,18 +153,18 @@ public class FileUtil {
 		if (!path.exists()) {
 			return true;
 		}
-
+		
 		if (!recursive || !path.isDirectory()) return path.delete();
-
+		
 		final String[] list = path.list();
 		for (int i = 0; i < list.length; i++) {
 			if (!delete(new File(path, list[i]), true)) return false;
 		}
-
+		
 		return path.delete();
 	}
-
-
+	
+	
 	/**
 	 * Read entire file to a string.
 	 *
@@ -175,12 +175,12 @@ public class FileUtil {
 	public static String fileToString(File file) throws IOException
 	{
 		try(FileInputStream fin = new FileInputStream(file)) {
-
+			
 			return streamToString(fin);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Get files in a folder (create folder if needed)
 	 *
@@ -191,8 +191,8 @@ public class FileUtil {
 	{
 		return FileUtil.listDirectory(dir, null);
 	}
-
-
+	
+	
 	/**
 	 * Get files in a folder (create folder if needed)
 	 *
@@ -203,17 +203,17 @@ public class FileUtil {
 	public static List<File> listDirectory(File dir, FileFilter filter)
 	{
 		dir.mkdir();
-
+		
 		final List<File> list = new ArrayList<>();
-
+		
 		for (final File f : dir.listFiles(filter)) {
 			list.add(f);
 		}
-
+		
 		return list;
 	}
-
-
+	
+	
 	/**
 	 * Remove extension.
 	 *
@@ -224,20 +224,20 @@ public class FileUtil {
 	{
 		return getFilenameParts(file.getName());
 	}
-
-
+	
+	
 	public static String getExtension(File file)
 	{
 		return getExtension(file.getName());
 	}
-
-
+	
+	
 	public static String getExtension(String file)
 	{
-		return StringUtil.fromLastChar(file, '.');
+		return Str.fromLast(file, '.');
 	}
-
-
+	
+	
 	/**
 	 * Remove extension.
 	 *
@@ -247,24 +247,24 @@ public class FileUtil {
 	public static String[] getFilenameParts(String filename)
 	{
 		String ext, name;
-
+		
 		try {
-			ext = StringUtil.fromLastDot(filename);
+			ext = Str.fromLastDot(filename);
 		} catch (final StringIndexOutOfBoundsException e) {
 			ext = "";
 		}
-
+		
 		try {
-			name = StringUtil.toLastDot(filename);
+			name = Str.toLastDot(filename);
 		} catch (final StringIndexOutOfBoundsException e) {
 			name = "";
 			Log.w("Error extracting extension from file " + filename);
 		}
-
+		
 		return new String[] { name, ext };
 	}
-
-
+	
+	
 	/**
 	 * Read entire input stream to a string, and close it.
 	 *
@@ -275,8 +275,8 @@ public class FileUtil {
 	{
 		return streamToString(in, -1);
 	}
-
-
+	
+	
 	/**
 	 * Read input stream to a string, and close it.
 	 *
@@ -290,10 +290,10 @@ public class FileUtil {
 			Log.e(new NullPointerException("Null stream to be converted to String."));
 			return ""; // to avoid NPE's
 		}
-
+		
 		BufferedReader br = null;
 		final StringBuilder sb = new StringBuilder();
-
+		
 		String line;
 		try {
 			int cnt = 0;
@@ -302,11 +302,11 @@ public class FileUtil {
 				sb.append(line + "\n");
 				cnt++;
 			}
-
+			
 			if (cnt == lines && lines > 0) {
 				sb.append("--- end of preview ---\n");
 			}
-
+			
 		} catch (final IOException e) {
 			Log.e(e);
 		} finally {
@@ -316,15 +316,15 @@ public class FileUtil {
 				// ignore
 			}
 		}
-
+		
 		return sb.toString();
 	}
-
-
+	
+	
 	public static InputStream stringToStream(String text)
 	{
 		if (text == null) return null;
-
+		
 		try {
 			return new ByteArrayInputStream(text.getBytes("UTF-8"));
 		} catch (final UnsupportedEncodingException e) {
@@ -332,38 +332,38 @@ public class FileUtil {
 			return null;
 		}
 	}
-
-
+	
+	
 	public static InputStream getResource(String path)
 	{
 		final InputStream in = FileUtil.class.getResourceAsStream(path);
-
+		
 		if (in != null) return in;
-
+		
 		try {
 			return new FileInputStream(new File(".", path));
-			
-		} catch (final FileNotFoundException e) {
 
+		} catch (final FileNotFoundException e) {
+			
 			try {
 				return new FileInputStream(WorkDir.getFile(path));
-				
+
 			} catch (final FileNotFoundException e2) {
 				Log.w("Could not open resource stream, file not found: " + path);
 				return null;
 			}
-
+			
 		}
-
+		
 	}
-
-
+	
+	
 	public static String getResourceAsString(String path)
 	{
 		return streamToString(getResource(path));
 	}
-
-
+	
+	
 	/**
 	 * Save string to file
 	 *
@@ -374,44 +374,44 @@ public class FileUtil {
 	public static void stringToFile(File file, String text) throws IOException
 	{
 		try(PrintStream out = new PrintStream(new FileOutputStream(file), false, "UTF-8")) {
-
+			
 			out.print(text);
-
+			
 			out.flush();
-
+			
 		}
 	}
-
-
+	
+	
 	public static void deleteEmptyDirs(File base) throws IOException
 	{
 		for (final File f : listDirectory(base)) {
 			if (!f.isDirectory()) continue;
-
+			
 			deleteEmptyDirs(f);
-
+			
 			final List<File> children = listDirectory(f);
 			if (children.size() == 0) {
 				if (!f.delete()) throw new IOException("Could not delete a directory: " + f);
 				continue;
 			}
 		}
-
+		
 	}
-
-
+	
+	
 	public static String getBasename(String name)
 	{
-		return StringUtil.toLastChar(StringUtil.fromLastChar(name, '/'), '.');
+		return Str.toLast(Str.fromLast(name, '/'), '.');
 	}
-
-
+	
+	
 	public static String getFilename(String name)
 	{
-		return StringUtil.fromLastChar(name, '/');
+		return Str.fromLast(name, '/');
 	}
-
-
+	
+	
 	/**
 	 * Copy resource to file
 	 *
@@ -422,14 +422,14 @@ public class FileUtil {
 	public static void resourceToFile(String resname, File file) throws IOException
 	{
 		try(InputStream in = FileUtil.getResource(resname);
-				OutputStream out = new FileOutputStream(file)) {
-
+			OutputStream out = new FileOutputStream(file)) {
+			
 			FileUtil.copyStream(in, out);
 		}
-
+		
 	}
-
-
+	
+	
 	/**
 	 * Get resource as string, safely closing streams.
 	 *

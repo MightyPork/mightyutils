@@ -13,10 +13,10 @@ import mightypork.utils.math.constraints.num.Num;
  * @author Ondřej Hruška (MightyPork)
  */
 public class NumSum extends Num {
-
+	
 	private final List<Num> summands = new ArrayList<>();
-
-
+	
+	
 	@Override
 	public double value()
 	{
@@ -26,8 +26,8 @@ public class NumSum extends Num {
 		}
 		return v;
 	}
-
-
+	
+	
 	/**
 	 * Add a number to the sum
 	 *
@@ -37,8 +37,8 @@ public class NumSum extends Num {
 	{
 		summands.add(summand);
 	}
-
-
+	
+	
 	/**
 	 * Add a number to the sum
 	 *

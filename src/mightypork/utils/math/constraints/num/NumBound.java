@@ -7,10 +7,10 @@ package mightypork.utils.math.constraints.num;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface NumBound {
-
+	
 	/**
 	 * @return the Num value
 	 */
 	Num getNum();
-
+	
 }

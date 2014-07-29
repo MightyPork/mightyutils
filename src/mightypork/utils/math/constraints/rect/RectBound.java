@@ -8,7 +8,7 @@ package mightypork.utils.math.constraints.rect;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface RectBound {
-
+	
 	/**
 	 * @return the Rect value
 	 */

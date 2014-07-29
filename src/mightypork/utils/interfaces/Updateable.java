@@ -7,7 +7,7 @@ package mightypork.utils.interfaces;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface Updateable {
-
+	
 	/**
 	 * Update item state based on elapsed time
 	 *

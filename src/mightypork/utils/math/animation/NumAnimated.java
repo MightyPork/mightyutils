@@ -15,31 +15,31 @@ import mightypork.utils.math.constraints.num.var.NumMutable;
  * @author Ondřej Hruška (MightyPork)
  */
 public class NumAnimated extends NumMutable implements Updateable, Pauseable {
-
+	
 	/** target double */
 	protected double to = 0;
-
+	
 	/** last tick double */
 	protected double from = 0;
-
+	
 	/** how long the transition should last */
 	protected double duration = 0;
-
+	
 	/** current anim time */
 	protected double elapsedTime = 0;
-
+	
 	/** True if this animator is paused */
 	protected boolean paused = false;
-
+	
 	/** Easing fn */
 	protected Easing easingCurrent = Easing.LINEAR;
 	protected Easing easingOut = Easing.LINEAR;
 	protected Easing easingIn = Easing.LINEAR;
-
+	
 	/** Default duration (seconds) */
 	private double defaultDuration = 1;
-
-
+	
+	
 	/**
 	 * With linear easing
 	 *
@@ -49,8 +49,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	{
 		setTo(value);
 	}
-
-
+	
+	
 	/**
 	 * Create animator with easing
 	 *
@@ -62,8 +62,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		this(value);
 		setEasing(easing);
 	}
-
-
+	
+	
 	/**
 	 * Create animator with easing
 	 *
@@ -76,8 +76,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		this(value);
 		setEasing(easingIn, easingOut);
 	}
-
-
+	
+	
 	/**
 	 * Create animator with easing
 	 *
@@ -91,8 +91,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		setEasing(easing);
 		setDefaultDuration(defaultDuration);
 	}
-
-
+	
+	
 	/**
 	 * Create animator with easing
 	 *
@@ -107,8 +107,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		setEasing(easingIn, easingOut);
 		setDefaultDuration(defaultDuration);
 	}
-
-
+	
+	
 	/**
 	 * Create as copy of another
 	 *
@@ -118,8 +118,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	{
 		setTo(other);
 	}
-
-
+	
+	
 	/**
 	 * @param easing easing function
 	 */
@@ -127,8 +127,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	{
 		this.easingCurrent = this.easingIn = this.easingOut = easing;
 	}
-
-
+	
+	
 	/**
 	 * @param easingIn easing for fade in
 	 * @param easingOut easing for fade out
@@ -139,8 +139,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		this.easingOut = easingOut;
 		this.easingCurrent = easingIn;
 	}
-
-
+	
+	
 	/**
 	 * Get start value
 	 *
@@ -150,8 +150,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	{
 		return from;
 	}
-
-
+	
+	
 	/**
 	 * Get end value
 	 *
@@ -161,8 +161,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	{
 		return to;
 	}
-
-
+	
+	
 	/**
 	 * @return current animation duration (seconds)
 	 */
@@ -170,8 +170,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	{
 		return duration;
 	}
-
-
+	
+	
 	/**
 	 * @return elapsed time in current animation (seconds)
 	 */
@@ -179,8 +179,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	{
 		return elapsedTime;
 	}
-
-
+	
+	
 	/**
 	 * @return default animation duration (seconds)
 	 */
@@ -188,8 +188,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	{
 		return defaultDuration;
 	}
-
-
+	
+	
 	/**
 	 * @param defaultDuration default animation duration (seconds)
 	 */
@@ -197,8 +197,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	{
 		this.defaultDuration = defaultDuration;
 	}
-
-
+	
+	
 	/**
 	 * Get value at delta time
 	 *
@@ -210,8 +210,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		if (duration == 0) return to;
 		return Calc.interpolate(from, to, (elapsedTime / duration), easingCurrent);
 	}
-
-
+	
+	
 	/**
 	 * Get how much of the animation is already finished
 	 *
@@ -222,13 +222,13 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		if (duration == 0) return 1;
 		return elapsedTime / duration;
 	}
-
-
+	
+	
 	@Override
 	public void update(double delta)
 	{
 		if (paused || isFinished()) return;
-
+		
 		elapsedTime = Calc.clamp(elapsedTime + delta, 0, duration);
 		if (isFinished()) {
 			duration = 0;
@@ -236,8 +236,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 			from = to;
 		}
 	}
-
-
+	
+	
 	/**
 	 * Get if animation is finished
 	 *
@@ -247,8 +247,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	{
 		return duration == 0 || elapsedTime >= duration;
 	}
-
-
+	
+	
 	/**
 	 * Set to a value (without animation)
 	 *
@@ -261,8 +261,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		elapsedTime = 0;
 		duration = 0;
 	}
-
-
+	
+	
 	/**
 	 * Copy other
 	 *
@@ -280,8 +280,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		this.easingOut = other.easingOut;
 		this.defaultDuration = other.defaultDuration;
 	}
-
-
+	
+	
 	/**
 	 * Animate between two states, start from current value (if it's in between)
 	 *
@@ -292,19 +292,19 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	public void animate(double from, double to, double time)
 	{
 		final double current = value();
-
+		
 		this.from = from;
 		this.to = to;
-
+		
 		final double progress = getProgressFromValue(current);
-
+		
 		this.from = (progress > 0 ? current : from);
-
+		
 		this.duration = time * (1 - progress);
 		this.elapsedTime = 0;
 	}
-
-
+	
+	
 	/**
 	 * Get progress already elapsed based on current value.<br>
 	 * Used to resume animation from current point in fading etc.
@@ -315,19 +315,19 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	protected double getProgressFromValue(double value)
 	{
 		double p = 0;
-
+		
 		if (from == to) return 0;
-
+		
 		if (value >= from && value <= to) { // up
 			p = ((value - from) / (to - from));
 		} else if (value >= to && value <= from) { // down
 			p = ((from - value) / (from - to));
 		}
-
+		
 		return p;
 	}
-
-
+	
+	
 	/**
 	 * Animate to a value from current value
 	 *
@@ -341,8 +341,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		this.duration = duration;
 		this.elapsedTime = 0;
 	}
-
-
+	
+	
 	/**
 	 * Animate 0 to 1
 	 *
@@ -353,8 +353,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		easingCurrent = easingIn;
 		animate(0, 1, time);
 	}
-
-
+	
+	
 	/**
 	 * Animate 1 to 0
 	 *
@@ -365,8 +365,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		easingCurrent = easingOut;
 		animate(1, 0, time);
 	}
-
-
+	
+	
 	/**
 	 * Animate 0 to 1 with default duration
 	 */
@@ -375,8 +375,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		easingCurrent = easingIn;
 		animate(0, 1, defaultDuration);
 	}
-
-
+	
+	
 	/**
 	 * Animate 1 to 0 with default duration
 	 */
@@ -385,8 +385,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		easingCurrent = easingOut;
 		animate(1, 0, defaultDuration);
 	}
-
-
+	
+	
 	/**
 	 * Make a copy
 	 *
@@ -397,15 +397,15 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 	{
 		return new NumAnimated(this);
 	}
-
-
+	
+	
 	@Override
 	public String toString()
 	{
 		return "Animation(" + from + " -> " + to + ", t=" + duration + "s, elapsed=" + elapsedTime + "s)";
 	}
-
-
+	
+	
 	/**
 	 * Set to zero and stop animation
 	 */
@@ -416,8 +416,8 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		duration = 0;
 		paused = false;
 	}
-
-
+	
+	
 	/**
 	 * Stop animation, keep current value
 	 */
@@ -427,29 +427,29 @@ public class NumAnimated extends NumMutable implements Updateable, Pauseable {
 		elapsedTime = 0;
 		duration = 0;
 	}
-
-
+	
+	
 	@Override
 	public void pause()
 	{
 		paused = true;
 	}
-
-
+	
+	
 	@Override
 	public void resume()
 	{
 		paused = false;
 	}
-
-
+	
+	
 	@Override
 	public boolean isPaused()
 	{
 		return paused;
 	}
-
-
+	
+	
 	public boolean isInProgress()
 	{
 		return !isFinished() && !isPaused();

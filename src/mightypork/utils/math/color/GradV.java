@@ -7,7 +7,7 @@ package mightypork.utils.math.color;
  * @author MightyPork
  */
 public class GradV extends Grad {
-
+	
 	public GradV(Color top, Color bottom)
 	{
 		super(top, top, bottom, bottom);

@@ -20,186 +20,186 @@ import mightypork.utils.math.constraints.vect.var.VectVar;
  * @author Ondřej Hruška (MightyPork)
  */
 public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
-
+	
 	public static final VectConst ZERO = new VectConst(0, 0, 0);
 	public static final VectConst ONE = new VectConst(1, 1, 1);
-
-
+	
+	
 	@FactoryMethod
 	public static Vect make(Num xy)
 	{
 		return make(xy, xy);
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static Vect make(Num xc, Num yc)
 	{
 		return Vect.make(xc, yc, Num.ZERO);
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static Vect make(Num xc, Num yc, Num zc)
 	{
 		return new VectNumAdapter(xc, yc, zc);
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static Vect make(VectBound bound)
 	{
 		return new VectProxy(bound);
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static VectConst make(NumConst xy)
 	{
 		return make(xy, xy);
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static VectConst make(NumConst xc, NumConst yc)
 	{
 		return Vect.make(xc, yc, Num.ZERO);
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static VectConst make(NumConst xc, NumConst yc, NumConst zc)
 	{
 		return new VectConst(xc.value(), yc.value(), zc.value());
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static VectConst make(double xy)
 	{
 		return make(xy, xy);
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static VectConst make(double x, double y)
 	{
 		return Vect.make(x, y, 0);
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static VectConst make(double x, double y, double z)
 	{
 		return new VectConst(x, y, z);
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static VectVar makeVar()
 	{
 		return Vect.makeVar(Vect.ZERO);
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static VectVar makeVar(double x, double y)
 	{
 		return Vect.makeVar(x, y, 0);
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static VectVar makeVar(Vect copied)
 	{
 		return Vect.makeVar(copied.x(), copied.y(), copied.z());
 	}
-
-
+	
+	
 	@FactoryMethod
 	public static VectVar makeVar(double x, double y, double z)
 	{
 		return new VectVar(x, y, z);
 	}
-
-
+	
+	
 	public static VectConst fromString(String string)
 	{
 		try {
 			String s = string.trim();
-
+			
 			// drop whitespace
 			s = s.replaceAll("\\s", "");
-
+			
 			// drop brackets
 			s = s.replaceAll("[\\(\\[\\{\\)\\]\\}]", "");
-
+			
 			// norm separators
 			s = s.replaceAll("[:;]", "|");
-
+			
 			// norm floating point
 			s = s.replaceAll("[,]", ".");
-
+			
 			final String[] parts = s.split("[|]");
-
+			
 			if (parts.length >= 2) {
-
+				
 				final double x = Double.parseDouble(parts[0].trim());
 				final double y = Double.parseDouble(parts[1].trim());
-
+				
 				if (parts.length == 2) {
 					return Vect.make(x, y);
 				}
-
+				
 				final double z = Double.parseDouble(parts[2].trim());
-
+				
 				return Vect.make(x, y, z);
 			}
-
+			
 		} catch (final RuntimeException e) {
 			return null;
 		}
 		return null;
 	}
-
-
+	
+	
 	@Override
 	public String toString()
 	{
 		return String.format("(%.1f ; %.1f ; %.1f)", x(), y(), z());
 	}
-
+	
 	private Num p_size;
 	private Vect p_neg;
 	private Vect p_half;
 	private Vect p_abs;
-
+	
 	private Num p_xc;
 	private Num p_yc;
 	private Num p_zc;
-
+	
 	private final DigestCache<VectDigest> dc = new DigestCache<VectDigest>() {
-
+		
 		@Override
 		protected VectDigest createDigest()
 		{
 			return new VectDigest(Vect.this);
 		}
 	};
-
-
+	
+	
 	/**
 	 * @return X coordinate
 	 */
 	public abstract double x();
-
-
+	
+	
 	/**
 	 * @return Y coordinate
 	 */
 	public abstract double y();
-
-
+	
+	
 	/**
 	 * (Implemented in Vect for convenience when creating 2D vects)
 	 *
@@ -209,8 +209,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return 0;
 	}
-
-
+	
+	
 	/**
 	 * @return X rounded
 	 */
@@ -218,8 +218,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return (int) Math.round(x());
 	}
-
-
+	
+	
 	/**
 	 * @return Y rounded
 	 */
@@ -227,8 +227,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return (int) Math.round(y());
 	}
-
-
+	
+	
 	/**
 	 * @return Z rounded
 	 */
@@ -236,69 +236,69 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return (int) Math.round(z());
 	}
-
-
+	
+	
 	/**
 	 * @return X constraint
 	 */
 	public Num xn()
 	{
 		if (p_xc == null) p_xc = new Num() {
-
+			
 			@Override
 			public double value()
 			{
 				return x();
 			}
 		};
-
+		
 		return p_xc;
 	}
-
-
+	
+	
 	/**
 	 * @return Y constraint
 	 */
 	public Num yn()
 	{
 		if (p_yc == null) p_yc = new Num() {
-
+			
 			@Override
 			public double value()
 			{
 				return y();
 			}
 		};
-
+		
 		return p_yc;
 	}
-
-
+	
+	
 	/**
 	 * @return Z constraint
 	 */
 	public Num zn()
 	{
 		if (p_zc == null) p_zc = new Num() {
-
+			
 			@Override
 			public double value()
 			{
 				return z();
 			}
 		};
-
+		
 		return p_zc;
 	}
-
-
+	
+	
 	@Override
 	public final Vect getVect()
 	{
 		return this;
 	}
-
-
+	
+	
 	/**
 	 * @return true if zero
 	 */
@@ -306,8 +306,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return x() == 0 && y() == 0 && z() == 0;
 	}
-
-
+	
+	
 	/**
 	 * Get a static immutable copy of the current state.
 	 *
@@ -317,8 +317,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return new VectConst(this);
 	}
-
-
+	
+	
 	/**
 	 * Wrap this constraint into a caching adapter. Value will stay fixed (ie.
 	 * no re-calculations) until cache receives a poll() call.
@@ -329,36 +329,36 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return new VectCache(this);
 	}
-
-
+	
+	
 	@Override
 	public VectDigest digest()
 	{
 		return dc.digest();
 	}
-
-
+	
+	
 	@Override
 	public void enableDigestCaching(boolean yes)
 	{
 		dc.enableDigestCaching(yes);
 	}
-
-
+	
+	
 	@Override
 	public boolean isDigestCachingEnabled()
 	{
 		return dc.isDigestCachingEnabled();
 	}
-
-
+	
+	
 	@Override
 	public void markDigestDirty()
 	{
 		dc.markDigestDirty();
 	}
-
-
+	
+	
 	/**
 	 * Get a view with X set to given value
 	 *
@@ -369,8 +369,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return withX(Num.make(x));
 	}
-
-
+	
+	
 	/**
 	 * Get a view with Y set to given value
 	 *
@@ -381,8 +381,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return withY(Num.make(y));
 	}
-
-
+	
+	
 	/**
 	 * Get a view with Z set to given value
 	 *
@@ -393,29 +393,29 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return withZ(Num.make(z));
 	}
-
-
+	
+	
 	public Vect withX(final Num x)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return x.value();
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return t.z();
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -423,29 +423,29 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	public Vect withY(final Num y)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return t.x();
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return y.value();
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -453,29 +453,29 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	public Vect withZ(final Num z)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return t.x();
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return t.y();
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -483,8 +483,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Get absolute value (positive)
 	 *
@@ -493,35 +493,35 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Vect abs()
 	{
 		if (p_abs == null) p_abs = new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return Math.abs(t.x());
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return Math.abs(t.y());
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
 				return Math.abs(t.z());
 			}
 		};
-
+		
 		return p_abs;
 	}
-
-
+	
+	
 	/**
 	 * Add a vector.
 	 *
@@ -532,8 +532,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return add(vec.xn(), vec.yn(), vec.zn());
 	}
-
-
+	
+	
 	/**
 	 * Add to each component.<br>
 	 * Z is unchanged.
@@ -546,8 +546,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return add(x, y, 0);
 	}
-
-
+	
+	
 	/**
 	 * Add to each component.
 	 *
@@ -559,24 +559,24 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Vect add(final double x, final double y, final double z)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return t.x() + x;
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return t.y() + y;
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -584,35 +584,35 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	public Vect add(Num x, Num y)
 	{
 		return add(x, y, Num.ZERO);
 	}
-
-
+	
+	
 	public Vect add(final Num x, final Num y, final Num z)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return t.x() + x.value();
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return t.y() + y.value();
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -620,8 +620,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Get copy divided by two
 	 *
@@ -632,8 +632,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 		if (p_half == null) p_half = mul(0.5);
 		return p_half;
 	}
-
-
+	
+	
 	/**
 	 * Multiply each component.
 	 *
@@ -644,8 +644,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return mul(d, d, d);
 	}
-
-
+	
+	
 	/**
 	 * Multiply each component.
 	 *
@@ -656,8 +656,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return mul(vec.xn(), vec.yn(), vec.zn());
 	}
-
-
+	
+	
 	/**
 	 * Multiply each component.<br>
 	 * Z is unchanged.
@@ -670,8 +670,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return mul(x, y, 1);
 	}
-
-
+	
+	
 	/**
 	 * Multiply each component.
 	 *
@@ -683,24 +683,24 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Vect mul(final double x, final double y, final double z)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return t.x() * x;
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return t.y() * y;
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -708,8 +708,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Multiply each component.
 	 *
@@ -720,8 +720,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return mul(d, d, d);
 	}
-
-
+	
+	
 	/**
 	 * Multiply each component.
 	 *
@@ -733,8 +733,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return mul(x, y, Num.ONE);
 	}
-
-
+	
+	
 	/**
 	 * Multiply each component.
 	 *
@@ -746,24 +746,24 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Vect mul(final Num x, final Num y, final Num z)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return t.x() * x.value();
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return t.y() * y.value();
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -771,8 +771,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Round coordinates.
 	 *
@@ -781,24 +781,24 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Vect round()
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return Math.round(t.x());
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return Math.round(t.y());
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -806,8 +806,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Round coordinates down.
 	 *
@@ -816,24 +816,24 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Vect floor()
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return Math.floor(t.x());
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return Math.floor(t.y());
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -841,8 +841,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Round coordinates up.
 	 *
@@ -851,24 +851,24 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Vect ceil()
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return Math.ceil(t.x());
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return Math.ceil(t.y());
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -876,8 +876,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Subtract vector.
 	 *
@@ -888,8 +888,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return sub(vec.xn(), vec.yn(), vec.zn());
 	}
-
-
+	
+	
 	/**
 	 * Subtract a 2D vector.<br>
 	 * Z is unchanged.
@@ -902,8 +902,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return add(-x, -y, 0);
 	}
-
-
+	
+	
 	/**
 	 * Subtract a 3D vector.
 	 *
@@ -916,35 +916,35 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return add(-x, -y, -z);
 	}
-
-
+	
+	
 	public Vect sub(Num x, Num y)
 	{
 		return sub(x, y, Num.ZERO);
 	}
-
-
+	
+	
 	public Vect sub(final Num x, final Num y, final Num z)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return t.x() - x.value();
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return t.y() - y.value();
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -952,8 +952,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Negate all coordinates (* -1)
 	 *
@@ -964,8 +964,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 		if (p_neg == null) p_neg = mul(-1);
 		return p_neg;
 	}
-
-
+	
+	
 	/**
 	 * Scale vector to given size.
 	 *
@@ -975,54 +975,54 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Vect norm(final Num size)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				final double tSize = t.size().value();
 				final double nSize = size.value();
-
+				
 				if (tSize == 0 || nSize == 0) return 0;
-
+				
 				return t.x() / (nSize / tSize);
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				final double tSize = t.size().value();
 				final double nSize = size.value();
-
+				
 				if (tSize == 0 || nSize == 0) return 0;
-
+				
 				return t.y() / (nSize / tSize);
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
 				final double tSize = t.size().value();
 				final double nSize = size.value();
-
+				
 				if (tSize == 0 || nSize == 0) return 0;
-
+				
 				return t.z() / (nSize / tSize);
 			}
 		};
 	}
-
-
+	
+	
 	public Vect norm(final double size)
 	{
 		return norm(Num.make(size));
 	}
-
-
+	
+	
 	/**
 	 * Get distance to other point
 	 *
@@ -1032,23 +1032,23 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Num dist(final Vect point)
 	{
 		return new Num() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double value()
 			{
 				final double dx = t.x() - point.x();
 				final double dy = t.y() - point.y();
 				final double dz = t.z() - point.z();
-
+				
 				return Math.sqrt(dx * dx + dy * dy + dz * dz);
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Get middle of line to other point
 	 *
@@ -1058,24 +1058,24 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Vect midTo(final Vect point)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return (point.x() + t.x()) * 0.5;
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return (point.y() + t.y()) * 0.5;
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -1083,8 +1083,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Create vector from this point to other point
 	 *
@@ -1094,24 +1094,24 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Vect vectTo(final Vect point)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return (point.x() - t.x());
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return (point.y() - t.y());
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -1119,8 +1119,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Get cross product (vector multiplication)
 	 *
@@ -1130,24 +1130,24 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Vect cross(final Vect vec)
 	{
 		return new Vect() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double x()
 			{
 				return t.y() * vec.z() - t.z() * vec.y();
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return t.z() * vec.x() - t.x() * vec.z();
 			}
-
-
+			
+			
 			@Override
 			public double z()
 			{
@@ -1155,8 +1155,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Get dot product (scalar multiplication)
 	 *
@@ -1166,10 +1166,10 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Num dot(final Vect vec)
 	{
 		return new Num() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double value()
 			{
@@ -1177,8 +1177,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 			}
 		};
 	}
-
-
+	
+	
 	/**
 	 * Get vector size
 	 *
@@ -1187,10 +1187,10 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	public Num size()
 	{
 		if (p_size == null) p_size = new Num() {
-
+			
 			final Vect t = Vect.this;
-
-
+			
+			
 			@Override
 			public double value()
 			{
@@ -1198,11 +1198,11 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 				return Math.sqrt(x * x + y * y + z * z);
 			}
 		};
-
+		
 		return p_size;
 	}
-
-
+	
+	
 	/**
 	 * Expand to a rect, with given growth to each side.
 	 *
@@ -1216,8 +1216,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return Rect.make(this, Vect.ZERO).grow(left, right, top, bottom);
 	}
-
-
+	
+	
 	/**
 	 * Expand to a rect, with given growth to each side.
 	 *
@@ -1231,8 +1231,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 	{
 		return Rect.make(this, Vect.ZERO).grow(left, right, top, bottom);
 	}
-
-
+	
+	
 	@Override
 	public int hashCode()
 	{
@@ -1243,8 +1243,8 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 		result = prime * result + Double.valueOf(z()).hashCode();
 		return result;
 	}
-
-
+	
+	
 	@Override
 	public boolean equals(Object obj)
 	{
@@ -1252,17 +1252,17 @@ public abstract class Vect implements VectBound, CachedDigestable<VectDigest> {
 		if (obj == null) return false;
 		if (!(obj instanceof Vect)) return false;
 		final Vect other = (Vect) obj;
-
+		
 		return x() == other.x() && y() == other.y() && z() == other.z();
 	}
-
-
+	
+	
 	public final boolean isInside(Rect bounds)
 	{
 		return bounds.contains(this);
 	}
-
-
+	
+	
 	public Rect startRect()
 	{
 		return expand(0, 0, 0, 0);

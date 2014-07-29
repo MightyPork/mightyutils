@@ -10,16 +10,16 @@ import mightypork.utils.math.constraints.vect.Vect;
  * @author Ondřej Hruška (MightyPork)
  */
 public class Polar {
-
+	
 	/** angle in radians */
 	private double angle = 0;
-
+	
 	/** distance in units */
 	private double radius = 0;
-
+	
 	private Vect coord = null;
-
-
+	
+	
 	/**
 	 * Create a polar
 	 *
@@ -30,8 +30,8 @@ public class Polar {
 	{
 		this(angle, false, distance);
 	}
-
-
+	
+	
 	/**
 	 * Create a polar
 	 *
@@ -44,8 +44,8 @@ public class Polar {
 		this.radius = distance;
 		this.angle = deg ? Math.toRadians(angle) : angle;
 	}
-
-
+	
+	
 	/**
 	 * @return angle in RAD
 	 */
@@ -53,8 +53,8 @@ public class Polar {
 	{
 		return angle;
 	}
-
-
+	
+	
 	/**
 	 * @return angle in DEG
 	 */
@@ -62,8 +62,8 @@ public class Polar {
 	{
 		return Math.toDegrees(angle);
 	}
-
-
+	
+	
 	/**
 	 * @param angle angle in RAD
 	 */
@@ -71,8 +71,8 @@ public class Polar {
 	{
 		this.angle = angle;
 	}
-
-
+	
+	
 	/**
 	 * @param angle angle in DEG
 	 */
@@ -80,8 +80,8 @@ public class Polar {
 	{
 		this.angle = Math.toRadians(angle);
 	}
-
-
+	
+	
 	/**
 	 * @return radius
 	 */
@@ -89,8 +89,8 @@ public class Polar {
 	{
 		return radius;
 	}
-
-
+	
+	
 	/**
 	 * @param r radius
 	 */
@@ -98,8 +98,8 @@ public class Polar {
 	{
 		this.radius = r;
 	}
-
-
+	
+	
 	/**
 	 * Make polar from coord
 	 *
@@ -109,10 +109,10 @@ public class Polar {
 	public static Polar fromCoord(Vect coord)
 	{
 		return Polar.fromCoord(coord.x(), coord.y());
-
+		
 	}
-
-
+	
+	
 	/**
 	 * Make polar from coords
 	 *
@@ -124,11 +124,11 @@ public class Polar {
 	{
 		final double a = Math.atan2(y, x);
 		final double r = Math.sqrt(x * x + y * y);
-
+		
 		return new Polar(a, r);
 	}
-
-
+	
+	
 	/**
 	 * Get coord from polar
 	 *
@@ -138,32 +138,32 @@ public class Polar {
 	{
 		// lazy init
 		if (coord == null) coord = new Vect() {
-
+			
 			@Override
 			public double x()
 			{
 				return radius * Math.cos(angle);
 			}
-
-
+			
+			
 			@Override
 			public double y()
 			{
 				return radius * Math.sin(angle);
 			}
 		};
-
+		
 		return coord;
 	}
-
-
+	
+	
 	@Override
 	public String toString()
 	{
 		return "Polar(" + angle + "rad, " + radius + ")";
 	}
-
-
+	
+	
 	@Override
 	public int hashCode()
 	{
@@ -176,8 +176,8 @@ public class Polar {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
-
-
+	
+	
 	@Override
 	public boolean equals(Object obj)
 	{

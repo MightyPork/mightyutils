@@ -7,6 +7,6 @@ package mightypork.utils.string;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface StringProvider {
-
+	
 	String getString();
 }

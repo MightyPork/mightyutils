@@ -7,6 +7,6 @@ package mightypork.utils.string.validation;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface StringFilter {
-
+	
 	public boolean isValid(String entry);
 }

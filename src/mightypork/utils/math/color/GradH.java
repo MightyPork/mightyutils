@@ -7,7 +7,7 @@ package mightypork.utils.math.color;
  * @author MightyPork
  */
 public class GradH extends Grad {
-
+	
 	public GradH(Color left, Color right)
 	{
 		super(left, right, right, left);

@@ -1,7 +1,7 @@
 package mightypork.utils.math.timing;
 
 
-import mightypork.utils.Support;
+import mightypork.utils.Str;
 
 
 /**
@@ -13,7 +13,7 @@ import mightypork.utils.Support;
  * @author Ondřej Hruška (MightyPork)
  */
 public class Profiler {
-
+	
 	/**
 	 * Get current time, to be later used in the end*() methods
 	 *
@@ -23,8 +23,8 @@ public class Profiler {
 	{
 		return System.currentTimeMillis();
 	}
-
-
+	
+	
 	/**
 	 * Get seconds since begin.
 	 *
@@ -35,8 +35,8 @@ public class Profiler {
 	{
 		return endMs(begun) / 1000D;
 	}
-
-
+	
+	
 	/**
 	 * Get milliseconds since begin.
 	 *
@@ -47,8 +47,8 @@ public class Profiler {
 	{
 		return System.currentTimeMillis() - begun;
 	}
-
-
+	
+	
 	/**
 	 * Elapsed time in human readable format, in seconds.
 	 *
@@ -57,7 +57,7 @@ public class Profiler {
 	 */
 	public static String endStr(long begun)
 	{
-		return Support.str(end(begun)) + " s";
+		return Str.val(end(begun)) + " s";
 	}
-
+	
 }

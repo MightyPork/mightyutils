@@ -17,10 +17,10 @@ import mightypork.utils.interfaces.Updateable;
 @DirectEvent
 @NonConsumableEvent
 public class UpdateEvent extends BusEvent<Updateable> {
-
+	
 	private final double deltaTime;
-
-
+	
+	
 	/**
 	 * @param deltaTime time since last update (sec)
 	 */
@@ -28,8 +28,8 @@ public class UpdateEvent extends BusEvent<Updateable> {
 	{
 		this.deltaTime = deltaTime;
 	}
-
-
+	
+	
 	@Override
 	public void handleBy(Updateable handler)
 	{

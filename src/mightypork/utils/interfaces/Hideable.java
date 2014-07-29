@@ -7,9 +7,9 @@ package mightypork.utils.interfaces;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface Hideable {
-
+	
 	void setVisible(boolean yes);
-
-
+	
+	
 	boolean isVisible();
 }

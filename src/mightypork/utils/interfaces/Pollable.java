@@ -7,7 +7,7 @@ package mightypork.utils.interfaces;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface Pollable {
-
+	
 	/**
 	 * Update internal state
 	 */

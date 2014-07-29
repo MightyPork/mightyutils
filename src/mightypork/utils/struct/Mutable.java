@@ -8,11 +8,11 @@ package mightypork.utils.struct;
  * @param <T> type
  */
 public class Mutable<T> {
-
+	
 	/** The wrapped value */
 	private T o = null;
-
-
+	
+	
 	/**
 	 * New mutable object
 	 *
@@ -22,8 +22,8 @@ public class Mutable<T> {
 	{
 		this.o = o;
 	}
-
-
+	
+	
 	/**
 	 * Get the wrapped value
 	 *
@@ -33,8 +33,8 @@ public class Mutable<T> {
 	{
 		return o;
 	}
-
-
+	
+	
 	/**
 	 * Set value
 	 *
@@ -44,16 +44,16 @@ public class Mutable<T> {
 	{
 		this.o = o;
 	}
-
-
+	
+	
 	@Override
 	public String toString()
 	{
 		if (o == null) return "<null>";
 		return o.toString();
 	}
-
-
+	
+	
 	@Override
 	public int hashCode()
 	{
@@ -62,8 +62,8 @@ public class Mutable<T> {
 		result = prime * result + ((o == null) ? 0 : o.hashCode());
 		return result;
 	}
-
-
+	
+	
 	@Override
 	public boolean equals(Object obj)
 	{

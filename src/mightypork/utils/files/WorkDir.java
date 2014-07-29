@@ -14,11 +14,11 @@ import mightypork.utils.logging.Log;
  * @author Ondřej Hruška (MightyPork)
  */
 public class WorkDir {
-	
+
 	private static File baseDir = new File(".");
 	private static Map<String, String> namedPaths = new HashMap<>();
-
-
+	
+	
 	/**
 	 * Initialize the workdir for the given root path
 	 *
@@ -28,8 +28,8 @@ public class WorkDir {
 	{
 		WorkDir.baseDir = workdir;
 	}
-	
-	
+
+
 	/**
 	 * Add a path alias (dir or file), relative to the workdir.
 	 *
@@ -40,8 +40,8 @@ public class WorkDir {
 	{
 		namedPaths.put(alias, path);
 	}
-	
-	
+
+
 	/**
 	 * Get workdir folder, create if not exists.
 	 *
@@ -51,18 +51,18 @@ public class WorkDir {
 	public static File getDir(String path)
 	{
 		if (namedPaths.containsKey(path)) path = namedPaths.get(path);
-		
+
 		final File f = new File(baseDir, path);
 		if (!f.exists()) {
 			if (!f.mkdirs()) {
 				Log.w("Could not create a directory: " + f + " (path: " + path + ")");
 			}
 		}
-		
+
 		return f;
 	}
-	
-	
+
+
 	/**
 	 * Get workdir file, create parent if not exists.
 	 *
@@ -72,19 +72,19 @@ public class WorkDir {
 	public static File getFile(String path)
 	{
 		if (namedPaths.containsKey(path)) path = namedPaths.get(path);
-		
+
 		final File f = new File(baseDir, path);
-		
+
 		// create the parent dir
 		if (!f.getParent().equals(baseDir)) {
 			f.getParentFile().mkdirs();
 		}
-		
+
 		return f;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * @return the workdir File
 	 */
@@ -92,5 +92,5 @@ public class WorkDir {
 	{
 		return baseDir;
 	}
-	
+
 }

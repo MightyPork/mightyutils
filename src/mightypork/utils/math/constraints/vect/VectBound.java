@@ -8,7 +8,7 @@ package mightypork.utils.math.constraints.vect;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface VectBound {
-
+	
 	/**
 	 * @return the Vect value
 	 */

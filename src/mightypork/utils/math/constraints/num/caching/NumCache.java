@@ -10,26 +10,26 @@ import mightypork.utils.math.constraints.num.Num;
  * @author Ondřej Hruška (MightyPork)
  */
 public class NumCache extends AbstractNumCache {
-
+	
 	private final Num source;
-
-
+	
+	
 	public NumCache(Num source)
 	{
 		this.source = source;
 	}
-
-
+	
+	
 	@Override
 	public final Num getCacheSource()
 	{
 		return source;
 	}
-
-
+	
+	
 	@Override
 	public void onConstraintChanged()
 	{
 	}
-
+	
 }

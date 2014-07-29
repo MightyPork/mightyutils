@@ -7,7 +7,7 @@ package mightypork.utils.interfaces;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface Destroyable {
-
+	
 	/**
 	 * Destroy this object
 	 */

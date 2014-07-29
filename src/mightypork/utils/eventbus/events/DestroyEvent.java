@@ -4,6 +4,7 @@ package mightypork.utils.eventbus.events;
 import mightypork.utils.eventbus.BusEvent;
 import mightypork.utils.eventbus.events.flags.DirectEvent;
 import mightypork.utils.eventbus.events.flags.NonConsumableEvent;
+import mightypork.utils.eventbus.events.flags.NonRejectableEvent;
 import mightypork.utils.interfaces.Destroyable;
 
 
@@ -14,6 +15,7 @@ import mightypork.utils.interfaces.Destroyable;
  */
 @DirectEvent
 @NonConsumableEvent
+@NonRejectableEvent
 public class DestroyEvent extends BusEvent<Destroyable> {
 
 	@Override

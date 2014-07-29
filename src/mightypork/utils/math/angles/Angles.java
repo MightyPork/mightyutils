@@ -7,7 +7,7 @@ package mightypork.utils.math.angles;
  * @author Ondřej Hruška (MightyPork)
  */
 class Angles {
-
+	
 	/**
 	 * Delta of two angles (positive or negative - positive is CCW)
 	 *
@@ -22,11 +22,11 @@ class Angles {
 			alpha = norm(alpha + fullAngle / 2D, fullAngle);
 			beta = norm(beta + fullAngle / 2D, fullAngle);
 		}
-
+		
 		return beta - alpha;
 	}
-
-
+	
+	
 	/**
 	 * Difference of two angles (same as delta, but always positive)
 	 *
@@ -39,8 +39,8 @@ class Angles {
 	{
 		return Math.abs(delta(alpha, beta, fullAngle));
 	}
-
-
+	
+	
 	/**
 	 * Normalize angle to 0-full range
 	 *

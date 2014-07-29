@@ -5,7 +5,7 @@ import java.util.logging.Level;
 
 
 public class LogMonitorStdout extends LogMonitor {
-
+	
 	@Override
 	protected void logMessage(Level level, String message)
 	{
@@ -15,5 +15,5 @@ public class LogMonitorStdout extends LogMonitor {
 			System.out.print(message);
 		}
 	}
-
+	
 }

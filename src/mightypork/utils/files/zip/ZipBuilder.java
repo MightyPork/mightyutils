@@ -20,25 +20,25 @@ import mightypork.utils.logging.Log;
  * @author Ondřej Hruška (MightyPork)
  */
 public class ZipBuilder {
-
+	
 	private final ZipOutputStream out;
 	private final HashSet<String> included = new HashSet<>();
-
-
+	
+	
 	/**
 	 * @param target target zip file
 	 * @throws IOException if the file is directory or cannot be created
 	 */
 	public ZipBuilder(File target) throws IOException
 	{
-
+		
 		if (!target.getParentFile().mkdirs()) throw new IOException("Could not create output directory.");
-
+		
 		final FileOutputStream dest = new FileOutputStream(target);
 		out = new ZipOutputStream(new BufferedOutputStream(dest));
 	}
-
-
+	
+	
 	/**
 	 * Add stream to a path
 	 *
@@ -54,13 +54,13 @@ public class ZipBuilder {
 			return; // ignore
 		}
 		included.add(path);
-
+		
 		out.putNextEntry(new ZipEntry(path));
-
+		
 		FileUtil.copyStream(in, out);
 	}
-
-
+	
+	
 	/**
 	 * Add string as a file
 	 *
@@ -73,15 +73,15 @@ public class ZipBuilder {
 		path = preparePath(path);
 		if (included.contains(path)) return; // ignore
 		included.add(path);
-
+		
 		out.putNextEntry(new ZipEntry(path));
-
+		
 		try(InputStream in = FileUtil.stringToStream(text)) {
 			FileUtil.copyStream(in, out);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Add resource obtained via FileUtils.getResource()
 	 *
@@ -94,15 +94,15 @@ public class ZipBuilder {
 		path = preparePath(path);
 		if (included.contains(path)) return; // ignore
 		included.add(path);
-
+		
 		out.putNextEntry(new ZipEntry(path));
-
+		
 		try(InputStream in = FileUtil.getResource(resPath)) {
 			FileUtil.copyStream(in, out);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Normalize path
 	 *
@@ -112,13 +112,13 @@ public class ZipBuilder {
 	private static String preparePath(String path)
 	{
 		path = path.replace("\\", "/");
-
+		
 		if (path.charAt(0) == '/') path = path.substring(1);
-
+		
 		return path;
 	}
-
-
+	
+	
 	/**
 	 * Close the zip stream
 	 *

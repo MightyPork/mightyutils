@@ -7,7 +7,7 @@ package mightypork.utils.math.angles;
  * @author Ondřej Hruška (MightyPork)
  */
 public class Deg {
-
+	
 	/** 180° in degrees */
 	public static final double a180 = 180;
 	/** 270° in degrees */
@@ -18,8 +18,8 @@ public class Deg {
 	public static final double a45 = 45;
 	/** 90° in degrees */
 	public static final double a90 = 90;
-
-
+	
+	
 	/**
 	 * Subtract two angles alpha - beta
 	 *
@@ -31,8 +31,8 @@ public class Deg {
 	{
 		return Angles.delta(alpha, beta, a360);
 	}
-
-
+	
+	
 	/**
 	 * Difference of two angles (absolute value of delta)
 	 *
@@ -44,8 +44,8 @@ public class Deg {
 	{
 		return Angles.diff(alpha, beta, a360);
 	}
-
-
+	
+	
 	/**
 	 * Cosinus in degrees
 	 *
@@ -56,8 +56,8 @@ public class Deg {
 	{
 		return Math.cos(toRad(deg));
 	}
-
-
+	
+	
 	/**
 	 * Sinus in degrees
 	 *
@@ -68,8 +68,8 @@ public class Deg {
 	{
 		return Math.sin(toRad(deg));
 	}
-
-
+	
+	
 	/**
 	 * Tangents in degrees
 	 *
@@ -80,8 +80,8 @@ public class Deg {
 	{
 		return Math.tan(toRad(deg));
 	}
-
-
+	
+	
 	/**
 	 * Angle normalized to 0-360 range
 	 *
@@ -92,8 +92,8 @@ public class Deg {
 	{
 		return Angles.norm(angle, a360);
 	}
-
-
+	
+	
 	/**
 	 * Convert to radians
 	 *
@@ -104,8 +104,8 @@ public class Deg {
 	{
 		return Math.toRadians(deg);
 	}
-
-
+	
+	
 	/**
 	 * Round angle to 0,45,90,135...
 	 *
@@ -123,8 +123,8 @@ public class Deg {
 		if (a == 360) a = 0;
 		return (int) Math.round(a);
 	}
-
-
+	
+	
 	/**
 	 * Round angle to 0,15,30,45,60,75,90...
 	 *
@@ -135,8 +135,8 @@ public class Deg {
 	{
 		return roundToIncrement(deg, 15);
 	}
-
-
+	
+	
 	/**
 	 * Round angle to 0,45,90,135...
 	 *
@@ -147,8 +147,8 @@ public class Deg {
 	{
 		return roundToIncrement(deg, 45);
 	}
-
-
+	
+	
 	/**
 	 * Round angle to 0,90,180,270
 	 *

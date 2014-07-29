@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import mightypork.utils.Reflect;
-import mightypork.utils.Support;
+import mightypork.utils.Str;
 
 
 /**
@@ -22,13 +22,13 @@ import mightypork.utils.Support;
  * @author Ondřej Hruška (MightyPork)
  */
 public class Ion {
-
+	
 	private static final int RESERVED_LOW = 0;
 	private static final int RESERVED_HIGH = 49;
-
+	
 	private static final int RANGE_LOW = 0;
 	private static final int RANGE_HIGH = 255;
-
+	
 	// marks for object saving
 	/** Null mark */
 	static final int NULL = 0;
@@ -84,28 +84,28 @@ public class Ion {
 	public static final int MAP = 25;
 	/** Array of arbitrary objects */
 	public static final int OBJECT_ARRAY = 26;
-
+	
 	/** Ionizables<Mark, Class> */
 	private static Map<Integer, Class<?>> markToClass = new HashMap<>();
 	private static Map<Class<?>, Integer> classToMark = new HashMap<>();
-
+	
 	private static Map<Class<?>, IonizerBinary<?>> ionizersBinary = new HashMap<>();
 	private static Map<Class<?>, IonizerBundled<?>> ionizersBundled = new HashMap<>();
-
+	
 	private static boolean reservedMarkChecking;
-
+	
 	static {
 		reservedMarkChecking = false;
-
+		
 		// register built-ins
 		register(ION_BUNDLE, IonDataBundle.class);
 		register(SEQUENCE_WRAPPER, IonSequenceWrapper.class);
 		register(MAP_WRAPPER, IonMapWrapper.class);
-
+		
 		reservedMarkChecking = true;
 	}
-
-
+	
+	
 	/**
 	 * Register a type for writing/loading.
 	 *
@@ -116,16 +116,16 @@ public class Ion {
 	{
 		if (!IonBinary.class.isAssignableFrom(objClass)) {
 			if (!IonBundled.class.isAssignableFrom(objClass)) {
-				throw new IllegalArgumentException("Cannot register directly: " + Support.str(objClass));
+				throw new IllegalArgumentException("Cannot register directly: " + Str.val(objClass));
 			}
 		}
-
+		
 		assertHasImplicitConstructor(objClass);
-
+		
 		registerUsingMark(mark, objClass);
 	}
-
-
+	
+	
 	/**
 	 * Try to register a type using a static final ION_MARK int field.
 	 *
@@ -135,37 +135,37 @@ public class Ion {
 	{
 		if (!IonBinary.class.isAssignableFrom(objClass)) {
 			if (!IonBundled.class.isAssignableFrom(objClass)) {
-				throw new IllegalArgumentException("Cannot register directly: " + Support.str(objClass));
+				throw new IllegalArgumentException("Cannot register directly: " + Str.val(objClass));
 			}
 		}
-
+		
 		assertHasImplicitConstructor(objClass);
 		registerUsingConstant(objClass);
 	}
-
-
+	
+	
 	private static void registerUsingMark(int mark, Class<?> objClass)
 	{
 		assertMarkAvailable(mark, objClass);
-
+		
 		markToClass.put(mark, objClass);
 		classToMark.put(objClass, mark);
 	}
-
-
+	
+	
 	public static void registerUsingConstant(Class<?> objClass)
 	{
 		try {
 			final int mark = ((Number) Reflect.getConstantFieldValue(objClass, "ION_MARK")).intValue();
-
+			
 			registerUsingMark(mark, objClass);
-
+			
 		} catch (final Exception e) {
-			throw new RuntimeException("Could not register " + Support.str(objClass) + " using an ION_MARK field.", e);
+			throw new RuntimeException("Could not register " + Str.val(objClass) + " using an ION_MARK field.", e);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Register new binary ionizer.
 	 *
@@ -175,13 +175,13 @@ public class Ion {
 	public static void registerIndirect(int mark, IonizerBinary<?> ionizer)
 	{
 		final Class<?> objClass = Reflect.getGenericParameters(ionizer.getClass())[0];
-
+		
 		registerUsingMark(mark, objClass);
-
+		
 		ionizersBinary.put(objClass, ionizer);
 	}
-
-
+	
+	
 	/**
 	 * Register new bundled ionizer.
 	 *
@@ -191,13 +191,13 @@ public class Ion {
 	public static void registerIndirect(int mark, IonizerBundled<?> ionizer)
 	{
 		final Class<?> objClass = Reflect.getGenericParameters(ionizer.getClass())[0];
-
+		
 		registerUsingMark(mark, objClass);
-
+		
 		ionizersBundled.put(objClass, ionizer);
 	}
-
-
+	
+	
 	private static void assertHasImplicitConstructor(Class<?> objClass)
 	{
 		try {
@@ -206,28 +206,28 @@ public class Ion {
 			throw new RuntimeException("Class " + objClass + " doesn't have an implicit constructor.");
 		}
 	}
-
-
+	
+	
 	private static void assertMarkAvailable(int mark, Class<?> objClass)
 	{
 		// negative marks are allowed.
 		if (mark > RANGE_HIGH) throw new IllegalArgumentException("Mark must be < 256.");
 		if (mark < RANGE_LOW) throw new IllegalArgumentException("Mark must be positive.");
-
+		
 		if (reservedMarkChecking && isMarkReserved(mark)) {
 			throw new IllegalArgumentException("Marks " + RESERVED_LOW + ".." + RESERVED_HIGH + " are reserved.");
 		}
-
+		
 		if (markToClass.containsKey(mark)) {
 			throw new IllegalArgumentException("Mark " + mark + " is already in use.");
 		}
-
+		
 		if (classToMark.containsKey(objClass)) {
-			throw new IllegalArgumentException(Support.str(objClass) + " is already registered.");
+			throw new IllegalArgumentException(Str.val(objClass) + " is already registered.");
 		}
 	}
-
-
+	
+	
 	/**
 	 * Load binary from file and cast.
 	 */
@@ -235,8 +235,8 @@ public class Ion {
 	{
 		return fromFile(new File(path));
 	}
-
-
+	
+	
 	/**
 	 * Load binary from file and cast.
 	 */
@@ -246,8 +246,8 @@ public class Ion {
 			return fromStream(in);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Write binary to file with mark.
 	 */
@@ -255,24 +255,24 @@ public class Ion {
 	{
 		toFile(new File(path), obj);
 	}
-
-
+	
+	
 	/**
 	 * Write binary to file with mark.
 	 */
 	public static void toFile(File file, Object obj) throws IOException
 	{
 		try(OutputStream out = new FileOutputStream(file)) {
-
+			
 			toStream(out, obj);
-
+			
 			out.flush();
 		} catch (final Exception e) {
 			throw new IOException("Error writing to ION file.", e);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Load object from stream based on mark, try to cast.
 	 */
@@ -282,8 +282,8 @@ public class Ion {
 			return (T) inp.readObject();
 		}
 	}
-
-
+	
+	
 	/**
 	 * Write object to output with a mark.
 	 */
@@ -293,8 +293,8 @@ public class Ion {
 			iout.writeObject(obj);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Get ion input
 	 *
@@ -306,8 +306,8 @@ public class Ion {
 	{
 		return getInput(new File(path));
 	}
-
-
+	
+	
 	/**
 	 * Get ion input
 	 *
@@ -320,8 +320,8 @@ public class Ion {
 	{
 		return new IonInput(new FileInputStream(file));
 	}
-
-
+	
+	
 	/**
 	 * Get ion output
 	 *
@@ -333,8 +333,8 @@ public class Ion {
 	{
 		return getOutput(new File(path));
 	}
-
-
+	
+	
 	/**
 	 * Get ion output
 	 *
@@ -347,8 +347,8 @@ public class Ion {
 	{
 		return new IonOutput(new FileOutputStream(file));
 	}
-
-
+	
+	
 	/**
 	 * Create new bundle and write the object to it.
 	 */
@@ -358,8 +358,8 @@ public class Ion {
 		content.save(ib);
 		return ib;
 	}
-
-
+	
+	
 	/**
 	 * Try to unwrap an object from bundle. The object class must have implicit
 	 * accessible constructor.
@@ -376,59 +376,59 @@ public class Ion {
 			inst.load(bundle);
 			return inst;
 		} catch (InstantiationException | IllegalAccessException e) {
-			throw new IOException("Could not instantiate " + Support.str(objClass) + ".");
+			throw new IOException("Could not instantiate " + Str.val(objClass) + ".");
 		}
 	}
-
-
+	
+	
 	static Class<?> getClassForMark(int mark)
 	{
 		return markToClass.get(mark);
 	}
-
-
+	
+	
 	static IonizerBinary<?> getIonizerBinaryForClass(Class<?> clz)
 	{
 		return ionizersBinary.get(clz);
 	}
-
-
+	
+	
 	static IonizerBundled<?> getIonizerBundledForClass(Class<?> clz)
 	{
 		return ionizersBundled.get(clz);
 	}
-
-
+	
+	
 	public static int getMark(Object object)
 	{
 		assertRegistered(object);
-
+		
 		return classToMark.get(object.getClass());
 	}
-
-
+	
+	
 	/**
 	 * @return true if the mark is for a registered {@link IonBinary} object
 	 */
 	static boolean isMarkForBinary(int mark)
 	{
 		if (!markToClass.containsKey(mark)) return false;
-
+		
 		return IonBinary.class.isAssignableFrom(markToClass.get(mark));
 	}
-
-
+	
+	
 	/**
 	 * @return true if the mark is for a registered {@link IonBinary} object
 	 */
 	static boolean isMarkForBundled(int mark)
 	{
 		if (!markToClass.containsKey(mark)) return false;
-
+		
 		return IonBundled.class.isAssignableFrom(markToClass.get(mark));
 	}
-
-
+	
+	
 	/**
 	 * @return true if the mark is for a registered indirectly saved binary
 	 *         object
@@ -436,11 +436,11 @@ public class Ion {
 	static boolean isMarkForIndirectBinary(int mark)
 	{
 		if (!markToClass.containsKey(mark)) return false;
-
+		
 		return ionizersBinary.containsKey(markToClass.get(mark));
 	}
-
-
+	
+	
 	/**
 	 * @return true if the mark is for a registered indirectly saved bundled
 	 *         object
@@ -448,11 +448,11 @@ public class Ion {
 	static boolean isMarkForIndirectBundled(int mark)
 	{
 		if (!markToClass.containsKey(mark)) return false;
-
+		
 		return ionizersBundled.containsKey(markToClass.get(mark));
 	}
-
-
+	
+	
 	/**
 	 * @return true if the mark is reserved for internal use
 	 */
@@ -460,8 +460,8 @@ public class Ion {
 	{
 		return mark >= RESERVED_LOW && mark <= RESERVED_HIGH;
 	}
-
-
+	
+	
 	/**
 	 * @return true if the mark is for a registered {@link IonBinary} object
 	 */
@@ -469,11 +469,11 @@ public class Ion {
 	{
 		final Class<?> clazz = object.getClass();
 		if (classToMark.containsKey(clazz)) return true;
-
+		
 		return false;
 	}
-
-
+	
+	
 	/**
 	 * Make sure object is registered in the table.
 	 *
@@ -482,11 +482,11 @@ public class Ion {
 	static void assertRegistered(Object obj)
 	{
 		if (!isRegistered(obj)) {
-			throw new RuntimeException("Type not registered: " + Support.str(obj.getClass()));
+			throw new RuntimeException("Type not registered: " + Str.val(obj.getClass()));
 		}
 	}
-
-
+	
+	
 	/**
 	 * For get all external registered types - just like if the class was
 	 * freshly loaded. Can be used for unit tests.
@@ -494,31 +494,31 @@ public class Ion {
 	public static void reset()
 	{
 		final List<Integer> toRemove = new ArrayList<>();
-
+		
 		// remove direct
 		for (final Integer mark : markToClass.keySet()) {
 			if (!isMarkReserved(mark)) {
 				toRemove.add(mark);
 			}
 		}
-
+		
 		for (final int i : toRemove) {
-
+			
 			final Class<?> clz = markToClass.remove(i);
-
+			
 			classToMark.remove(clz);
 			ionizersBinary.remove(clz);
 			ionizersBundled.remove(clz);
 		}
 	}
-
-
+	
+	
 	public static boolean isObjectIndirectBundled(Object obj)
 	{
 		return ionizersBundled.containsKey(obj.getClass());
 	}
-
-
+	
+	
 	public static boolean isObjectIndirectBinary(Object obj)
 	{
 		return ionizersBinary.containsKey(obj.getClass());

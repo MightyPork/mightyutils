@@ -9,15 +9,15 @@ package mightypork.utils.interfaces;
  * @author Ondřej Hruška (MightyPork)
  */
 public interface Enableable {
-
+	
 	/**
 	 * Change enabled state
 	 *
 	 * @param yes enabled
 	 */
 	public void setEnabled(boolean yes);
-
-
+	
+	
 	/**
 	 * @return true if enabled
 	 */

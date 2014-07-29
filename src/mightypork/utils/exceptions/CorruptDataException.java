@@ -10,28 +10,28 @@ import java.io.IOException;
  * @author Ondřej Hruška (MightyPork)
  */
 public class CorruptDataException extends IOException {
-
+	
 	public CorruptDataException()
 	{
 		super();
 	}
-
-
+	
+	
 	public CorruptDataException(String message, Throwable cause)
 	{
 		super(message, cause);
 	}
-
-
+	
+	
 	public CorruptDataException(String message)
 	{
 		super(message);
 	}
-
-
+	
+	
 	public CorruptDataException(Throwable cause)
 	{
 		super(cause);
 	}
-
+	
 }

@@ -10,24 +10,24 @@ import java.util.Random;
  * @author Ondřej Hruška (MightyPork)
  */
 public class Range {
-
+	
 	public static Range make(double low, double high)
 	{
 		return new Range(low, high);
 	}
-
+	
 	private double min = 0;
 	private double max = 1;
-
-
+	
+	
 	/**
 	 * Implicit range constructor 0-1
 	 */
 	public Range()
 	{
 	}
-
-
+	
+	
 	/**
 	 * Create new range
 	 *
@@ -40,8 +40,8 @@ public class Range {
 		this.max = max;
 		norm();
 	}
-
-
+	
+	
 	/**
 	 * Create new range
 	 *
@@ -52,39 +52,39 @@ public class Range {
 		this.min = minmax;
 		this.max = minmax;
 	}
-
-
+	
+	
 	public static Range fromString(String string)
 	{
 		try {
 			String s = string.trim();
-
+			
 			// drop whitespace
 			s = s.replaceAll("\\s", "");
-
+			
 			// drop brackets
 			s = s.replaceAll("[\\(\\[\\{\\)\\]\\}]", "");
-
+			
 			// norm separators
 			s = s.replaceAll("[:;]", "|").replace("..", "|");
-
+			
 			// norm floating point
 			s = s.replaceAll("[,]", ".");
-
+			
 			// dash to pipe, if not a minus sign
 			s = s.replaceAll("([0-9])\\s?[\\-]", "$1|");
-
+			
 			final String[] parts = s.split("[|]");
-
+			
 			if (parts.length >= 1) {
-
+				
 				final double low = Double.parseDouble(parts[0].trim());
-
+				
 				if (parts.length == 2) {
 					final double high = Double.parseDouble(parts[1].trim());
 					return Range.make(low, high);
 				}
-
+				
 				return Range.make(low, low);
 			}
 		} catch (final RuntimeException e) {
@@ -92,15 +92,15 @@ public class Range {
 		}
 		return null;
 	}
-
-
+	
+	
 	@Override
 	public String toString()
 	{
 		return String.format("(%f : %f)", getMin(), getMax());
 	}
-
-
+	
+	
 	/**
 	 * Make sure min is <= max
 	 */
@@ -112,8 +112,8 @@ public class Range {
 			max = t;
 		}
 	}
-
-
+	
+	
 	/**
 	 * Get random integer from range
 	 *
@@ -123,8 +123,8 @@ public class Range {
 	{
 		return randInt(Calc.rand);
 	}
-
-
+	
+	
 	/**
 	 * Get random double from this range
 	 *
@@ -134,8 +134,8 @@ public class Range {
 	{
 		return randDouble(Calc.rand);
 	}
-
-
+	
+	
 	/**
 	 * Get random integer from range
 	 *
@@ -146,8 +146,8 @@ public class Range {
 	{
 		return Calc.randInt(rand, (int) Math.round(min), (int) Math.round(min));
 	}
-
-
+	
+	
 	/**
 	 * Get random double from this range
 	 *
@@ -158,8 +158,8 @@ public class Range {
 	{
 		return min + rand.nextDouble() * (max - min);
 	}
-
-
+	
+	
 	/**
 	 * Get min
 	 *
@@ -169,8 +169,8 @@ public class Range {
 	{
 		return min;
 	}
-
-
+	
+	
 	/**
 	 * Get max
 	 *
@@ -180,8 +180,8 @@ public class Range {
 	{
 		return max;
 	}
-
-
+	
+	
 	/**
 	 * Set min
 	 *
@@ -192,8 +192,8 @@ public class Range {
 		this.min = min;
 		norm();
 	}
-
-
+	
+	
 	/**
 	 * Set max
 	 *
@@ -204,8 +204,8 @@ public class Range {
 		this.max = max;
 		norm();
 	}
-
-
+	
+	
 	/**
 	 * Get identical copy
 	 *
@@ -215,8 +215,8 @@ public class Range {
 	{
 		return new Range(min, max);
 	}
-
-
+	
+	
 	/**
 	 * Set to value of other range
 	 *
@@ -229,8 +229,8 @@ public class Range {
 		max = other.max;
 		norm();
 	}
-
-
+	
+	
 	/**
 	 * Set to min-max values
 	 *

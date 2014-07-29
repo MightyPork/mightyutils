@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Ondřej Hruška (MightyPork)
  */
 public class ClientList extends ArrayList<Object> {
-
+	
 	public ClientList(Object... clients)
 	{
 		for (final Object c : clients) {

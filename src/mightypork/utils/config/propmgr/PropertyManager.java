@@ -22,12 +22,12 @@ import mightypork.utils.logging.Log;
  * @author Ondřej Hruška (MightyPork)
  */
 public class PropertyManager {
-
+	
 	private final TreeMap<String, Property<?>> entries = new TreeMap<>();
 	private final TreeMap<String, String> renameTable = new TreeMap<>();
 	private final PropertyStore props;
-
-
+	
+	
 	/**
 	 * Create property manager from file path and a header comment.<br>
 	 * This is the same as using a {@link PropertyFile} store.
@@ -39,8 +39,8 @@ public class PropertyManager {
 	{
 		this(new PropertyFile(file, comment));
 	}
-
-
+	
+	
 	/**
 	 * Create property manager based on provided {@link PropertyStore}
 	 *
@@ -51,61 +51,61 @@ public class PropertyManager {
 	{
 		this.props = props;
 	}
-
-
+	
+	
 	/**
 	 * Load from file
 	 */
 	public void load()
 	{
 		props.load();
-
+		
 		// rename keys (useful if keys change but value is to be kept)
 		for (final Entry<String, String> entry : renameTable.entrySet()) {
-
+			
 			final String value = props.getProperty(entry.getKey());
-
+			
 			if (value == null) continue;
-
+			
 			final String oldKey = entry.getKey();
 			final String newKey = entry.getValue();
-
+			
 			props.removeProperty(oldKey);
 			props.setProperty(newKey, value, entries.get(newKey).getComment());
 		}
-
+		
 		for (final Property<?> entry : entries.values()) {
 			entry.fromString(props.getProperty(entry.getKey()));
 		}
 	}
-
-
+	
+	
 	public void save()
 	{
 		try {
 			final ArrayList<String> keyList = new ArrayList<>();
-
+			
 			// validate entries one by one, replace with default when needed
 			for (final Property<?> entry : entries.values()) {
 				keyList.add(entry.getKey());
-
+				
 				props.setProperty(entry.getKey(), entry.toString(), entry.getComment());
 			}
-
+			
 			// removed unused props
 			for (final String key : props.keys()) {
 				if (!keyList.contains(key)) {
 					props.removeProperty(key);
 				}
 			}
-
+			
 			props.save();
 		} catch (final IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
-
-
+	
+	
 	/**
 	 * Get a property entry (rarely used)
 	 *
@@ -121,8 +121,8 @@ public class PropertyManager {
 			return null;
 		}
 	}
-
-
+	
+	
 	/**
 	 * Get boolean property
 	 *
@@ -133,8 +133,8 @@ public class PropertyManager {
 	{
 		return Convert.toBoolean(getProperty(k).getValue());
 	}
-
-
+	
+	
 	/**
 	 * Get numeric property
 	 *
@@ -145,8 +145,8 @@ public class PropertyManager {
 	{
 		return Convert.toInteger(getProperty(k).getValue());
 	}
-
-
+	
+	
 	/**
 	 * Get numeric property as double
 	 *
@@ -157,8 +157,8 @@ public class PropertyManager {
 	{
 		return Convert.toDouble(getProperty(k).getValue());
 	}
-
-
+	
+	
 	/**
 	 * Get string property
 	 *
@@ -169,8 +169,8 @@ public class PropertyManager {
 	{
 		return Convert.toString(getProperty(k).getValue());
 	}
-
-
+	
+	
 	/**
 	 * Get arbitrary property. Make sure it's of the right type!
 	 *
@@ -186,8 +186,8 @@ public class PropertyManager {
 			return null;
 		}
 	}
-
-
+	
+	
 	/**
 	 * Add a boolean property
 	 *
@@ -199,8 +199,8 @@ public class PropertyManager {
 	{
 		addProperty(new BooleanProperty(k, d, comment));
 	}
-
-
+	
+	
 	/**
 	 * Add a numeric property (double)
 	 *
@@ -212,8 +212,8 @@ public class PropertyManager {
 	{
 		addProperty(new DoubleProperty(k, d, comment));
 	}
-
-
+	
+	
 	/**
 	 * Add a numeric property
 	 *
@@ -225,8 +225,8 @@ public class PropertyManager {
 	{
 		addProperty(new IntegerProperty(k, d, comment));
 	}
-
-
+	
+	
 	/**
 	 * Add a string property
 	 *
@@ -238,8 +238,8 @@ public class PropertyManager {
 	{
 		addProperty(new StringProperty(k, d, comment));
 	}
-
-
+	
+	
 	/**
 	 * Add a generic property (can be used with custom property types)
 	 *
@@ -249,8 +249,8 @@ public class PropertyManager {
 	{
 		entries.put(prop.getKey(), prop);
 	}
-
-
+	
+	
 	/**
 	 * Rename key before loading; value is preserved
 	 *
@@ -262,8 +262,8 @@ public class PropertyManager {
 		renameTable.put(oldKey, newKey);
 		return;
 	}
-
-
+	
+	
 	/**
 	 * Set value saved to certain key.
 	 *
@@ -274,8 +274,8 @@ public class PropertyManager {
 	{
 		getProperty(key).setValue(value);
 	}
-
-
+	
+	
 	/**
 	 * Set heading comment of the property store.
 	 *
@@ -285,5 +285,5 @@ public class PropertyManager {
 	{
 		props.setComment(fileComment);
 	}
-
+	
 }

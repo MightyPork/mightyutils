@@ -6,11 +6,11 @@ import mightypork.utils.math.constraints.vect.var.VectVar;
 
 
 public class RectVar extends RectMutable {
-
+	
 	final VectVar pos = Vect.makeVar();
 	final VectVar size = Vect.makeVar();
-
-
+	
+	
 	/**
 	 * Create at given origin, with given size.
 	 *
@@ -24,29 +24,29 @@ public class RectVar extends RectMutable {
 		this.pos.setTo(x, y);
 		this.size.setTo(width, height);
 	}
-
-
+	
+	
 	@Override
 	public Vect origin()
 	{
 		return pos;
 	}
-
-
+	
+	
 	@Override
 	public Vect size()
 	{
 		return size;
 	}
-
-
+	
+	
 	@Override
 	public void setOrigin(double x, double y)
 	{
 		this.pos.setTo(x, y);
 	}
-
-
+	
+	
 	@Override
 	public void setSize(double x, double y)
 	{

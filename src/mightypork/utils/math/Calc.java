@@ -17,16 +17,16 @@ import mightypork.utils.math.constraints.vect.Vect;
  * @author Ondřej Hruška (MightyPork)
  */
 public final class Calc {
-
+	
 	private Calc()
 	{
 		// not instantiable
 	}
-
+	
 	/** Square root of two */
 	public static final double SQ2 = 1.41421356237;
-
-
+	
+	
 	/**
 	 * Get distance from 2D line to 2D point [X,Y]
 	 *
@@ -40,53 +40,53 @@ public final class Calc {
 		// line point L[lx,ly]
 		final double lx = linePoint.x();
 		final double ly = linePoint.y();
-
+		
 		// line equation ax+by+c=0
 		final double a = -lineDirVec.y();
 		final double b = lineDirVec.x();
 		final double c = -a * lx - b * ly;
-
+		
 		// checked point P[x,y]
 		final double x = point.x();
 		final double y = point.y();
-
+		
 		// distance
 		return Math.abs(a * x + b * y + c) / Math.sqrt(a * a + b * b);
 	}
-
+	
 	public static final Random rand = new Random();
-
-
+	
+	
 	public static double sphereSurface(double radius)
 	{
 		return 4D * Math.PI * square(radius);
 	}
-
-
+	
+	
 	public static double sphereVolume(double radius)
 	{
 		return (4D / 3D) * Math.PI * cube(radius);
 	}
-
-
+	
+	
 	public static double sphereRadius(double volume)
 	{
 		return Math.cbrt((3D * volume) / (4 * Math.PI));
 	}
-
-
+	
+	
 	public static double circleSurface(double radius)
 	{
 		return Math.PI * square(radius);
 	}
-
-
+	
+	
 	public static double circleRadius(double surface)
 	{
 		return Math.sqrt(surface / Math.PI);
 	}
-
-
+	
+	
 	/**
 	 * Safe equals that works with nulls
 	 *
@@ -98,8 +98,8 @@ public final class Calc {
 	{
 		return a == null ? b == null : a.equals(b);
 	}
-
-
+	
+	
 	/**
 	 * Clamp integer
 	 *
@@ -112,8 +112,8 @@ public final class Calc {
 	{
 		return number < min ? min : number > max ? max : number;
 	}
-
-
+	
+	
 	/**
 	 * Clamp double
 	 *
@@ -126,14 +126,14 @@ public final class Calc {
 	{
 		return number < min ? min : number > max ? max : number;
 	}
-
-
+	
+	
 	public static boolean isInRange(double number, double left, double right)
 	{
 		return number >= left && number <= right;
 	}
-
-
+	
+	
 	/**
 	 * Get number from A to B at delta time (A -> B)
 	 *
@@ -147,8 +147,8 @@ public final class Calc {
 	{
 		return from + (to - from) * easing.get(elapsed);
 	}
-
-
+	
+	
 	/**
 	 * Get angle [degrees] from A to B at delta time (tween A to B)
 	 *
@@ -162,8 +162,8 @@ public final class Calc {
 	{
 		return Deg.norm(from - Deg.delta(to, from) * easing.get(elapsed));
 	}
-
-
+	
+	
 	/**
 	 * Get angle [radians] from A to B at delta time (tween A to B)
 	 *
@@ -177,8 +177,8 @@ public final class Calc {
 	{
 		return Rad.norm(from - Rad.delta(to, from) * easing.get(elapsed));
 	}
-
-
+	
+	
 	public static double max(double... numbers)
 	{
 		double highest = numbers[0];
@@ -187,8 +187,8 @@ public final class Calc {
 		}
 		return highest;
 	}
-
-
+	
+	
 	public static int max(int... numbers)
 	{
 		int highest = numbers[0];
@@ -197,8 +197,8 @@ public final class Calc {
 		}
 		return highest;
 	}
-
-
+	
+	
 	public static double min(double... numbers)
 	{
 		double lowest = numbers[0];
@@ -207,8 +207,8 @@ public final class Calc {
 		}
 		return lowest;
 	}
-
-
+	
+	
 	public static int min(int... numbers)
 	{
 		int lowest = numbers[0];
@@ -217,8 +217,8 @@ public final class Calc {
 		}
 		return lowest;
 	}
-
-
+	
+	
 	/**
 	 * Split comma separated list of integers.
 	 *
@@ -231,21 +231,21 @@ public final class Calc {
 		if (list == null) {
 			return null;
 		}
-
+		
 		final String[] parts = list.split(Character.toString(delimiter));
-
+		
 		final ArrayList<Integer> intList = new ArrayList<>();
-
+		
 		for (final String part : parts) {
 			try {
 				intList.add(Integer.parseInt(part.trim()));
 			} catch (final NumberFormatException e) {}
 		}
-
+		
 		return intList;
 	}
-
-
+	
+	
 	/**
 	 * Pick random element from a given list.
 	 *
@@ -256,8 +256,8 @@ public final class Calc {
 	{
 		return pick(rand, list);
 	}
-
-
+	
+	
 	/**
 	 * Pick random element from a given list.
 	 *
@@ -270,8 +270,8 @@ public final class Calc {
 		if (list.size() == 0) return null;
 		return list.get(rand.nextInt(list.size()));
 	}
-
-
+	
+	
 	/**
 	 * Take a square
 	 *
@@ -282,8 +282,8 @@ public final class Calc {
 	{
 		return a * a;
 	}
-
-
+	
+	
 	/**
 	 * Take a cube
 	 *
@@ -294,8 +294,8 @@ public final class Calc {
 	{
 		return a * a * a;
 	}
-
-
+	
+	
 	/**
 	 * @param d number
 	 * @return fractional part
@@ -304,8 +304,8 @@ public final class Calc {
 	{
 		return d - Math.floor(d);
 	}
-
-
+	
+	
 	/**
 	 * Make sure value is within array length.
 	 *
@@ -319,8 +319,8 @@ public final class Calc {
 			throw new IndexOutOfBoundsException();
 		}
 	}
-
-
+	
+	
 	/**
 	 * Get distance of two coordinates in 2D plane
 	 *
@@ -334,21 +334,21 @@ public final class Calc {
 	{
 		return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
 	}
-
-
+	
+	
 	public static int randInt(Random rand, int low, int high)
 	{
 		final int range = Math.abs(high - low) + 1;
 		return low + rand.nextInt(range);
 	}
-
-
+	
+	
 	public static int randInt(int low, int high)
 	{
 		return randInt(rand, low, high);
 	}
-
-
+	
+	
 	/**
 	 * Get ordinal version of numbers (1 = 1st, 5 = 5th etc.)
 	 *
@@ -364,8 +364,8 @@ public final class Calc {
 		}
 		return number + "th";
 	}
-
-
+	
+	
 	/**
 	 * Format number with thousands separated.
 	 *
@@ -378,18 +378,18 @@ public final class Calc {
 		final String num = String.valueOf(number);
 		final String dot = String.valueOf(thousandSep);
 		String out = "";
-
+		
 		int cnt = 1;
 		for (int i = num.length() - 1; i >= 0; i--) {
 			out = num.charAt(i) + out;
 			if (cnt % 3 == 0 && i > 0) out = dot + out;
 			cnt++;
 		}
-
+		
 		return out;
 	}
-
-
+	
+	
 	public static int countBits(byte b)
 	{
 		int c = 0;

@@ -23,25 +23,25 @@ import mightypork.utils.exceptions.CorruptDataException;
  * @author Ondřej Hruška (MightyPork)
  */
 public class IonInput implements Closeable {
-
+	
 	private final DataInput in;
 	private final InputStream stream;
-
-
+	
+	
 	@SuppressWarnings("resource")
 	public IonInput(File inFile) throws FileNotFoundException
 	{
 		this(new FileInputStream(inFile));
 	}
-
-
+	
+	
 	public IonInput(InputStream in)
 	{
 		this.stream = in;
 		this.in = new DataInputStream(in);
 	}
-
-
+	
+	
 	/**
 	 * Read int 0-255. Suitable when the int was written using
 	 * <code>writeIntByte()</code> method.
@@ -53,8 +53,8 @@ public class IonInput implements Closeable {
 	{
 		return in.readUnsignedByte();
 	}
-
-
+	
+	
 	/**
 	 * Read an int 0-65535. Suitable when the int was written using
 	 * <code>writeIntShort()</code> method.
@@ -66,62 +66,62 @@ public class IonInput implements Closeable {
 	{
 		return in.readUnsignedShort();
 	}
-
-
+	
+	
 	public boolean readBoolean() throws IOException
 	{
 		return in.readBoolean();
 	}
-
-
+	
+	
 	public byte readByte() throws IOException
 	{
 		return in.readByte();
 	}
-
-
+	
+	
 	public short readShort() throws IOException
 	{
 		return in.readShort();
 	}
-
-
+	
+	
 	public char readChar() throws IOException
 	{
 		return in.readChar();
 	}
-
-
+	
+	
 	public int readInt() throws IOException
 	{
 		return in.readInt();
 	}
-
-
+	
+	
 	public long readLong() throws IOException
 	{
 		return in.readLong();
 	}
-
-
+	
+	
 	public float readFloat() throws IOException
 	{
 		return in.readFloat();
 	}
-
-
+	
+	
 	public double readDouble() throws IOException
 	{
 		return in.readDouble();
 	}
-
-
+	
+	
 	public String readString() throws IOException
 	{
 		return in.readUTF();
 	}
-
-
+	
+	
 	public boolean[] readBooleans() throws IOException
 	{
 		final int length = readLength();
@@ -131,8 +131,8 @@ public class IonInput implements Closeable {
 		}
 		return arr;
 	}
-
-
+	
+	
 	public byte[] readBytes() throws IOException
 	{
 		final int length = readLength();
@@ -142,8 +142,8 @@ public class IonInput implements Closeable {
 		}
 		return arr;
 	}
-
-
+	
+	
 	public char[] readChars() throws IOException
 	{
 		final int length = readLength();
@@ -153,8 +153,8 @@ public class IonInput implements Closeable {
 		}
 		return arr;
 	}
-
-
+	
+	
 	public short[] readShorts() throws IOException
 	{
 		final int length = readLength();
@@ -164,8 +164,8 @@ public class IonInput implements Closeable {
 		}
 		return arr;
 	}
-
-
+	
+	
 	public int[] readInts() throws IOException
 	{
 		final int length = readLength();
@@ -175,8 +175,8 @@ public class IonInput implements Closeable {
 		}
 		return arr;
 	}
-
-
+	
+	
 	public long[] readLongs() throws IOException
 	{
 		final int length = readLength();
@@ -186,8 +186,8 @@ public class IonInput implements Closeable {
 		}
 		return arr;
 	}
-
-
+	
+	
 	public float[] readFloats() throws IOException
 	{
 		final int length = readLength();
@@ -197,8 +197,8 @@ public class IonInput implements Closeable {
 		}
 		return arr;
 	}
-
-
+	
+	
 	public double[] readDoubles() throws IOException
 	{
 		final int length = readLength();
@@ -208,8 +208,8 @@ public class IonInput implements Closeable {
 		}
 		return arr;
 	}
-
-
+	
+	
 	public String[] readStrings() throws IOException
 	{
 		final int length = readLength();
@@ -219,8 +219,8 @@ public class IonInput implements Closeable {
 		}
 		return arr;
 	}
-
-
+	
+	
 	public Object[] readObjects() throws IOException
 	{
 		final int length = readLength();
@@ -230,8 +230,8 @@ public class IonInput implements Closeable {
 		}
 		return arr;
 	}
-
-
+	
+	
 	/**
 	 * Read bundle without a mark
 	 */
@@ -241,8 +241,8 @@ public class IonInput implements Closeable {
 		ib.load(this);
 		return ib;
 	}
-
-
+	
+	
 	/**
 	 * Read bundle without a mark, load into a provided one
 	 */
@@ -251,20 +251,20 @@ public class IonInput implements Closeable {
 		filled.clear();
 		filled.load(this);
 	}
-
-
+	
+	
 	private int readMark() throws IOException
 	{
 		return readIntByte();
 	}
-
-
+	
+	
 	private int readLength() throws IOException
 	{
 		return readInt();
 	}
-
-
+	
+	
 	/**
 	 * <p>
 	 * Read object based on mark; if null mark is found, returns default value.
@@ -288,8 +288,8 @@ public class IonInput implements Closeable {
 			throw new CorruptDataException("Could not load object.", e);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Read single object, preceded by a mark.
 	 *
@@ -299,115 +299,115 @@ public class IonInput implements Closeable {
 	public Object readObject() throws IOException
 	{
 		final int mark = readMark();
-
+		
 		try {
-
+			
 			if (Ion.isMarkForBinary(mark)) {
 				IonBinary loaded;
-
+				
 				loaded = (IonBinary) Ion.getClassForMark(mark).newInstance();
-
+				
 				loaded.load(this);
 				return loaded;
 			}
-
+			
 			if (Ion.isMarkForBundled(mark)) {
 				IonBundled loaded;
-
+				
 				loaded = (IonBundled) Ion.getClassForMark(mark).newInstance();
-
+				
 				final IonDataBundle ib = readBundle();
 				loaded.load(ib);
 				return loaded;
 			}
-
+			
 			if (Ion.isMarkForIndirectBundled(mark)) {
 				final IonizerBundled<?> ionizer = Ion.getIonizerBundledForClass(Ion.getClassForMark(mark));
 				return ionizer.load(readBundle());
 			}
-
+			
 			if (Ion.isMarkForIndirectBinary(mark)) {
 				final IonizerBinary<?> ionizer = Ion.getIonizerBinaryForClass(Ion.getClassForMark(mark));
 				return ionizer.load(this);
 			}
-
+			
 		} catch (final Exception e) {
 			throw new RuntimeException("Could not load object for mark: " + mark, e);
 		}
-
+		
 		switch (mark) {
 			case Ion.NULL:
 				return null;
-
+				
 			case Ion.BOOLEAN:
 				return readBoolean();
-
+				
 			case Ion.BYTE:
 				return readByte();
-
+				
 			case Ion.CHAR:
 				return readChar();
-
+				
 			case Ion.SHORT:
 				return readShort();
-
+				
 			case Ion.INT:
 				return readInt();
-
+				
 			case Ion.LONG:
 				return readLong();
-
+				
 			case Ion.FLOAT:
 				return readFloat();
-
+				
 			case Ion.DOUBLE:
 				return readDouble();
-
+				
 			case Ion.STRING:
 				return readString();
-
+				
 			case Ion.BOOLEAN_ARRAY:
 				return readBooleans();
-
+				
 			case Ion.BYTE_ARRAY:
 				return readBytes();
-
+				
 			case Ion.CHAR_ARRAY:
 				return readChars();
-
+				
 			case Ion.SHORT_ARRAY:
 				return readShorts();
-
+				
 			case Ion.INT_ARRAY:
 				return readInts();
-
+				
 			case Ion.LONG_ARRAY:
 				return readLongs();
-
+				
 			case Ion.FLOAT_ARRAY:
 				return readFloats();
-
+				
 			case Ion.DOUBLE_ARRAY:
 				return readDoubles();
-
+				
 			case Ion.STRING_ARRAY:
 				return readStrings();
-
+				
 			case Ion.OBJECT_ARRAY:
 				return readObjects();
-
+				
 			case Ion.MAP:
 				return readMap();
-
+				
 			case Ion.SEQUENCE:
 				return readSequence();
-
+				
 			default:
 				throw new CorruptDataException("Invalid mark: " + mark);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Reads mark and returns true if the mark is ENTRY, false if the mark is
 	 * END. Throws an exception otherwise.
@@ -420,11 +420,11 @@ public class IonInput implements Closeable {
 		final int mark = readMark();
 		if (mark == Ion.ENTRY) return true;
 		if (mark == Ion.END) return false;
-
+		
 		throw new CorruptDataException("Unexpected mark in sequence: " + mark);
 	}
-
-
+	
+	
 	/**
 	 * Read a sequence of elements into an ArrayList
 	 *
@@ -435,8 +435,8 @@ public class IonInput implements Closeable {
 	{
 		return readSequence(new ArrayList<T>());
 	}
-
-
+	
+	
 	/**
 	 * Load entries into a collection. The collection is cleaned first.
 	 *
@@ -457,8 +457,8 @@ public class IonInput implements Closeable {
 			throw new CorruptDataException("Unexpected element type in sequence.", e);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Read element pairs into a HashMap
 	 *
@@ -469,8 +469,8 @@ public class IonInput implements Closeable {
 	{
 		return readMap(new HashMap<K, V>());
 	}
-
-
+	
+	
 	/**
 	 * Load data into a map. The map is cleaned first.
 	 *
@@ -486,7 +486,7 @@ public class IonInput implements Closeable {
 			while (hasNextEntry()) {
 				final K key = (K) readObject();
 				final V value = (V) readObject();
-
+				
 				filled.put(key, value);
 			}
 			return filled;
@@ -494,8 +494,8 @@ public class IonInput implements Closeable {
 			throw new CorruptDataException("Unexpected element type in map.", e);
 		}
 	}
-
-
+	
+	
 	@Override
 	public void close() throws IOException
 	{

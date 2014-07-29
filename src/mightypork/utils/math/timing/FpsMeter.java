@@ -8,12 +8,12 @@ package mightypork.utils.math.timing;
  * @author Ondřej Hruška (MightyPork)
  */
 public class FpsMeter {
-
+	
 	private long frames = 0;
 	private long lastTimeMillis = System.currentTimeMillis();
 	private long lastSecFPS = 0;
-
-
+	
+	
 	/**
 	 * @return current second's FPS
 	 */
@@ -21,8 +21,8 @@ public class FpsMeter {
 	{
 		return lastSecFPS;
 	}
-
-
+	
+	
 	/**
 	 * Notification that frame was rendered
 	 */

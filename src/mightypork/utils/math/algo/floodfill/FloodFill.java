@@ -11,30 +11,30 @@ import mightypork.utils.math.algo.Move;
 
 
 public abstract class FloodFill {
-
+	
 	public abstract boolean canEnter(Coord pos);
-
-
+	
+	
 	public abstract boolean canSpreadFrom(Coord pos);
-
-
+	
+	
 	public abstract List<Move> getSpreadSides();
-
-
+	
+	
 	/**
 	 * Get the max distance filled form start point. Use -1 for unlimited range.
 	 *
 	 * @return max distance
 	 */
 	public abstract double getMaxDistance();
-
-
+	
+	
 	/**
 	 * @return true if start should be spread no matter what
 	 */
 	public abstract boolean forceSpreadStart();
-
-
+	
+	
 	/**
 	 * Fill an area
 	 *
@@ -45,32 +45,32 @@ public abstract class FloodFill {
 	public final boolean fill(Coord start, Collection<Coord> foundNodes)
 	{
 		final Queue<Coord> activeNodes = new LinkedList<>();
-
+		
 		final double maxDist = getMaxDistance();
-
+		
 		activeNodes.add(start);
-
+		
 		boolean forceSpreadNext = forceSpreadStart();
-
+		
 		boolean limitReached = false;
-
+		
 		while (!activeNodes.isEmpty()) {
 			final Coord current = activeNodes.poll();
 			foundNodes.add(current);
-
+			
 			if (!canSpreadFrom(current) && !forceSpreadNext) continue;
-
+			
 			forceSpreadNext = false;
-
+			
 			for (final Move spr : getSpreadSides()) {
 				final Coord next = current.add(spr);
 				if (activeNodes.contains(next) || foundNodes.contains(next)) continue;
-
+				
 				if (next.dist(start) > maxDist) {
 					limitReached = true;
 					continue;
 				}
-
+				
 				if (canEnter(next)) {
 					activeNodes.add(next);
 				} else {
@@ -78,7 +78,7 @@ public abstract class FloodFill {
 				}
 			}
 		}
-
+		
 		return !limitReached;
 	}
 }

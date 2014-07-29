@@ -24,10 +24,10 @@ import mightypork.utils.string.validation.StringFilter;
  * @author Ondřej Hruška (MightyPork)
  */
 public class ZipUtils {
-
+	
 	private static final int BUFFER_SIZE = 2048;
-
-
+	
+	
 	/**
 	 * Extract zip file to target directory
 	 *
@@ -43,8 +43,8 @@ public class ZipUtils {
 			return extractZip(zip, outputDir, filter);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Extract zip file to target directory
 	 *
@@ -57,35 +57,35 @@ public class ZipUtils {
 	public static List<String> extractZip(ZipFile zip, File outputDir, StringFilter filter) throws IOException
 	{
 		final ArrayList<String> files = new ArrayList<>();
-
+		
 		if (!outputDir.mkdirs()) throw new IOException("Could not create output directory.");
-
+		
 		final Enumeration<? extends ZipEntry> zipFileEntries = zip.entries();
-
+		
 		// process each entry
 		while (zipFileEntries.hasMoreElements()) {
 			final ZipEntry entry = zipFileEntries.nextElement();
-
+			
 			// parse filename and path
 			final String entryPath = entry.getName();
 			final File destFile = new File(outputDir, entryPath);
 			final File destinationParent = destFile.getParentFile();
-
+			
 			if (entry.isDirectory() || (filter != null && !filter.isValid(entryPath))) continue;
-
+			
 			// make sure directories exist
 			if (!destinationParent.mkdirs()) throw new IOException("Could not create directory.");
-
+			
 			if (!entry.isDirectory()) {
 				extractZipEntry(zip, entry, destFile);
 				files.add(entryPath);
 			}
 		}
-
+		
 		return files;
 	}
-
-
+	
+	
 	/**
 	 * Read zip entries and add their paths to a list
 	 *
@@ -99,8 +99,8 @@ public class ZipUtils {
 			return listZip(zip);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Read zip entries and add their paths to a list
 	 *
@@ -111,22 +111,22 @@ public class ZipUtils {
 	public static List<String> listZip(ZipFile zip) throws IOException
 	{
 		final ArrayList<String> files = new ArrayList<>();
-
+		
 		final Enumeration<? extends ZipEntry> zipFileEntries = zip.entries();
-
+		
 		// process each entry
 		while (zipFileEntries.hasMoreElements()) {
 			final ZipEntry entry = zipFileEntries.nextElement();
-
+			
 			if (!entry.isDirectory()) {
 				files.add(entry.getName());
 			}
 		}
-
+		
 		return files;
 	}
-
-
+	
+	
 	/**
 	 * Extract one zip entry to target file
 	 *
@@ -138,17 +138,17 @@ public class ZipUtils {
 	public static void extractZipEntry(ZipFile zip, ZipEntry entry, File destFile) throws IOException
 	{
 		if (!destFile.getParentFile().mkdirs()) throw new IOException("Could not create output directory.");
-
+		
 		try(InputStream in = zip.getInputStream(entry);
-			BufferedInputStream is = new BufferedInputStream(in);
-			FileOutputStream fos = new FileOutputStream(destFile);
-			BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER_SIZE)) {
-
+				BufferedInputStream is = new BufferedInputStream(in);
+				FileOutputStream fos = new FileOutputStream(destFile);
+				BufferedOutputStream dest = new BufferedOutputStream(fos, BUFFER_SIZE)) {
+			
 			FileUtil.copyStream(is, dest);
 		}
 	}
-
-
+	
+	
 	/**
 	 * Load zip entry to String
 	 *
@@ -172,8 +172,8 @@ public class ZipUtils {
 			}
 		}
 	}
-
-
+	
+	
 	public static boolean entryExists(File selectedFile, String string)
 	{
 		try(ZipFile zf = new ZipFile(selectedFile)) {
@@ -182,6 +182,6 @@ public class ZipUtils {
 			Log.w("Error reading zip.", e);
 			return false;
 		}
-
+		
 	}
 }

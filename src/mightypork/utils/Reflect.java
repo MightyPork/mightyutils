@@ -14,7 +14,7 @@ import java.lang.reflect.Type;
  * @author Ondřej Hruška (MightyPork)
  */
 public class Reflect {
-
+	
 	/**
 	 * Get annotation of given type from an object
 	 *
@@ -26,8 +26,8 @@ public class Reflect {
 	{
 		return tested.getClass().getAnnotation(annotation);
 	}
-
-
+	
+	
 	/**
 	 * Check if an object has an annotation of given trype
 	 *
@@ -39,8 +39,8 @@ public class Reflect {
 	{
 		return tested.getClass().isAnnotationPresent(annotation);
 	}
-
-
+	
+	
 	/**
 	 * Get generic parameters of a class
 	 *
@@ -50,25 +50,25 @@ public class Reflect {
 	public static Class<?>[] getGenericParameters(Class<?> clazz)
 	{
 		// BEHOLD, MAGIC!
-
+		
 		final Type evtc = clazz.getGenericSuperclass();
-
+		
 		if (evtc instanceof ParameterizedType) {
 			final Type[] types = ((ParameterizedType) evtc).getActualTypeArguments();
-
+			
 			final Class<?>[] classes = new Class<?>[types.length];
-
+			
 			for (int i = 0; i < types.length; i++) {
 				classes[i] = (Class<?>) types[i];
 			}
-
+			
 			return classes;
 		}
-
-		throw new RuntimeException(Support.str(clazz) + " is not generic.");
+		
+		throw new RuntimeException(Str.val(clazz) + " is not generic.");
 	}
-
-
+	
+	
 	/**
 	 * Get value of a public static final field. If the modifiers don't match,
 	 * an exception is thrown.
@@ -82,15 +82,15 @@ public class Reflect {
 	public static Object getConstantFieldValue(Class<?> objClass, String fieldName) throws ReflectiveOperationException
 	{
 		final Field fld = objClass.getDeclaredField(fieldName);
-
+		
 		final int modif = fld.getModifiers();
-
+		
 		if (!Modifier.isFinal(modif) || !Modifier.isStatic(modif)) {
-			throw new ReflectiveOperationException("The " + fieldName + " field of " + Support.str(objClass) + " must be static and final!");
+			throw new ReflectiveOperationException("The " + fieldName + " field of " + Str.val(objClass) + " must be static and final!");
 		}
-
+		
 		fld.setAccessible(true);
 		return fld.get(null);
 	}
-
+	
 }

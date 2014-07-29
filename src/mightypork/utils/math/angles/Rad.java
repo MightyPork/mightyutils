@@ -7,7 +7,7 @@ package mightypork.utils.math.angles;
  * @author Ondřej Hruška (MightyPork)
  */
 public class Rad {
-
+	
 	/** 180° in radians */
 	public static final double a180 = Math.PI;
 	/** 270° in radians */
@@ -18,8 +18,8 @@ public class Rad {
 	public static final double a45 = Math.PI / 4D;
 	/** 90° in radians */
 	public static final double a90 = Math.PI / 2D;
-
-
+	
+	
 	/**
 	 * Subtract two angles alpha - beta
 	 *
@@ -31,8 +31,8 @@ public class Rad {
 	{
 		return Angles.delta(alpha, beta, a360);
 	}
-
-
+	
+	
 	/**
 	 * Difference of two angles (absolute value of delta)
 	 *
@@ -44,8 +44,8 @@ public class Rad {
 	{
 		return Angles.delta(alpha, beta, a360);
 	}
-
-
+	
+	
 	/**
 	 * Cos
 	 *
@@ -56,8 +56,8 @@ public class Rad {
 	{
 		return Math.cos(rad);
 	}
-
-
+	
+	
 	/**
 	 * Sin
 	 *
@@ -68,8 +68,8 @@ public class Rad {
 	{
 		return Math.sin(rad);
 	}
-
-
+	
+	
 	/**
 	 * Tan
 	 *
@@ -80,8 +80,8 @@ public class Rad {
 	{
 		return Math.tan(rad);
 	}
-
-
+	
+	
 	/**
 	 * Angle normalized to 0-2*PI range
 	 *
@@ -92,8 +92,8 @@ public class Rad {
 	{
 		return Angles.norm(angle, a360);
 	}
-
-
+	
+	
 	/**
 	 * Convert to degrees
 	 *

@@ -22,7 +22,7 @@ package mightypork.utils.math.constraints;
  * @param <D> digest class
  */
 public interface CachedDigestable<D> extends Digestable<D> {
-
+	
 	/**
 	 * <p>
 	 * Toggle digest caching.
@@ -34,18 +34,18 @@ public interface CachedDigestable<D> extends Digestable<D> {
 	 * @param yes
 	 */
 	void enableDigestCaching(boolean yes);
-
-
+	
+	
 	/**
 	 * @return true if digest caching is enabled.
 	 */
 	boolean isDigestCachingEnabled();
-
-
+	
+	
 	/**
 	 * If digest caching is enabled, mark current cached value as "dirty". Dirty
 	 * digest should be re-created next time a value is requested.<br>
 	 */
 	void markDigestDirty();
-
+	
 }

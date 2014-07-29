@@ -12,10 +12,10 @@ import mightypork.utils.interfaces.Enableable;
  * @author Ondřej Hruška (MightyPork)
  */
 public class DelegatingList extends ClientList implements DelegatingClient, Enableable, ToggleableClient {
-
+	
 	private boolean enabled = true;
-
-
+	
+	
 	/**
 	 * Delegating list with initial clients
 	 *
@@ -25,44 +25,44 @@ public class DelegatingList extends ClientList implements DelegatingClient, Enab
 	{
 		super(clients);
 	}
-
-
+	
+	
 	/**
 	 * Empty delegating list.
 	 */
 	public DelegatingList()
 	{
 	}
-
-
+	
+	
 	@Override
 	public Collection<?> getChildClients()
 	{
 		return this;
 	}
-
-
+	
+	
 	@Override
 	public boolean doesDelegate()
 	{
 		return isEnabled();
 	}
-
-
+	
+	
 	@Override
 	public boolean isListening()
 	{
 		return isEnabled();
 	}
-
-
+	
+	
 	@Override
 	public void setEnabled(boolean yes)
 	{
 		enabled = yes;
 	}
-
-
+	
+	
 	@Override
 	public boolean isEnabled()
 	{

@@ -11,33 +11,33 @@ import mightypork.utils.math.angles.Rad;
  * @author Ondřej Hruška (MightyPork)
  */
 public class NumAnimatedRad extends NumAnimated {
-
+	
 	public NumAnimatedRad(NumAnimated other)
 	{
 		super(other);
 	}
-
-
+	
+	
 	public NumAnimatedRad(double value)
 	{
 		super(value);
 	}
-
-
+	
+	
 	public NumAnimatedRad(double value, Easing easing)
 	{
 		super(value, easing);
 	}
-
-
+	
+	
 	@Override
 	public double value()
 	{
 		if (duration == 0) return Rad.norm(to);
 		return Calc.interpolateRad(from, to, (elapsedTime / duration), easingCurrent);
 	}
-
-
+	
+	
 	@Override
 	protected double getProgressFromValue(double value)
 	{
@@ -46,7 +46,7 @@ public class NumAnimatedRad extends NumAnimated {
 			final double partial = Rad.diff(from, value);
 			return partial / whole;
 		}
-
+		
 		return 0;
 	}
 }

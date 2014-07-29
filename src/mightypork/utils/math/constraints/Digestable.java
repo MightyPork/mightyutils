@@ -8,7 +8,7 @@ package mightypork.utils.math.constraints;
  * @param <D>
  */
 public interface Digestable<D> {
-
+	
 	/**
 	 * Take a digest. If digest caching is enabled and the cached digest is
 	 * marked as dirty, a new one should be made.
@@ -16,5 +16,5 @@ public interface Digestable<D> {
 	 * @return digest
 	 */
 	D digest();
-
+	
 }

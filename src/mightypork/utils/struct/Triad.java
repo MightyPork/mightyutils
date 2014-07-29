@@ -11,13 +11,13 @@ package mightypork.utils.struct;
  * @param <T3> 3rd object class
  */
 public class Triad<T1, T2, T3> extends Pair<T1, T2> {
-
+	
 	/**
 	 * 3rd object
 	 */
 	public T3 third;
-
-
+	
+	
 	/**
 	 * Make structure of 3 objects
 	 *
@@ -30,8 +30,8 @@ public class Triad<T1, T2, T3> extends Pair<T1, T2> {
 		super(objA, objB);
 		third = objC;
 	}
-
-
+	
+	
 	/**
 	 * @return 3rd object
 	 */
@@ -39,8 +39,8 @@ public class Triad<T1, T2, T3> extends Pair<T1, T2> {
 	{
 		return third;
 	}
-
-
+	
+	
 	/**
 	 * Set 1st object
 	 *
@@ -50,38 +50,38 @@ public class Triad<T1, T2, T3> extends Pair<T1, T2> {
 	{
 		third = obj;
 	}
-
-
+	
+	
 	@Override
 	public boolean equals(Object obj)
 	{
 		if (this == obj) return true;
 		if (obj == null) return false;
 		if (!(obj instanceof Triad)) return false;
-
+		
 		if (!super.equals(obj)) return false;
-
+		
 		final Triad<?, ?, ?> other = (Triad<?, ?, ?>) obj;
-
+		
 		if (third == null) {
 			if (other.third != null) return false;
 		} else if (!third.equals(other.third)) return false;
-
+		
 		return true;
 	}
-
-
+	
+	
 	@Override
 	public int hashCode()
 	{
 		return super.hashCode() + (third == null ? 0 : third.hashCode());
 	}
-
-
+	
+	
 	@Override
 	public String toString()
 	{
 		return "TRIAD{" + first + "," + second + "," + third + "}";
 	}
-
+	
 }
